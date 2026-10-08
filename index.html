@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PHC Planner</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="PHC Planner">
+<meta name="theme-color" content="#2f6b3a">
+<style>
+  :root { --fg:#1b1b1b; --muted:#666; --line:#ddd; --bg:#fff; --alt:#f4f4f4; --accent:#2f6b3a;
+          --info:#1f5fae; --caution:#a85d00; --stop:#b3261e; --ok:#2e7d32; color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#eee; --muted:#aaa; --line:#333; --bg:#121212; --alt:#1e1e1e; --accent:#7fbf8a;
+            --info:#8ab4f8; --caution:#f0a64a; --stop:#f28b82; --ok:#81c995; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font:16px/1.4 -apple-system, system-ui, sans-serif; color:var(--fg); background:var(--bg);
+         padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+  header { position:sticky; top:0; z-index:2; background:var(--bg); border-bottom:1px solid var(--line);
+           padding: calc(10px + env(safe-area-inset-top)) 16px 10px; display:flex; gap:8px; align-items:center; }
+  header h1 { font-size:18px; margin:0; flex:1; }
+  header a { color:var(--accent); font-weight:600; text-decoration:none; }
+  main { padding: 8px 16px 24px; max-width: 760px; margin: 0 auto; }
+  nav.tabs { position:fixed; bottom:0; left:0; right:0; display:flex; background:var(--alt); border-top:1px solid var(--line);
+             padding-bottom: env(safe-area-inset-bottom); z-index:2; }
+  nav.tabs a { flex:1; text-align:center; padding:14px 0; color:var(--muted); text-decoration:none; font-weight:600; }
+  nav.tabs a.on { color:var(--accent); }
+  h2 { font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:20px 0 6px; }
+  h3 { font-size:17px; margin:18px 0 6px; }
+  h4 { font-size:14px; margin:14px 0 4px; color:var(--accent); }
+  label.row, .row { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); }
+  .row > span:first-child { flex:1; }
+  input[type=text], input[type=number], input[type=search], select { font:inherit; padding:8px; border:1px solid var(--line);
+         border-radius:6px; background:var(--bg); color:var(--fg); min-width:0; }
+  input[type=search] { width:100%; margin:8px 0; }
+  .row input[type=number] { width:90px; } .row select { max-width:60%; }
+  input[type=checkbox] { width:22px; height:22px; flex:none; }
+  .seg { display:flex; gap:0; } .seg button { flex:1; padding:8px; border:1px solid var(--line); background:var(--bg); color:var(--fg); font:inherit; }
+  .seg button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+  button.primary, a.primary { display:block; width:100%; text-align:center; padding:12px; margin:14px 0 6px; border:0; border-radius:8px;
+         background:var(--accent); color:#fff; font:inherit; font-weight:600; text-decoration:none; }
+  button.primary:disabled { opacity:.4; }
+  button.link { background:none; border:0; color:var(--stop); font:inherit; padding:8px 0; }
+  .opt { display:flex; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); }
+  .opt.notAdvised .title { text-decoration: line-through; }
+  .title { font-weight:600; }
+  .small { font-size:13px; } .muted { color:var(--muted); }
+  .status-inWindow { color:var(--ok); } .status-outOfWindow { color:var(--caution); } .status-notAdvised { color:var(--stop); }
+  .flag { font-size:13px; margin:3px 0; padding-left:22px; position:relative; }
+  .flag::before { position:absolute; left:0; font-weight:700; }
+  .flag.info::before { content:"ⓘ"; color:var(--info); } .flag.caution::before { content:"⚠"; color:var(--caution); }
+  .flag.stop::before { content:"⛔"; }
+  ul { margin:4px 0; padding-left:20px; } li { margin:2px 0; }
+  a.item { display:block; padding:12px 0; border-bottom:1px solid var(--line); color:var(--fg); text-decoration:none; }
+  a.item::after { content:"›"; float:right; color:var(--muted); }
+  .chip { display:inline-block; font-size:12px; padding:1px 6px; border:1px solid var(--line); border-radius:10px; color:var(--muted); }
+  .banner { background:var(--alt); padding:10px 12px; border-radius:8px; font-size:13px; margin:10px 0; }
+  pre { white-space:pre-wrap; font-size:13px; background:var(--alt); padding:10px; border-radius:8px; }
+  .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:8px 14px; border-radius:8px; font-size:14px; }
+</style>
+</head>
+<body>
+<header><h1 id="title">PHC Planner</h1><span id="actions"></span></header>
+<main id="view"><p>Loading…</p></main>
+<nav class="tabs">
+  <a href="#plan" data-tab="plan">Plan</a>
+  <a href="#library" data-tab="library">Library</a>
+  <a href="#reference" data-tab="reference">Reference</a>
+</nav>
+<script type="module" src="app.js"></script>
+</body>
+</html>
