@@ -25,3 +25,7 @@ the app is opened online.
 ## Content status
 Normalized from Blake's "DMV PHC Knowledge Base v1.0" (Aug 2026); **unreviewed**. Each condition's `reviewFlags`
 lists corrections and items needing verification (shown in Library). Set `meta.reviewStatus` after sign-off.
+
+## Publish updates
+Live at https://wncoakman.github.io/PHC-Sales-Treatment-Program-Planner/ (GitHub Pages, `gh-pages` branch = the `web/` folder).
+After changing anything in `web/`: bump `VERSION` in `web/sw.js`, commit, then `npm run deploy`.

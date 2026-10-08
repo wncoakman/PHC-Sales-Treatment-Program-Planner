@@ -1,1 +1,8 @@
-{ "private": true, "type": "module", "scripts": { "test": "node --test tests/engine.test.mjs" } }
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/engine.test.mjs",
+    "deploy": "npm test && git push origin main && git push origin `git subtree split --prefix web main`:refs/heads/gh-pages --force"
+  }
+}
