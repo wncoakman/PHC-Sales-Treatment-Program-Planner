@@ -1,28 +1,30 @@
 import {
-  MITIGATIONS, monthName, describeMonths, indexKb, conditionsForHost, matchesQuery,
-  planCondition, schedule, exportText, mitigationOf,
+  MITIGATIONS, describeMonths, describeVisits, indexKb, problemsForHost, matchesQuery, mitigationOf,
+  planLandscape, defaultSelection, landscapeCalendar, applicationTotals, exportText, selKey, plantName, monthName,
 } from "./engine.js";
 
 const $view = document.getElementById("view");
 const $title = document.getElementById("title");
 const $actions = document.getElementById("actions");
-const STORE_KEY = "phc-plan-v1";
+const STORE_KEY = "phc-landscape-v1";
 
 let kb;
 let state = loadState();
 
 function defaultState() {
   return {
-    siteLabel: "", hostId: "", conditionIds: [], selected: [],
-    site: { jurisdiction: "VA", month: new Date().getMonth() + 1, dbh: "", crownLoss: "",
-            nearWater: false, sensitiveSite: false, publicProperty: false, inBloom: false },
+    siteLabel: "",
+    site: { jurisdiction: "VA", nearWater: false, sensitiveSite: false, publicProperty: false },
+    plants: [],
+    /** selKey -> true/false where the user changed the default selection. */
+    overrides: {},
   };
 }
 
 function loadState() {
   try {
     const s = JSON.parse(localStorage.getItem(STORE_KEY));
-    if (s && s.site) return { ...defaultState(), ...s, site: { ...defaultState().site, ...s.site } };
+    if (s && Array.isArray(s.plants)) return { ...defaultState(), ...s, site: { ...defaultState().site, ...s.site } };
   } catch {}
   return defaultState();
 }
@@ -32,174 +34,214 @@ function save() {
 }
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const num = (v) => (v === "" || v == null || isNaN(Number(v)) ? null : Number(v));
-
-function siteForEngine() {
-  const s = state.site;
-  const loss = num(s.crownLoss);
-  return { ...s, dbh: num(s.dbh), crownLoss: loss == null ? null : Math.min(Math.max(loss, 0), 100) };
-}
-
-function toggleCondition(id) {
-  const c = kb.conditionById[id];
-  const tids = c.treatments.map((t) => t.id);
-  if (state.conditionIds.includes(id)) {
-    state.conditionIds = state.conditionIds.filter((x) => x !== id);
-    state.selected = state.selected.filter((x) => !tids.includes(x));
-  } else {
-    state.conditionIds.push(id);
-    state.selected.push(...tids.filter((t) => !state.selected.includes(t)));
-  }
-  save();
-}
-
-function flagsHtml(flags) {
-  return flags.map((f) => `<div class="flag ${f.level}">${esc(f.text)}</div>`).join("");
-}
+const uid = () => Math.random().toString(36).slice(2, 9);
+const plantByUid = (id) => state.plants.find((p) => p.uid === id);
 
 function setHeader(title, actionsHtml = "") {
   $title.textContent = title;
   $actions.innerHTML = actionsHtml;
 }
 
-// ---------- Plan builder ----------
+const flagsHtml = (flags) => flags.map((f) => `<div class="flag ${f.level}">${esc(f.text)}</div>`).join("");
 
-function renderPlan() {
+/** Effective selection: defaults per problem, with the user's overrides applied. */
+function selectionFor(entries) {
+  const sel = new Set();
+  for (const e of entries) for (const p of e.problems) {
+    const defaults = new Set(defaultSelection(p));
+    for (const o of p.options) {
+      const key = selKey(e.plant.uid, o.treatment.id);
+      if (key in state.overrides ? state.overrides[key] : defaults.has(o.treatment.id)) sel.add(key);
+    }
+  }
+  return sel;
+}
+
+// ---------- Landscape ----------
+
+function renderLandscape() {
   const s = state.site;
-  setHeader("Treatment Plan");
+  setHeader("Landscape");
   const checkbox = (key, label) =>
     `<label class="row"><span>${label}</span><input type="checkbox" data-site="${key}" ${s[key] ? "checked" : ""}></label>`;
   $view.innerHTML = `
     <h2>Site</h2>
-    <div class="row"><input type="text" id="siteLabel" placeholder="Site / client / tree ID (optional)" value="${esc(state.siteLabel)}" style="flex:1"></div>
+    <div class="row"><input type="text" id="siteLabel" placeholder="Client / property (optional)" value="${esc(state.siteLabel)}" style="flex:1"></div>
     <div class="row"><span>Jurisdiction</span><div class="seg" style="flex:1">
       ${["VA", "MD", "DC"].map((j) => `<button data-j="${j}" class="${s.jurisdiction === j ? "on" : ""}">${j}</button>`).join("")}
     </div></div>
-    <label class="row"><span>Planned month</span><select id="month">
-      ${[...Array(12)].map((_, i) => `<option value="${i + 1}" ${s.month === i + 1 ? "selected" : ""}>${monthName(i + 1)}</option>`).join("")}
-    </select></label>
-    <label class="row"><span>Host</span><select id="host">
-      <option value="">Any</option>
-      ${kb.hosts.map((h) => `<option value="${h.id}" ${state.hostId === h.id ? "selected" : ""}>${esc(h.name)}</option>`).join("")}
-    </select></label>
-    <label class="row"><span>DBH (in.)</span><input type="number" inputmode="decimal" min="0" id="dbh" value="${esc(s.dbh)}"></label>
-    <label class="row"><span>Crown loss (%)</span><input type="number" inputmode="numeric" min="0" max="100" id="crownLoss" value="${esc(s.crownLoss)}"></label>
     ${checkbox("nearWater", "Near water / Bay buffer")}
     ${checkbox("sensitiveSite", "School, daycare, or park")}
     ${checkbox("publicProperty", "Public property")}
-    ${checkbox("inBloom", "Host in bloom")}
 
-    <h2>Problems (${state.conditionIds.length})</h2>
-    ${state.conditionIds.map((id) => `<div class="row"><span>${esc(kb.conditionById[id].name)}</span>
-        <button class="link" data-remove="${id}">Remove</button></div>`).join("")}
-    <a class="item" href="#problems">Add / remove problems</a>
+    <h2>Plants (${state.plants.length})</h2>
+    ${state.plants.map((p) => `
+      <a class="item" href="#plant/${p.uid}">
+        <b>${esc(plantName({ plant: p, host: kb.hostById[p.hostId] }))}</b><br>
+        <span class="small ${p.conditionIds.length ? "muted" : "status-outOfWindow"}">${p.conditionIds.length
+          ? esc(p.conditionIds.map((id) => kb.conditionById[id]?.name).filter(Boolean).join(", "))
+          : "No problems selected"}</span>
+      </a>`).join("") || `<p class="small muted">Add each tree or ornamental in the landscape, then choose its problems.</p>`}
+    <a class="primary" href="#add">+ Add plant</a>
 
-    <button class="primary" id="build" ${state.conditionIds.length ? "" : "disabled"}>Build treatment framework</button>
-    <button class="link" id="clear">Clear plan</button>`;
+    <button class="primary" id="build" ${state.plants.some((p) => p.conditionIds.length) ? "" : "disabled"}>Build treatment plan</button>
+    <button class="link" id="clear">Start new landscape</button>`;
 
   $view.querySelector("#siteLabel").oninput = (e) => { state.siteLabel = e.target.value; save(); };
-  $view.querySelectorAll("[data-j]").forEach((b) => b.onclick = () => { s.jurisdiction = b.dataset.j; save(); renderPlan(); });
-  $view.querySelector("#month").onchange = (e) => { s.month = Number(e.target.value); save(); };
-  $view.querySelector("#host").onchange = (e) => { state.hostId = e.target.value; save(); };
-  $view.querySelector("#dbh").oninput = (e) => { s.dbh = e.target.value; save(); };
-  $view.querySelector("#crownLoss").oninput = (e) => { s.crownLoss = e.target.value; save(); };
+  $view.querySelectorAll("[data-j]").forEach((b) => b.onclick = () => { s.jurisdiction = b.dataset.j; save(); renderLandscape(); });
   $view.querySelectorAll("[data-site]").forEach((c) => c.onchange = () => { s[c.dataset.site] = c.checked; save(); });
-  $view.querySelectorAll("[data-remove]").forEach((b) => b.onclick = () => { toggleCondition(b.dataset.remove); renderPlan(); });
   $view.querySelector("#build").onclick = () => { location.hash = "#result"; };
   $view.querySelector("#clear").onclick = () => {
-    const keep = { jurisdiction: s.jurisdiction, month: s.month };
+    if (state.plants.length && !$view.querySelector("#clear").dataset.armed) {
+      const b = $view.querySelector("#clear");
+      b.dataset.armed = "1"; b.textContent = "Tap again to clear all plants";
+      return;
+    }
+    const keep = state.site.jurisdiction;
     state = defaultState();
-    Object.assign(state.site, keep);
-    save(); renderPlan();
+    state.site.jurisdiction = keep;
+    save(); renderLandscape();
   };
 }
 
-function renderProblems() {
-  const hostName = state.hostId ? kb.hostById[state.hostId].name : "All problems";
-  setHeader(hostName, `<a href="#plan">Done</a>`);
-  $view.innerHTML = `<input type="search" id="q" placeholder="Search name or symptom">
-    ${state.hostId ? `<p class="small muted">Showing problems recorded for ${esc(hostName)}, then general problems. Set Host to “Any” on the Plan tab to see everything.</p>` : ""}
-    <div id="list"></div>`;
+function renderAddPlant() {
+  setHeader("Add plant", `<a href="#plan">Cancel</a>`);
+  $view.innerHTML = `<input type="search" id="q" placeholder="Search trees & ornamentals"><div id="list"></div>`;
   const $list = $view.querySelector("#list");
   const draw = (q) => {
-    const list = conditionsForHost(kb, state.hostId).filter((c) => matchesQuery(c, q));
-    $list.innerHTML = list.map((c) => `
-      <label class="row"><span>${esc(c.name)}<br><span class="small muted">${esc(kb.categoryById[c.category].name)}</span></span>
-      <input type="checkbox" data-c="${c.id}" ${state.conditionIds.includes(c.id) ? "checked" : ""}></label>`).join("")
+    const hosts = kb.hosts.filter((h) => !q || h.name.toLowerCase().includes(q.toLowerCase()));
+    $list.innerHTML = hosts.map((h) => `<a class="item" href="#" data-h="${h.id}">${esc(h.name)}
+      <span class="small muted">· ${problemsForHost(kb, h.id).common.length} common problems</span></a>`).join("")
       || `<p class="muted">No matches.</p>`;
-    $list.querySelectorAll("[data-c]").forEach((cb) => cb.onchange = () => toggleCondition(cb.dataset.c));
+    $list.querySelectorAll("[data-h]").forEach((a) => a.onclick = (ev) => {
+      ev.preventDefault();
+      const p = { uid: uid(), hostId: a.dataset.h, label: "", qty: 1, dbh: "", crownLoss: "", conditionIds: [] };
+      state.plants.push(p);
+      save();
+      location.hash = `#plant/${p.uid}`;
+    });
   };
   $view.querySelector("#q").oninput = (e) => draw(e.target.value);
   draw("");
 }
 
-// ---------- Result ----------
+function renderPlant(id) {
+  const p = plantByUid(id);
+  if (!p) { location.hash = "#plan"; return; }
+  const host = kb.hostById[p.hostId];
+  setHeader(host.name, `<a href="#plan">Done</a>`);
+  const { common, general } = problemsForHost(kb, p.hostId);
+  const needsCrown = () => p.conditionIds.some((cid) => kb.conditionById[cid]?.maxCrownLossPercent != null);
+  const problemRow = (c) => `
+    <label class="row"><span>${esc(c.name)}<br><span class="small muted">${esc(kb.categoryById[c.category].name)}</span></span>
+    <input type="checkbox" data-c="${c.id}" ${p.conditionIds.includes(c.id) ? "checked" : ""}></label>`;
+  const generalOpen = general.some((c) => p.conditionIds.includes(c.id));
 
-function currentPlans() {
-  const site = siteForEngine();
-  return state.conditionIds.map((id) => planCondition(kb, kb.conditionById[id], site));
+  $view.innerHTML = `
+    <div class="row"><input type="text" id="label" placeholder="Label, e.g. front yard (optional)" value="${esc(p.label)}" style="flex:1"></div>
+    <label class="row"><span>Quantity</span><input type="number" inputmode="numeric" min="1" id="qty" value="${esc(p.qty)}"></label>
+    <label class="row"><span>DBH (in., optional)</span><input type="number" inputmode="decimal" min="0" id="dbh" value="${esc(p.dbh)}"></label>
+    <label class="row" id="crownRow" style="${needsCrown() ? "" : "display:none"}"><span>Crown loss (%)</span>
+      <input type="number" inputmode="numeric" min="0" max="100" id="crownLoss" value="${esc(p.crownLoss)}"></label>
+
+    <h2>Common on ${esc(host.name)}</h2>
+    ${common.map(problemRow).join("")}
+    <details ${generalOpen ? "open" : ""}><summary><h2 style="display:inline">Broad host range & abiotic (${general.length})</h2></summary>
+      ${general.map(problemRow).join("")}
+    </details>
+
+    <a class="primary" href="#add">Save & add another plant</a>
+    <a class="primary" href="#plan">Done: back to landscape</a>
+    <button class="link" id="remove">Remove this plant</button>`;
+
+  $view.querySelector("#label").oninput = (e) => { p.label = e.target.value; save(); };
+  $view.querySelector("#qty").oninput = (e) => { p.qty = Math.max(1, parseInt(e.target.value) || 1); save(); };
+  $view.querySelector("#dbh").oninput = (e) => { p.dbh = e.target.value; save(); };
+  $view.querySelector("#crownLoss").oninput = (e) => { p.crownLoss = e.target.value; save(); };
+  $view.querySelectorAll("[data-c]").forEach((cb) => cb.onchange = () => {
+    const cid = cb.dataset.c;
+    p.conditionIds = cb.checked ? [...p.conditionIds, cid] : p.conditionIds.filter((x) => x !== cid);
+    save();
+    $view.querySelector("#crownRow").style.display = needsCrown() ? "" : "none";
+  });
+  $view.querySelector("#remove").onclick = () => {
+    state.plants = state.plants.filter((x) => x.uid !== id);
+    for (const k of Object.keys(state.overrides)) if (k.startsWith(`${id}:`)) delete state.overrides[k];
+    save();
+    location.hash = "#plan";
+  };
 }
 
-function statusText(o) {
-  const window = describeMonths(o.treatment.months);
-  if (o.status === "inWindow") return `In window (${window})`;
-  if (o.status === "outOfWindow") return `Out of window: next ${monthName(o.nextWindow)} (${window})`;
-  return "Not advised under current conditions";
+// ---------- Plan ----------
+
+function optionHtml(plantUid, o, selected) {
+  const t = o.treatment, s = t.schedule;
+  const key = selKey(plantUid, t.id);
+  return `
+    <label class="opt ${o.notAdvised ? "notAdvised" : ""}">
+      <input type="checkbox" data-k="${key}" ${selected.has(key) ? "checked" : ""}>
+      <div>
+        <div class="title">${esc(t.title)}</div>
+        <div class="small"><span class="chip">${esc(o.type.name)}</span>
+          ${o.chemical ? (o.preferred ? ` <span class="chip pref">Recommended</span>` : ` <span class="chip">Alternative</span>`) : ""}</div>
+        ${o.notAdvised ? `<div class="small status-notAdvised">Not advised under current conditions</div>` : ""}
+        ${s ? `
+          <div class="small"><b>Applications:</b> ${describeVisits(s)}${s.interval ? `, ${esc(s.interval)}` : ""}</div>
+          <div class="small"><b>Repeat:</b> ${esc(s.repeat)}</div>
+          <div class="small"><b>Window:</b> ${esc(s.window)}</div>`
+        : t.months?.length ? `<div class="small"><b>When:</b> ${describeMonths(t.months)}</div>` : ""}
+        ${t.protection ? `<div class="small"><b>Protection:</b> ${esc(t.protection)}</div>` : ""}
+        ${(t.notes || []).length ? `<ul class="small">${t.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
+        <div class="small muted">${esc(t.purpose)}</div>
+        ${flagsHtml(o.flags)}
+      </div>
+    </label>`;
 }
 
 function renderResult() {
-  if (!state.conditionIds.length) { location.hash = "#plan"; return; }
-  setHeader("Framework", `<a href="#plan">Edit</a>`);
-  const plans = currentPlans();
-  const selected = new Set(state.selected);
-  const s = state.site;
-  const sched = schedule(plans, selected);
+  const plants = state.plants.filter((p) => p.conditionIds.length);
+  if (!plants.length) { location.hash = "#plan"; return; }
+  setHeader("Treatment Plan", `<a href="#plan">Edit</a>`);
+  const entries = planLandscape(kb, state.site, plants);
+  const selected = selectionFor(entries);
+  const cal = landscapeCalendar(entries, selected);
+  const tot = applicationTotals(entries, selected);
 
   $view.innerHTML = `
-    <p class="small muted">${esc(state.siteLabel || "Unnamed site")} · ${s.jurisdiction} · ${monthName(s.month)}
-      ${num(s.dbh) != null ? ` · DBH ${esc(s.dbh)} in.` : ""}${num(s.crownLoss) != null ? ` · crown loss ${esc(s.crownLoss)}%` : ""}</p>
-    ${plans.map((p) => `
-      <h3>${esc(p.condition.name)}</h3>
-      ${flagsHtml(p.flags)}
-      ${MITIGATIONS.map(([key, label]) => {
-        const opts = p.options.filter((o) => o.mitigation === key);
-        if (!opts.length) return "";
-        return `<h4>${label}</h4>` + opts.map((o) => `
-          <label class="opt ${o.status}">
-            <input type="checkbox" data-t="${o.treatment.id}" ${selected.has(o.treatment.id) ? "checked" : ""}>
-            <div>
-              <div class="title">${esc(o.treatment.title)}</div>
-              <div class="small"><span class="chip">${esc(o.type.name)}</span></div>
-              <div class="small status-${o.status}">${statusText(o)}</div>
-              ${o.treatment.frequency ? `<div class="small">${esc(o.treatment.frequency)}</div>` : ""}
-              ${o.treatment.protection ? `<div class="small">Protection: ${esc(o.treatment.protection)}</div>` : ""}
-              <div class="small muted">${esc(o.treatment.purpose)}</div>
-              ${(o.treatment.notes || []).length ? `<ul class="small">${o.treatment.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
-              ${flagsHtml(o.flags)}
-            </div>
-          </label>`).join("");
+    <p class="small muted">${esc(state.siteLabel || "Unnamed site")} · ${state.site.jurisdiction} · ${plants.length} plant entr${plants.length === 1 ? "y" : "ies"}</p>
+    ${tot.programs ? `<div class="banner"><b>${tot.programs}</b> chemical program${tot.programs === 1 ? "" : "s"} ·
+      <b>${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`}</b> applications/year before combining same-day visits ·
+      service months: ${cal.map((c) => monthName(c.month)).join(", ")}</div>` : ""}
+    ${entries.map((e) => `
+      <h3 class="plant">${esc(plantName(e))}</h3>
+      ${e.problems.map((p) => {
+        const chem = p.options.filter((o) => o.chemical).sort((a, b) => b.preferred - a.preferred);
+        const cult = p.options.filter((o) => !o.chemical);
+        return `
+          <h4>${esc(p.condition.name)}</h4>
+          ${flagsHtml(p.flags)}
+          ${chem.length ? `<div class="group">Chemical</div>${chem.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}
+          ${cult.length ? `<div class="group">Cultural</div>${cult.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}`;
       }).join("")}`).join("")}
-    ${sched.length ? `<h2>Annual schedule (checked options)</h2>
-      ${sched.map((e) => `<div class="row" style="align-items:flex-start"><b style="width:42px">${monthName(e.month)}</b>
-        <div class="small">${e.items.map(esc).join("<br>")}</div></div>`).join("")}` : ""}
+    ${cal.length ? `<h2>Annual calendar: application windows (checked items)</h2>
+      ${cal.map((c) => `<div class="row" style="align-items:flex-start"><b style="width:42px;flex:none">${monthName(c.month)}</b>
+        <div class="small">${c.items.map((i) => `${esc(i.plant)}: ${esc(i.option.treatment.title)} <span class="muted">(${esc(i.problem)})</span>`).join("<br>")}</div></div>`).join("")}` : ""}
     <button class="primary" id="share">Share / copy plan text</button>
     <div class="banner">${esc(kb.meta.disclaimer)}</div>`;
 
-  $view.querySelectorAll("[data-t]").forEach((cb) => cb.onchange = () => {
-    const id = cb.dataset.t;
-    state.selected = cb.checked ? [...state.selected, id] : state.selected.filter((x) => x !== id);
+  $view.querySelectorAll("[data-k]").forEach((cb) => cb.onchange = () => {
+    state.overrides[cb.dataset.k] = cb.checked;
     save();
     const y = window.scrollY;
     renderResult();
     window.scrollTo(0, y);
   });
-  $view.querySelector("#share").onclick = () => sharePlan(plans);
+  $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel));
 }
 
-async function sharePlan(plans) {
-  const text = exportText(kb, plans, new Set(state.selected), siteForEngine(), state.siteLabel);
+async function sharePlan(text) {
   if (navigator.share) {
-    try { await navigator.share({ title: "PHC treatment framework", text }); return; } catch (e) { if (e.name === "AbortError") return; }
+    try { await navigator.share({ title: "PHC treatment plan", text }); return; } catch (e) { if (e.name === "AbortError") return; }
   }
   try { await navigator.clipboard.writeText(text); toast("Copied to clipboard"); }
   catch { $view.insertAdjacentHTML("beforeend", `<pre>${esc(text)}</pre>`); }
@@ -231,7 +273,6 @@ function renderLibrary() {
 function renderCondition(id) {
   const c = kb.conditionById[id];
   if (!c) { location.hash = "#library"; return; }
-  const inPlan = state.conditionIds.includes(id);
   setHeader(c.name, `<a href="#library">Back</a>`);
   const list = (title, items) => items?.length ? `<h2>${title}</h2><ul>${items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
   const hosts = [...c.hostIds.map((h) => kb.hostById[h].name), ...(c.generalist ? ["many others"] : [])].join(", ");
@@ -239,19 +280,21 @@ function renderCondition(id) {
     ${c.scientificName ? `<p><i>${esc(c.scientificName)}</i></p>` : ""}
     <p><b>Hosts:</b> ${esc(hosts || "Any")}${c.hostNote ? `<br><span class="small muted">${esc(c.hostNote)}</span>` : ""}</p>
     ${c.activeMonths?.length ? `<p><b>Active:</b> ${describeMonths(c.activeMonths)}${c.peakNote ? ` <span class="small muted">${esc(c.peakNote)}</span>` : ""}</p>` : ""}
-    <button class="primary" id="add">${inPlan ? "Remove from plan" : "Add to plan"}</button>
     ${list("Identification", c.symptoms)}
     ${list("Biology", c.biology)}
     ${MITIGATIONS.map(([key, label]) => {
       const ts = c.treatments.filter((t) => mitigationOf(t.applicationType) === key);
-      return ts.length ? `<h2>${label}</h2>` + ts.map((t) => `
-        <div class="row" style="display:block">
+      return ts.length ? `<h2>${label}</h2>` + ts.map((t) => {
+        const s = t.schedule;
+        return `<div class="row" style="display:block">
           <div class="title">${esc(t.title)}</div>
-          <div class="small"><span class="chip">${esc(kb.typeById[t.applicationType].name)}</span> ${describeMonths(t.months)}</div>
-          ${t.frequency ? `<div class="small">${esc(t.frequency)}</div>` : ""}
+          <div class="small"><span class="chip">${esc(kb.typeById[t.applicationType].name)}</span>${t.preferred ? ` <span class="chip pref">Recommended</span>` : ""}</div>
+          ${s ? `<div class="small">${describeVisits(s)}${s.interval ? `, ${esc(s.interval)}` : ""} · ${esc(s.repeat)}<br>Window: ${esc(s.window)}</div>`
+            : `<div class="small">${describeMonths(t.months)}</div>`}
           <div class="small muted">${esc(t.purpose)}</div>
           ${(t.notes || []).length ? `<ul class="small">${t.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
-        </div>`).join("") : "";
+        </div>`;
+      }).join("") : "";
     }).join("")}
     ${c.lookalikeIds?.length ? `<h2>Look-alikes</h2>` + c.lookalikeIds.map((l) => `<a class="item" href="#condition/${l}">${esc(kb.conditionById[l].name)}</a>`).join("") : ""}
     ${list("Regulatory", (c.regulatory || []).map((r) => `${r.jurisdictions.join("/")}: ${r.text}`))}
@@ -259,8 +302,6 @@ function renderCondition(id) {
     ${list("Warnings", c.warnings)}
     ${list("Content review flags", c.reviewFlags)}
     ${list("Sources", c.sources)}`;
-  $view.querySelector("#add").onclick = () => { toggleCondition(id); renderCondition(id); };
-  window.scrollTo(0, 0);
 }
 
 // ---------- Reference ----------
@@ -294,27 +335,34 @@ function renderReference() {
 // ---------- Routing ----------
 
 function route() {
-  const hash = location.hash || "#plan";
-  const [name, arg] = hash.slice(1).split("/");
-  const tab = { plan: "plan", problems: "plan", result: "plan", library: "library", condition: "library", reference: "reference" }[name] || "plan";
+  const [name, arg] = (location.hash || "#plan").slice(1).split("/");
+  const tab = { plan: "plan", add: "plan", plant: "plan", result: "plan", library: "library", condition: "library", reference: "reference" }[name] || "plan";
   document.querySelectorAll("nav.tabs a").forEach((a) => a.classList.toggle("on", a.dataset.tab === tab));
-  ({ problems: renderProblems, result: renderResult, library: renderLibrary, condition: () => renderCondition(arg), reference: renderReference }[name] || renderPlan)();
-  if (name !== "result") window.scrollTo(0, 0);
+  ({
+    add: renderAddPlant, plant: () => renderPlant(arg), result: renderResult,
+    library: renderLibrary, condition: () => renderCondition(arg), reference: renderReference,
+  }[name] || renderLandscape)();
+  window.scrollTo(0, 0);
 }
 
 async function start() {
   try {
-    const res = await fetch("data/knowledge_base.json");
-    kb = indexKb(await res.json());
-  } catch (e) {
+    kb = indexKb(await (await fetch("data/knowledge_base.json")).json());
+  } catch {
     $view.innerHTML = `<p>Could not load the knowledge base. Connect once to install the offline copy.</p>`;
     return;
   }
-  // Drop saved references to conditions/options that no longer exist after a data update.
-  state.conditionIds = state.conditionIds.filter((id) => kb.conditionById[id]);
+  // Drop saved references that no longer exist after a data update.
+  state.plants = state.plants.filter((p) => kb.hostById[p.hostId]);
+  for (const p of state.plants) p.conditionIds = p.conditionIds.filter((id) => kb.conditionById[id]);
   window.addEventListener("hashchange", route);
   route();
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+  if ("serviceWorker" in navigator) {
+    // When an updated version takes over, reload once so the new files are shown (skipped on first install).
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController) location.reload(); });
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  }
 }
 
 start();

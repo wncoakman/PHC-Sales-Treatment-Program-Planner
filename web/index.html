@@ -59,6 +59,11 @@
   a.item::after { content:"›"; float:right; color:var(--muted); }
   .chip { display:inline-block; font-size:12px; padding:1px 6px; border:1px solid var(--line); border-radius:10px; color:var(--muted); }
   .banner { background:var(--alt); padding:10px 12px; border-radius:8px; font-size:13px; margin:10px 0; }
+  h3.plant { font-size:19px; margin:26px 0 4px; padding-top:10px; border-top:3px solid var(--accent); }
+  .group { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:10px 0 0; }
+  .chip.pref { color:var(--ok); border-color:var(--ok); }
+  details summary { cursor:pointer; margin-top:20px; }
+  a.primary + a.primary { margin-top:0; }
   pre { white-space:pre-wrap; font-size:13px; background:var(--alt); padding:10px; border-radius:8px; }
   .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:8px 14px; border-radius:8px; font-size:14px; }
 </style>
@@ -67,7 +72,7 @@
 <header><h1 id="title">PHC Planner</h1><span id="actions"></span></header>
 <main id="view"><p>Loading…</p></main>
 <nav class="tabs">
-  <a href="#plan" data-tab="plan">Plan</a>
+  <a href="#plan" data-tab="plan">Landscape</a>
   <a href="#library" data-tab="library">Library</a>
   <a href="#reference" data-tab="reference">Reference</a>
 </nav>
