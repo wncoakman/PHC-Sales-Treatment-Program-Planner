@@ -1,7 +1,7 @@
 {
  "meta": {
   "title": "DMV Plant Health Care Treatment Planner",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "source": "DMV PHC Knowledge Base v1.0 (Aug 2026), normalized for the app",
   "reviewStatus": "unreviewed",
   "disclaimer": "Framework for treatment planning only. No rates are provided; product selection, rates, and timing must follow the label. Confirm diagnosis and current VA/MD/DC regulations before application."
@@ -310,20 +310,25 @@
      "title": "Preventive fungicide program",
      "applicationType": "foliar",
      "months": [
-      4,
       5,
       6,
       7,
       8,
-      9,
-      10
+      9
      ],
-     "frequency": "Every 7–14 days during warm, wet high-risk periods",
      "purpose": "Protects healthy foliage from new infection. Does not cure infected tissue.",
      "notes": [
       "Rotate FRAC groups every 2–3 applications: chlorothalonil (M5), tebuconazole / propiconazole (3), thiophanate-methyl (1)",
       "Avoid propiconazole on heat-stressed plants"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 4,
+      "visitsMax": 6,
+      "interval": "7–14 days during warm, wet weather",
+      "repeat": "Annually",
+      "window": "May–Sep; peak risk Jun–Sep"
+     },
+     "preferred": true
     },
     {
      "id": "bb-sanitation",
@@ -360,6 +365,9 @@
     "VCE PPWS-49",
     "MDA Boxwood Blight BMP",
     "VDACS Boxwood Blight Program"
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): bb-foliar."
    ]
   },
   {
@@ -400,11 +408,18 @@
       4,
       5
      ],
-     "frequency": "2–3 applications at 7–14 day intervals from bud break through leaf expansion",
      "purpose": "Protects new leaves and shoots during the infection window.",
      "notes": [
       "Myclobutanil (FRAC 3), propiconazole (FRAC 3), or thiophanate-methyl (FRAC 1)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–14 days",
+      "repeat": "Annually",
+      "window": "Bud break through full leaf expansion (Mar–May)"
+     },
+     "preferred": true
     },
     {
      "id": "an-inject",
@@ -418,7 +433,13 @@
      "purpose": "Delivers protection directly into the tree. Suited to large or high-value specimens that are hard to spray.",
      "notes": [
       "Propiconazole injection per KB; confirm label for host and timing"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Spring, before or at bud break"
+     }
     },
     {
      "id": "an-sanitation",
@@ -443,6 +464,9 @@
    "sources": [
     "VCE 450-611",
     "Penn State Extension"
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): an-inject."
    ]
   },
   {
@@ -492,11 +516,18 @@
       9,
       10
      ],
-     "frequency": "Spring and fall",
      "purpose": "Suppresses the root pathogen and protects new roots. Preventive / suppressive, not curative.",
      "notes": [
       "Mefenoxam / metalaxyl (FRAC 4, phenylamide) or phosphonates: fosetyl-Al, phosphorous acid (FRAC P07)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 2,
+      "interval": "Spring and fall",
+      "repeat": "Annually",
+      "window": "Mar–May and Sep–Oct, soil moist not saturated"
+     },
+     "preferred": true
     },
     {
      "id": "ph-inject",
@@ -509,11 +540,17 @@
       9,
       10
      ],
-     "frequency": "Spring and fall",
      "purpose": "Delivers root-protecting phosphonate directly into the tree's vascular system.",
      "notes": [
       "Phosphite products are also labeled as basal bark sprays; confirm label"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 2,
+      "interval": "Spring and fall",
+      "repeat": "Annually",
+      "window": "Mar–May and Sep–Oct"
+     }
     },
     {
      "id": "ph-replant",
@@ -566,11 +603,18 @@
       8,
       9
      ],
-     "frequency": "At first sign, repeat per label",
      "purpose": "Protects foliage and stops spread to new leaves.",
      "notes": [
       "Trifloxystrobin (FRAC 11), myclobutanil (FRAC 3), bicarbonate products"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 4,
+      "interval": "10–14 days",
+      "repeat": "Annually",
+      "window": "At first symptoms, typically Jun–Aug"
+     },
+     "preferred": true
     },
     {
      "id": "pm-cultural",
@@ -586,7 +630,8 @@
     }
    ],
    "reviewFlags": [
-    "Source KB gives no timing. Months and 'at first sign' timing were added and need review."
+    "Source KB gives no timing. Months and 'at first sign' timing were added and need review.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): pm-foliar."
    ]
   },
   {
@@ -620,11 +665,18 @@
       4,
       5
      ],
-     "frequency": "Pink bud through petal fall",
      "purpose": "Protects leaves during the spring infection window.",
      "notes": [
       "Myclobutanil per KB; KB also lists triadimefon (verify current registration)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 days",
+      "repeat": "Annually",
+      "window": "Pink bud through petal fall (Apr–May)"
+     },
+     "preferred": true
     },
     {
      "id": "ru-galls",
@@ -645,7 +697,8 @@
     }
    ],
    "reviewFlags": [
-    "Triadimefon availability for ornamentals should be verified."
+    "Triadimefon availability for ornamentals should be verified.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): ru-foliar."
    ]
   },
   {
@@ -726,11 +779,18 @@
       4,
       5
      ],
-     "frequency": "Bud swell, bud break, and 2 weeks after bud break",
      "purpose": "Protects each flush of new shoots during infection.",
      "notes": [
       "Chlorothalonil or propiconazole"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 3,
+      "visitsMax": 3,
+      "interval": "Bud swell → bud break → 2 weeks after",
+      "repeat": "Annually",
+      "window": "Bud swell through 2 weeks after bud break (Mar–May)"
+     },
+     "preferred": true
     },
     {
      "id": "di-prune",
@@ -793,11 +853,18 @@
       4,
       5
      ],
-     "frequency": "Early bloom through petal fall",
      "purpose": "Protects blossoms during the infection window.",
      "notes": [
       "Copper products; streptomycin only where labeled for the site (resistance documented)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "5–7 days during bloom",
+      "repeat": "Annually",
+      "window": "Early bloom through petal fall (Mar–May)"
+     },
+     "preferred": true
     },
     {
      "id": "fb-phos",
@@ -806,11 +873,23 @@
      "purpose": "Suppressive support for canker management.",
      "notes": [
       "Phosphorous acid products; confirm label for application method"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Spring"
+     },
+     "months": [
+      3,
+      4,
+      5
      ]
     }
    ],
    "reviewFlags": [
-    "Streptomycin labeling for landscape ornamentals varies; verify before recommending."
+    "Streptomycin labeling for landscape ornamentals varies; verify before recommending.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): fb-copper, fb-phos."
    ]
   },
   {
@@ -857,12 +936,18 @@
       5,
       6
      ],
-     "frequency": "Annually, late spring before symptoms",
      "purpose": "Suppresses symptoms and slows decline. Does not eliminate the bacteria.",
      "suppressiveOnly": true,
      "notes": [
       "Oxytetracycline (micro or macro injection systems)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Late spring (May–Jun), before symptoms appear"
+     },
+     "preferred": true
     },
     {
      "id": "bls-vigor",
@@ -955,6 +1040,17 @@
      "suppressiveOnly": true,
      "notes": [
       "Oxytetracycline"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Spring after leaf-out"
+     },
+     "preferred": true,
+     "months": [
+      5,
+      6
      ]
     },
     {
@@ -963,6 +1059,9 @@
      "applicationType": "replacement",
      "purpose": "The long-term solution given EAB pressure."
     }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): ay-inject."
    ]
   },
   {
@@ -1061,7 +1160,15 @@
       11,
       12
      ],
-     "purpose": "Reduces winter moisture loss from foliage."
+     "purpose": "Reduces winter moisture loss from foliage.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Late fall; repeat mid-winter if mild",
+      "repeat": "Annually",
+      "window": "Late Nov–Dec, above 40°F"
+     },
+     "preferred": true
     },
     {
      "id": "wi-fert",
@@ -1069,6 +1176,9 @@
      "applicationType": "cultural",
      "purpose": "Avoiding late-season fertilization prevents tender growth going into winter."
     }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): wi-antidesiccant."
    ]
   },
   {
@@ -1118,8 +1228,18 @@
      "purpose": "Fast greening for trees that cannot take up iron or manganese from high-pH soil.",
      "notes": [
       "Chelated iron / manganese injection or drench"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 1–3 years, based on greening response",
+      "window": "Apr–Jun, after leaf-out"
+     },
+     "preferred": true
     }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): nd-inject."
    ]
   },
   {
@@ -1282,13 +1402,19 @@
       5,
       6
      ],
-     "frequency": "Every 2–3 years",
      "protection": "2–4 years",
      "purpose": "The most effective EAB protection, delivered directly into the tree after leaf-out.",
      "requiresLicense": true,
      "notes": [
       "Emamectin benzoate (e.g., TREE-äge); check RUP status of formulation"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 2–3 years",
+      "window": "After leaf-out (Apr–Jun), soil moist"
+     },
+     "preferred": true
     },
     {
      "id": "eab-drench",
@@ -1299,12 +1425,17 @@
       4,
       5
      ],
-     "frequency": "Annually",
      "protection": "1 year",
      "purpose": "Annual protection option, best on smaller trees.",
      "notes": [
       "Imidacloprid; less effective on large trees"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Mid-Mar to mid-May"
+     }
     },
     {
      "id": "eab-basal",
@@ -1316,12 +1447,17 @@
       5,
       6
      ],
-     "frequency": "Annually",
      "protection": "1 year",
      "purpose": "Fast-acting, no-drill annual protection.",
      "notes": [
       "Dinotefuran (soil drench also an option)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Mid-Mar to early Jun"
+     }
     },
     {
      "id": "eab-remove",
@@ -1387,11 +1523,17 @@
       4,
       5
      ],
-     "frequency": "Annually",
      "purpose": "Protects against new borer attack.",
      "notes": [
       "Imidacloprid"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Apr–May"
+     },
+     "preferred": true
     },
     {
      "id": "bbb-vigor",
@@ -1433,7 +1575,14 @@
      "purpose": "Protects at-risk trees from borer attack.",
      "notes": [
       "Imidacloprid"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Apr–May"
+     },
+     "preferred": true
     },
     {
      "id": "tlcb-vigor",
@@ -1449,7 +1598,8 @@
     }
    ],
    "reviewFlags": [
-    "Source KB gives no timing for preventive treatment; spring months added."
+    "Source KB gives no timing for preventive treatment; spring months added.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): tlcb-drench."
    ]
   },
   {
@@ -1486,11 +1636,18 @@
       7,
       8
      ],
-     "frequency": "Mid-May, then monthly through August",
      "purpose": "Protects bark during adult egg-laying.",
      "notes": [
       "Permethrin or bifenthrin"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 4,
+      "visitsMax": 4,
+      "interval": "About 30 days",
+      "repeat": "Annually",
+      "window": "Mid-May through August (adult flight)"
+     },
+     "preferred": true
     },
     {
      "id": "db-wound",
@@ -1537,12 +1694,18 @@
       10,
       11
      ],
-     "frequency": "Once; re-evaluate in 4–7 years",
      "protection": "4–7 years",
      "purpose": "Long-lasting protection. Large trees take about 3 months to take it up.",
      "notes": [
       "Imidacloprid soil drench or soil injection"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 4–7 years; monitor annually",
+      "window": "Mar–Jun or Sep–Nov (allow ~3 months uptake on large trees)"
+     },
+     "preferred": true
     },
     {
      "id": "hwa-fast",
@@ -1561,7 +1724,13 @@
      "purpose": "Knocks down heavy infestations within days. Often paired with the long-term treatment.",
      "notes": [
       "Dinotefuran (also drench or injection)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 1–2 years, for heavy infestations",
+      "window": "Mar–Jun or Sep–Nov"
+     }
     },
     {
      "id": "hwa-inject",
@@ -1579,7 +1748,13 @@
      "purpose": "Treatment directly into the tree where soil or bark treatment is not practical.",
      "notes": [
       "Imidacloprid or dinotefuran injection"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 1–2 years",
+      "window": "Mar–Jun or Sep–Nov"
+     }
     },
     {
      "id": "hwa-oil",
@@ -1596,7 +1771,14 @@
      "purpose": "Contact control for small trees where complete coverage is possible.",
      "notes": [
       "1% summer rate / 2% winter rate per KB; follow label"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Spring and/or fall",
+      "repeat": "Annually",
+      "window": "Mar–Jun or Oct–Nov; not Jul–Sep"
+     }
     }
    ],
    "costShare": [
@@ -1609,6 +1791,9 @@
     "VCE 3006-1451",
     "Virginia DOF HWA Program",
     "MDA HWA"
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): hwa-inject, hwa-oil."
    ]
   },
   {
@@ -1640,7 +1825,14 @@
       10,
       11
      ],
-     "purpose": "Contact control of scale and crawlers."
+     "purpose": "Contact control of scale and crawlers.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Dormant season and/or summer",
+      "repeat": "Annually",
+      "window": "Mar–Apr dormant rate; Jun–Jul summer rate"
+     }
     },
     {
      "id": "ehs-systemic",
@@ -1656,7 +1848,14 @@
      "purpose": "Systemic control inside the needles.",
      "notes": [
       "Dinotefuran preferred; imidacloprid listed in KB but generally weak on armored scale"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Apr–Jun or Sep–Oct"
+     },
+     "preferred": true
     },
     {
      "id": "ehs-igr",
@@ -1669,11 +1868,19 @@
      "purpose": "Targets crawlers as they emerge.",
      "notes": [
       "Pyriproxyfen (IGR)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "10–14 days at crawler peak",
+      "repeat": "Annually",
+      "window": "Crawler emergence (Jun–Jul)"
+     }
     }
    ],
    "reviewFlags": [
-    "Imidacloprid efficacy on armored scales is limited; KB lists it as an option."
+    "Imidacloprid efficacy on armored scales is limited; KB lists it as an option.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): ehs-oil, ehs-systemic, ehs-igr."
    ]
   },
   {
@@ -1703,11 +1910,17 @@
       4,
       5
      ],
-     "frequency": "Annually as leaves emerge",
      "purpose": "The most effective approach. Systemic protection through the season.",
      "notes": [
       "Imidacloprid, dinotefuran, clothianidin, or thiamethoxam"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually; often 2+ seasons",
+      "window": "Late Apr–May as leaves emerge"
+     },
+     "preferred": true
     },
     {
      "id": "cmbs-oil",
@@ -1720,7 +1933,13 @@
       2,
       3
      ],
-     "purpose": "Smothers overwintering scale; needs thorough bark coverage."
+     "purpose": "Smothers overwintering scale; needs thorough bark coverage.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Late fall or early spring before bud break"
+     }
     },
     {
      "id": "cmbs-igr",
@@ -1733,7 +1952,14 @@
      "purpose": "Targets crawlers. Not applied during bloom.",
      "notes": [
       "Pyriproxyfen (IGR)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "10–14 days at crawler peak",
+      "repeat": "Annually",
+      "window": "Crawler emergence (May–Jun); not in bloom"
+     }
     },
     {
      "id": "cmbs-scrub",
@@ -1748,6 +1974,9 @@
    "sources": [
     "VCE ENTO-465",
     "Casey Trees"
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): cmbs-igr."
    ]
   },
   {
@@ -1774,7 +2003,21 @@
      "id": "bs-oil",
      "title": "Horticultural oil or soap bark spray",
      "applicationType": "dormantOil",
-     "purpose": "Controls scale on accessible bark."
+     "purpose": "Controls scale on accessible bark.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Dormant season and/or summer",
+      "repeat": "Annually",
+      "window": "Dormant season or summer crawler period"
+     },
+     "preferred": true,
+     "months": [
+      3,
+      4,
+      6,
+      7
+     ]
     },
     {
      "id": "bs-vigor",
@@ -1782,6 +2025,9 @@
      "applicationType": "soilCare",
      "purpose": "Healthy trees resist infection longer."
     }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): bs-oil."
    ]
   },
   {
@@ -1804,7 +2050,20 @@
      "id": "ap-soft",
      "title": "Horticultural oil or insecticidal soap",
      "applicationType": "foliar",
-     "purpose": "Contact control that spares most beneficial insects."
+     "purpose": "Contact control that spares most beneficial insects.",
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 days",
+      "repeat": "As needed",
+      "window": "When colonies appear, typically Apr–Jun"
+     },
+     "preferred": true,
+     "months": [
+      4,
+      5,
+      6
+     ]
     },
     {
      "id": "ap-systemic",
@@ -1813,6 +2072,16 @@
      "purpose": "Season-long control on heavily affected plants.",
      "notes": [
       "Imidacloprid or dinotefuran"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Spring, before populations build"
+     },
+     "months": [
+      3,
+      4
      ]
     },
     {
@@ -1821,6 +2090,9 @@
      "applicationType": "mechanical",
      "purpose": "Lady beetles and lacewings plus water sprays knock colonies down."
     }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): ap-soft, ap-systemic."
    ]
   },
   {
@@ -1900,7 +2172,14 @@
      "purpose": "Protects valued trees during peak feeding.",
      "notes": [
       "Dinotefuran or imidacloprid"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "May–Jul (nymph to early adult feeding)"
+     },
+     "preferred": true
     },
     {
      "id": "slf-contact",
@@ -1917,7 +2196,14 @@
      "purpose": "Contact control of heavy populations.",
      "notes": [
       "Bifenthrin or spinosad"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 3,
+      "interval": "14–21 days as needed",
+      "repeat": "As needed",
+      "window": "Jul–Oct for adults; May–Jun for nymphs"
+     }
     }
    ],
    "regulatory": [
@@ -1941,7 +2227,8 @@
     }
    ],
    "reviewFlags": [
-    "Verify VA quarantine repeal and current MD quarantine county list."
+    "Verify VA quarantine repeal and current MD quarantine county list.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): slf-systemic, slf-contact."
    ]
   },
   {
@@ -1978,7 +2265,14 @@
      "purpose": "In place before adults emerge.",
      "notes": [
       "Imidacloprid or dinotefuran; NOT on linden or other bee-attractive hosts before or during bloom"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Apr–May, before adult emergence; not on bee-attractive hosts pre-bloom"
+     },
+     "preferred": true
     },
     {
      "id": "jb-contact",
@@ -1992,11 +2286,19 @@
      "purpose": "Knocks down active feeding adults.",
      "notes": [
       "Bifenthrin, carbaryl, or other pyrethroids"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–14 days during adult feeding",
+      "repeat": "Annually",
+      "window": "Jun–Aug"
+     }
     }
    ],
    "reviewFlags": [
-    "KB listed halofenozide for grubs. It is discontinued and has been removed."
+    "KB listed halofenozide for grubs. It is discontinued and has been removed.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): jb-systemic, jb-contact."
    ]
   },
   {
@@ -2049,7 +2351,15 @@
      "purpose": "Targets small caterpillars, including low-impact biological options.",
      "notes": [
       "Bt kurstaki, spinosad, or pyrethroids; ineffective once bags exceed 1/2 in."
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "10–14 days",
+      "repeat": "Annually",
+      "window": "Early June hatch through early July (bags under 1/2 in.)"
+     },
+     "preferred": true
     }
    ]
   },
@@ -2099,8 +2409,18 @@
      "purpose": "Biological or low-impact control before webs get large.",
      "notes": [
       "Bt or spinosad"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Jul–Aug, early caterpillar stage before large webs"
+     },
+     "preferred": true
     }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): fw-foliar."
    ]
   },
   {
@@ -2134,7 +2454,15 @@
      "purpose": "Targets young caterpillars with biological or low-impact products.",
      "notes": [
       "Bt kurstaki (most recommended), spinosad; diflubenzuron is broad-spectrum, so use caution near water"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–10 days",
+      "repeat": "As needed (outbreak years)",
+      "window": "Late Apr–May, early instars"
+     },
+     "preferred": true
     },
     {
      "id": "sm-eggs",
@@ -2194,7 +2522,14 @@
       8,
       9
      ],
-     "purpose": "Contact control with thorough leaf-underside coverage."
+     "purpose": "Contact control with thorough leaf-underside coverage.",
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 days",
+      "repeat": "As needed",
+      "window": "Jun–Sep during hot, dry weather"
+     }
     },
     {
      "id": "tsm-miticide",
@@ -2209,7 +2544,15 @@
      "purpose": "Rotated miticides for heavy populations.",
      "notes": [
       "Bifenazate, abamectin, spiromesifen; rotate modes of action; avoid pyrethroids (mite flare)"
-     ]
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Per label; rotate mode of action",
+      "repeat": "As needed",
+      "window": "Jun–Sep at first stippling"
+     },
+     "preferred": true
     },
     {
      "id": "tsm-water",
@@ -2217,6 +2560,9 @@
      "applicationType": "cultural",
      "purpose": "Drought-stressed plants suffer worse outbreaks."
     }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): tsm-oil, tsm-miticide."
    ]
   },
   {
@@ -2259,7 +2605,14 @@
       3,
       4
      ],
-     "purpose": "Smothers overwintering eggs."
+     "purpose": "Smothers overwintering eggs.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Before bud break (Feb–Apr)"
+     },
+     "preferred": true
     },
     {
      "id": "ssm-miticide",
@@ -2271,7 +2624,14 @@
       9,
       10
      ],
-     "purpose": "Controls active populations during cool seasons."
+     "purpose": "Controls active populations during cool seasons.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Spring and fall",
+      "repeat": "As needed",
+      "window": "Apr–May and Sep–Oct; not summer"
+     }
     }
    ]
   }
