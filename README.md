@@ -1,25 +1,27 @@
-# PHC Planner (iOS, offline)
+# PHC Planner (offline web app)
 
 Treatment-plan framework for DMV (VA/MD/DC) arborists: pick the site and problem(s) and get best-practice
 chemical, cultural, mechanical, and diagnostic mitigations, with application type, active ingredients, timing
-windows, and compliance flags. No application rates. Fully offline; all data ships in the app.
+windows, and compliance flags. No application rates. Works offline once added to the Home Screen.
 
 ## Layout
-- `Sources/PHCKit/Resources/knowledge_base.json`: **all content**. Edit here; no code changes needed for content.
-- `Sources/PHCKit/PlanEngine.swift`: rules (timing windows, crown-loss thresholds, MD neonicotinoid, bloom/pollinator,
-  near-water, sensitive sites, cost-share eligibility, annual schedule).
-- `Sources/PHCKit/PlanExport.swift`: plain-text export (share sheet).
-- `Sources/PHCUI`: SwiftUI screens (Plan, Library, Reference).
-- `App/`: iOS app entry point. `project.yml`: XcodeGen spec.
+- `web/`: **the app** (static files; host this folder anywhere with HTTPS)
+  - `data/knowledge_base.json`: **all content**. Edit here; no code changes needed for content.
+  - `engine.js`: rules (timing windows, crown-loss thresholds, MD neonicotinoid, bloom/pollinator, near-water,
+    sensitive sites, cost-share eligibility, annual schedule, text export).
+  - `app.js`, `index.html`: screens (Plan, Library, Reference).
+  - `sw.js`: offline cache. **Bump `VERSION` after any change** so installed copies update.
+- `tests/engine.test.mjs`: data-integrity and rules tests: `npm test`
+- `Sources/`, `App/`, `project.yml`: shelved native iOS version (shares the same JSON via symlink).
 
-## Build
-1. Install Xcode (Mac App Store) and `brew install xcodegen`.
-2. `xcodegen generate && open PHCPlanner.xcodeproj`
-3. Set `DEVELOPMENT_TEAM` in `project.yml` (or in Xcode Signing) to the RTEC team; run on device / archive for TestFlight.
+## Run locally
+`cd web && python3 -m http.server 8765`, then open http://localhost:8765
 
-Tests (data integrity + rules, no Xcode needed): `swift test`
+## Install on a phone
+Open the hosted URL in Safari (iPhone) or Chrome (Android), then Share → **Add to Home Screen**.
+Open it once while online; after that it works with no connection. Content updates download the next time
+the app is opened online.
 
 ## Content status
-Content was normalized from Blake's "DMV PHC Knowledge Base v1.0" (Aug 2026) and is **unreviewed**.
-Each condition's `reviewFlags` lists corrections made and items needing verification (shown in the Library
-detail screen). Set `meta.reviewStatus` once a certified arborist / PHC lead signs off.
+Normalized from Blake's "DMV PHC Knowledge Base v1.0" (Aug 2026); **unreviewed**. Each condition's `reviewFlags`
+lists corrections and items needing verification (shown in Library). Set `meta.reviewStatus` after sign-off.
