@@ -349,11 +349,14 @@ function optionLines(o, pick) {
 }
 
 /** Plain-text plan for sharing (text, email, notes, CRM). */
-export function exportText(kb, site, entries, selected, siteLabel = "", counts = {}) {
+export function exportText(kb, site, entries, selected, siteLabel = "", counts = {}, job = {}) {
   const out = ["PHC TREATMENT PLAN"];
-  if (siteLabel) out.push(`Site: ${siteLabel}`);
+  if (siteLabel) out.push(`Prospect / client: ${siteLabel}`);
+  if (site.address) out.push(`Work address: ${site.address}`);
+  if (job.leadNumber) out.push(`SingleOps lead #: ${job.leadNumber}`);
+  if (job.inspectionDate) out.push(`Site inspection date: ${job.inspectionDate}`);
   const factors = [site.nearWater && "near water", site.sensitiveSite && "school/daycare/park", site.publicProperty && "public property"].filter(Boolean);
-  out.push(`${site.jurisdiction}${factors.length ? ` · ${factors.join(", ")}` : ""}`);
+  out.push(`Jurisdiction: ${site.jurisdiction}${factors.length ? ` · ${factors.join(", ")}` : ""}`);
 
   for (const e of entries) {
     out.push("", `######## ${plantName(e).toUpperCase()} ########`);
