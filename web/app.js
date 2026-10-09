@@ -425,7 +425,7 @@ function renderOps() {
     ${log.map((r) => `<div class="row" style="display:block">
       <div class="title">${esc(r.address)}${r.siteLabel ? ` <span class="small muted">(${esc(r.siteLabel)})</span>` : ""}</div>
       <div class="small">${r.error ? `<span class="status-outOfWindow">${esc(r.error)}</span>`
-        : `${esc(r.baseName)} · ${esc(r.minutes)} min · <b>${esc(band(r.band))}</b> <span class="muted">(${esc(r.method)})</span>`}</div>
+        : `${esc(r.baseName)} · ${esc(r.minutes)} min · <b>${esc(band(r.band))}</b> <span class="muted">(${esc(r.method)}${r.precision && r.precision !== "address" ? `; located by ${esc(r.precision)}` : ""})</span>`}</div>
       <div class="small muted">${esc(r.computedAt?.slice(0, 10))}</div></div>`).join("") || `<p class="small muted">None yet.</p>`}`;
 }
 

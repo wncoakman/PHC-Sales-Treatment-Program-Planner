@@ -14,18 +14,36 @@ export const bandFor = (minutes) => (minutes == null ? null : BANDS.find((b) => 
 
 const STATES = { Virginia: "VA", Maryland: "MD", "District of Columbia": "DC" };
 
-export async function geocode(address, fetchFn = fetch) {
-  const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&countrycodes=us&limit=1&q=${encodeURIComponent(address)}`;
+async function nominatim(params, fetchFn) {
+  const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&countrycodes=us&limit=1&${params}`;
   const res = await fetchFn(url, { headers: { Accept: "application/json" } });
   if (!res.ok) throw new Error(`geocode ${res.status}`);
-  const [hit] = await res.json();
-  if (!hit) return null;
-  return {
-    lat: Number(hit.lat),
-    lon: Number(hit.lon),
-    display: hit.display_name,
-    jurisdiction: STATES[hit.address?.state] || null,
-  };
+  return (await res.json())[0] || null;
+}
+
+/**
+ * Address → point. OpenStreetMap lacks some house numbers, so it falls back to the street, then the ZIP code;
+ * `precision` records which matched (fine for drive-time bands).
+ */
+export async function geocode(address, fetchFn = fetch) {
+  const tries = [["address", `q=${encodeURIComponent(address)}`]];
+  const street = address.replace(/^\s*\d+[a-z]?\s+/i, "");
+  if (street !== address) tries.push(["street", `q=${encodeURIComponent(street)}`]);
+  const zip = address.match(/\b(\d{5})(?:-\d{4})?\s*$/);
+  if (zip) tries.push(["zip", `postalcode=${zip[1]}`]);
+  for (const [precision, params] of tries) {
+    const hit = await nominatim(params, fetchFn);
+    if (hit) {
+      return {
+        lat: Number(hit.lat),
+        lon: Number(hit.lon),
+        display: hit.display_name,
+        precision: hit.addresstype === "road" && precision === "address" ? "street" : precision,
+        jurisdiction: STATES[hit.address?.state] || null,
+      };
+    }
+  }
+  return null;
 }
 
 /** Free-flow drive minutes from the job to each base, in base order (null where no route). */

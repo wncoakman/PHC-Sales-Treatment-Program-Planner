@@ -46,3 +46,17 @@ test("no bases configured", async () => {
   assert.equal(r.error, "No operations bases configured");
   assert.equal(r.lat, 38.8);
 });
+
+test("geocode falls back to street, then ZIP", async () => {
+  const { geocode } = await import("../web/logistics.js");
+  const calls = [];
+  const f = async (url) => {
+    calls.push(url);
+    const hit = url.includes("postalcode=20175") ? [{ lat: "39.1", lon: "-77.56", display_name: "20175", address: { state: "Virginia" } }] : [];
+    return { ok: true, json: async () => hit };
+  };
+  const r = await geocode("10 Courthouse Square, Leesburg, VA 20175", f);
+  assert.equal(r.precision, "zip");
+  assert.equal(calls.length, 3);
+  assert.ok(!decodeURIComponent(calls[1]).includes("10 Courthouse"));
+});
