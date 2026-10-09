@@ -1,0 +1,5 @@
+{
+  "note": "Operations bases for job logistics (backstage). lat/lon are filled by `npm run geocode:bases`. trafficFactor scales OSRM free-flow drive times to an average business-hours (8am-5pm weekday) time for the DMV; 1.25 is an estimate, adjust after spot checks.",
+  "trafficFactor": 1.25,
+  "bases": []
+}

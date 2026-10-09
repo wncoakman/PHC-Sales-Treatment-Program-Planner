@@ -1,13 +1,16 @@
 import {
   MITIGATIONS, describeMonths, describeVisits, indexKb, problemsForHost, matchesQuery, mitigationOf,
   planLandscape, defaultSelection, landscapeCalendar, applicationTotals, exportText, selKey, plantName, monthName,
-  visitPlan, slotName, describeVisitWindow,
+  visitPlan, slotName, describeVisitWindow, chosenCount,
 } from "./engine.js";
+import { assessAddress, BANDS } from "./logistics.js";
 
 const $view = document.getElementById("view");
 const $title = document.getElementById("title");
 const $actions = document.getElementById("actions");
 const STORE_KEY = "phc-landscape-v1";
+const OPS_LOG_KEY = "phc-ops-log";
+let bases = { trafficFactor: 1, bases: [] };
 
 let kb;
 let state = loadState();
@@ -15,17 +18,21 @@ let state = loadState();
 function defaultState() {
   return {
     siteLabel: "",
-    site: { jurisdiction: "VA", nearWater: false, sensitiveSite: false, publicProperty: false },
+    site: { address: "", jurisdiction: "VA", nearWater: false, sensitiveSite: false, publicProperty: false },
+    /** Backstage job logistics for the work address (closest base, drive-time band). Not shown in the plan. */
+    logistics: null,
     plants: [],
     /** selKey -> true/false where the user changed the default selection. */
     overrides: {},
+    /** selKey -> applications per year chosen within the reference range (default: minimum). */
+    counts: {},
   };
 }
 
 function loadState() {
   try {
     const s = JSON.parse(localStorage.getItem(STORE_KEY));
-    if (s && Array.isArray(s.plants)) return { ...defaultState(), ...s, site: { ...defaultState().site, ...s.site } };
+    if (s && Array.isArray(s.plants)) return { ...defaultState(), ...s, counts: s.counts || {}, site: { ...defaultState().site, ...s.site } };
   } catch {}
   return defaultState();
 }
@@ -72,6 +79,8 @@ function renderLandscape() {
   const checkbox = (key, label) =>
     `<label class="row"><span>${label}</span><input type="checkbox" data-site="${key}" ${s[key] ? "checked" : ""}></label>`;
   $view.innerHTML = `
+    <h2>Work address</h2>
+    <div class="row"><input type="text" id="address" autocomplete="street-address" placeholder="Street, city, state ZIP" value="${esc(s.address)}" style="flex:1"></div>
     <h2>Site</h2>
     <div class="row"><input type="text" id="siteLabel" placeholder="Client / property (optional)" value="${esc(state.siteLabel)}" style="flex:1"></div>
     <div class="row"><span>Jurisdiction</span><div class="seg" style="flex:1">
@@ -95,6 +104,12 @@ function renderLandscape() {
     <button class="link" id="clear">Start new landscape</button>`;
 
   $view.querySelector("#siteLabel").oninput = (e) => { state.siteLabel = e.target.value; save(); };
+  $view.querySelector("#address").onchange = (e) => {
+    s.address = e.target.value.trim();
+    state.logistics = s.address ? { pending: true } : null;
+    save();
+    runLogistics();
+  };
   $view.querySelectorAll("[data-j]").forEach((b) => b.onclick = () => { s.jurisdiction = b.dataset.j; save(); renderLandscape(); });
   $view.querySelectorAll("[data-site]").forEach((c) => c.onchange = () => { s[c.dataset.site] = c.checked; save(); });
   $view.querySelector("#build").onclick = () => { location.hash = "#result"; };
@@ -173,7 +188,7 @@ function renderPlant(id) {
   });
   $view.querySelector("#remove").onclick = () => {
     state.plants = state.plants.filter((x) => x.uid !== id);
-    for (const k of Object.keys(state.overrides)) if (k.startsWith(`${id}:`)) delete state.overrides[k];
+    for (const m of [state.overrides, state.counts]) for (const k of Object.keys(m)) if (k.startsWith(`${id}:`)) delete m[k];
     save();
     location.hash = "#plan";
   };
@@ -193,7 +208,10 @@ function optionHtml(plantUid, o, selected) {
           ${o.chemical ? (o.preferred ? ` <span class="chip pref">Preferred</span>` : ` <span class="chip">Alternative</span>`) : ""}</div>
         ${o.notAdvised ? `<div class="small status-notAdvised">Not advised under current conditions</div>` : ""}
         ${s ? `
-          <div class="small"><b>Applications:</b> ${describeVisits(s)}${s.interval ? `, ${esc(s.interval)}` : ""}</div>
+          <div class="small"><b>Applications:</b> ${s.visitsMin === s.visitsMax ? describeVisits(s)
+            : `<select data-n="${key}">${Array.from({ length: s.visitsMax - s.visitsMin + 1 }, (_, i) => s.visitsMin + i)
+                .map((n) => `<option ${n === chosenCount(s, state.counts[key]) ? "selected" : ""}>${n}</option>`).join("")}</select>
+              per year <span class="muted">(reference ${s.visitsMin}–${s.visitsMax})</span>`}${s.interval ? `, ${esc(s.interval)}` : ""}</div>
           <div class="small"><b>Repeat:</b> ${esc(s.repeat)}</div>
           <div class="small"><b>Window:</b> ${esc(s.window)}</div>`
         : t.months?.length ? `<div class="small"><b>When:</b> ${describeMonths(t.months)}</div>` : ""}
@@ -213,13 +231,13 @@ function renderResult() {
   const selected = selectionFor(entries);
   const cal = landscapeCalendar(entries, selected);
   const tot = applicationTotals(entries, selected);
-  const vp = visitPlan(entries, selected);
+  const vp = visitPlan(entries, selected, state.counts);
 
   $view.innerHTML = `
     <p class="small muted">${esc(state.siteLabel || "Unnamed site")} · ${state.site.jurisdiction} · ${plants.length} plant entr${plants.length === 1 ? "y" : "ies"}</p>
     ${tot.programs ? `<div class="banner"><b>${vp.visits.length}</b> site visit${vp.visits.length === 1 ? "" : "s"}/year
       covering <b>${vp.applications}</b> applications from ${tot.programs} chemical program${tot.programs === 1 ? "" : "s"}
-      (${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`} applications if each program is run at its full count) ·
+      (${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`} applications across the reference ranges) ·
       <a id="jump" style="cursor:pointer;text-decoration:underline">see visit framework</a></div>` : ""}
     ${entries.map((e) => `
       <h3 class="plant">${esc(plantName(e))}</h3>
@@ -233,7 +251,7 @@ function renderResult() {
           ${cult.length ? `<div class="group">Cultural</div>${cult.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}`;
       }).join("")}`).join("")}
     ${vp.visits.length ? `<h2 id="visits">Visit framework: minimum site visits</h2>
-      <p class="small muted">Checked chemical programs at their minimum application count, combined into the fewest visits that respect each window and interval. Flexible range = dates that still work for every application on the visit.</p>
+      <p class="small muted">Checked chemical programs at their chosen number of applications (pick within the reference range on each program above; default is the minimum), combined into the fewest visits that respect each window and interval. Flexible range = dates that still work for every application on the visit.</p>
       ${vp.visits.map((v, i) => `<div class="row" style="display:block">
         <div class="title">Visit ${i + 1}: ${slotName(v.slot)} <span class="small muted">${v.from !== v.to ? `flexible ${esc(describeVisitWindow(v))}` : ""}</span></div>
         <div class="small">${v.items.map((it) => `${esc(it.plant)}: ${esc(it.option.treatment.title)} <span class="muted">(${esc(it.problem)}${it.of > 1 ? `, ${it.n} of ${it.of}` : ""})</span>`).join("<br>")}</div>
@@ -252,8 +270,15 @@ function renderResult() {
     renderResult();
     window.scrollTo(0, y);
   });
+  $view.querySelectorAll("[data-n]").forEach((sel) => sel.onchange = () => {
+    state.counts[sel.dataset.n] = Number(sel.value);
+    save();
+    const y = window.scrollY;
+    renderResult();
+    window.scrollTo(0, y);
+  });
   $view.querySelector("#jump")?.addEventListener("click", () => $view.querySelector("#visits").scrollIntoView({ behavior: "smooth" }));
-  $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel));
+  $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel, state.counts));
 }
 
 async function sharePlan(text) {
@@ -349,15 +374,70 @@ function renderReference() {
   });
 }
 
+// ---------- Logistics (backstage) ----------
+
+let logisticsRunning = false;
+
+/** Closest base and drive-time band for the work address. Runs when online; pending otherwise. */
+async function runLogistics() {
+  const address = state.site.address;
+  if (!address || !state.logistics?.pending || logisticsRunning || !navigator.onLine) return;
+  logisticsRunning = true;
+  try {
+    const result = await assessAddress(address, bases);
+    if (state.site.address !== address) return; // address changed meanwhile
+    state.logistics = result;
+    // Set jurisdiction from the geocoded state when the address is in VA, MD or DC.
+    if (result.jurisdiction && result.jurisdiction !== state.site.jurisdiction) {
+      state.site.jurisdiction = result.jurisdiction;
+      if ((location.hash || "#plan").startsWith("#plan")) renderLandscape();
+    }
+    save();
+    logJob(result);
+  } catch {
+    // Network or service failure: stays pending and retries on the next online event or app start.
+  } finally {
+    logisticsRunning = false;
+  }
+}
+
+function opsLog() {
+  try { return JSON.parse(localStorage.getItem(OPS_LOG_KEY)) || []; } catch { return []; }
+}
+
+function logJob(result) {
+  const log = opsLog().filter((r) => r.address !== result.address);
+  log.unshift({ ...result, siteLabel: state.siteLabel });
+  try { localStorage.setItem(OPS_LOG_KEY, JSON.stringify(log.slice(0, 500))); } catch {}
+}
+
+/** Hidden view (#ops): bases and job logistics recorded on this device. */
+function renderOps() {
+  setHeader("Operations (backstage)", `<a href="#plan">Back</a>`);
+  const band = (id) => BANDS.find((b) => b.id === id)?.label || "—";
+  const log = opsLog();
+  $view.innerHTML = `
+    <h2>Operations bases (${bases.bases.length})</h2>
+    ${bases.bases.map((b) => `<div class="row"><span><b>${esc(b.name)}</b><br><span class="small muted">${esc(b.address)}</span></span></div>`).join("")
+      || `<p class="small muted">No bases configured (web/data/bases.json).</p>`}
+    <p class="small muted">Drive times: OpenStreetMap / OSRM free-flow × ${esc(bases.trafficFactor)} business-hours traffic factor.</p>
+    <h2>Job locations (${log.length})</h2>
+    ${log.map((r) => `<div class="row" style="display:block">
+      <div class="title">${esc(r.address)}${r.siteLabel ? ` <span class="small muted">(${esc(r.siteLabel)})</span>` : ""}</div>
+      <div class="small">${r.error ? `<span class="status-outOfWindow">${esc(r.error)}</span>`
+        : `${esc(r.baseName)} · ${esc(r.minutes)} min · <b>${esc(band(r.band))}</b> <span class="muted">(${esc(r.method)})</span>`}</div>
+      <div class="small muted">${esc(r.computedAt?.slice(0, 10))}</div></div>`).join("") || `<p class="small muted">None yet.</p>`}`;
+}
+
 // ---------- Routing ----------
 
 function route() {
   const [name, arg] = (location.hash || "#plan").slice(1).split("/");
-  const tab = { plan: "plan", add: "plan", plant: "plan", result: "plan", library: "library", condition: "library", reference: "reference" }[name] || "plan";
+  const tab = { plan: "plan", add: "plan", plant: "plan", result: "plan", library: "library", condition: "library", reference: "reference", ops: "reference" }[name] || "plan";
   document.querySelectorAll("nav.tabs a").forEach((a) => a.classList.toggle("on", a.dataset.tab === tab));
   ({
     add: renderAddPlant, plant: () => renderPlant(arg), result: renderResult,
-    library: renderLibrary, condition: () => renderCondition(arg), reference: renderReference,
+    library: renderLibrary, condition: () => renderCondition(arg), reference: renderReference, ops: renderOps,
   }[name] || renderLandscape)();
   window.scrollTo(0, 0);
 }
@@ -372,6 +452,9 @@ async function start() {
   // Carry saved plants across data updates: follow renamed problems, drop ones that no longer exist.
   state.plants = state.plants.filter((p) => kb.hostById[p.hostId]);
   for (const p of state.plants) p.conditionIds = p.conditionIds.map((id) => RENAMED[id] || id).filter((id) => kb.conditionById[id]);
+  try { bases = await (await fetch("data/bases.json")).json(); } catch {}
+  window.addEventListener("online", runLogistics);
+  runLogistics();
   window.addEventListener("hashchange", route);
   route();
   if ("serviceWorker" in navigator) {

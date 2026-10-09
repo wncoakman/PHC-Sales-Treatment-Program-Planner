@@ -1,8 +1,8 @@
 {
  "meta": {
   "title": "DMV Plant Health Care Treatment Planner",
-  "version": "2.0.0",
-  "source": "2024 Southeast Pest Management Recommendations (structured transcription, reference/pest-management-reference.md); VA/MD/DC rules and abiotic disorders from Blake's DMV PHC KB v1.0",
+  "version": "2.1.0",
+  "source": "2024 Southeast Pest Management Recommendations (primary; structured transcription), current supplement verified Oct 2026 (reference/current-supplement.md), VA/MD/DC rules and abiotic disorders from Blake's DMV PHC KB v1.0",
   "reviewStatus": "unreviewed",
   "disclaimer": "Framework for treatment planning only. No rates are provided; product selection, rates, and timing must follow the label. Months are DMV approximations of the manual's phenology and degree-day timing. Confirm diagnosis and current VA/MD/DC regulations before application."
  },
@@ -955,7 +955,8 @@
     "Twig death progressing from the bottom up"
    ],
    "biology": [
-    "White woolly masses at the base of needles on the underside of twigs. Spring crawlers Apr–May. A summer dormant stage lasts until cooler fall weather. Nymphs develop through winter, adults appear in late winter, and egg-laying females are present late Mar–early Apr. Flupyradifurone used for other pests may also suppress HWA."
+    "White woolly masses at the base of needles on the underside of twigs. Spring crawlers Apr–May. A summer dormant stage lasts until cooler fall weather. Nymphs develop through winter, adults appear in late winter, and egg-laying females are present late Mar–early Apr. Flupyradifurone used for other pests may also suppress HWA.",
+    "Update (Oct 2026): Virginia, Maryland and federal programs release predator beetles (Laricobius nigrinus) and silver flies (Leucotaraxis) for long-term HWA control. Coordinate with the state forest health program before treating trees at or near release sites."
    ],
    "treatments": [
     {
@@ -1147,10 +1148,16 @@
      },
      "notes": [],
      "id": "hemlock-woolly-adelgid--imidacloprid-microInjection"
+    },
+    {
+     "applicationType": "biocontrol",
+     "title": "In natural areas, ask the state forest health program about predator beetle releases. Do not apply insecticide to release trees.",
+     "id": "hemlock-woolly-adelgid--in-natural-areas-ask-the-state-forest-he-biocontrol"
     }
    ],
    "sources": [
     "2024 Southeast Pest Management Recommendations",
+    "Update: Virginia Department of Forestry and Maryland Department of Agriculture forest pest programs",
     "Blake KB: VCE 3006-1451",
     "Blake KB: Virginia DOF HWA Program",
     "Blake KB: MDA HWA"
@@ -1624,7 +1631,9 @@
       "repeat": "As needed",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "aphids-general--acephate-microInjection"
     },
     {
@@ -2110,7 +2119,8 @@
       "window": "At detection"
      },
      "notes": [
-      "Active in about 1 wk, lasts 3–4 wk"
+      "Active in about 1 wk, lasts 3–4 wk",
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "woolly-aphids--acephate-microInjection"
     },
@@ -3007,7 +3017,9 @@
       "repeat": "As needed",
       "window": "At detection, quick knockdown"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "caterpillar-borers-general--acephate-microInjection"
     }
    ],
@@ -3180,7 +3192,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "carpenterworm--acephate-microInjection"
     }
    ],
@@ -3321,7 +3335,9 @@
       "repeat": "As needed",
       "window": "Quick knockdown at detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "leopard-moth--acephate-microInjection"
     },
     {
@@ -3712,7 +3728,9 @@
       "repeat": "As needed",
       "window": "Quick knockdown (follow with emamectin next spring)"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "zimmerman-pine-moth--acephate-microInjection"
     },
     {
@@ -5673,7 +5691,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "caterpillar-defoliators-general--acephate-microInjection"
     }
    ],
@@ -5894,7 +5914,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "bagworms--acephate-microInjection"
     }
    ],
@@ -5921,7 +5943,8 @@
    ],
    "symptoms": [],
    "biology": [
-    "Invasive. Causes boxwood defoliation and dieback with webbing and frass. Multiple generations Apr–Oct."
+    "Invasive. Causes boxwood defoliation and dieback with webbing and frass. Multiple generations Apr–Oct.",
+    "Update (Oct 2026): First detected in Virginia (Clarke and Loudoun Counties) and in Maryland in July 2025. Report suspected finds to VDACS (Virginia) or MDA (Maryland). Movement of boxwood from regulated areas may be restricted."
    ],
    "treatments": [
     {
@@ -6004,7 +6027,9 @@
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: VDACS press release, July 24, 2025",
+    "Update: University of Maryland Extension, Invasive Insects"
    ],
    "activeMonths": [
     4,
@@ -6120,7 +6145,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "cankerworms--acephate-microInjection"
     }
    ],
@@ -6324,7 +6351,8 @@
       "window": "At detection or before emergence"
      },
      "notes": [
-      "Not on crabapple"
+      "Not on crabapple",
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "eastern-tent-caterpillar--acephate-microInjection"
     },
@@ -6454,7 +6482,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "elm-spanworm--acephate-microInjection"
     }
    ],
@@ -6572,7 +6602,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "fall-webworm--acephate-microInjection"
     }
    ],
@@ -6688,7 +6720,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "forest-tent-caterpillar--acephate-microInjection"
     }
    ],
@@ -6997,7 +7031,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "leafroller-caterpillars--acephate-microInjection"
     }
    ],
@@ -7177,7 +7213,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "mimosa-webworm--acephate-microInjection"
     }
    ],
@@ -7288,7 +7326,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "oak-leaftier--acephate-microInjection"
     }
    ],
@@ -7499,7 +7539,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "orange-striped-oakworm--acephate-microInjection"
     }
    ],
@@ -7801,7 +7843,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "satin-moth--acephate-microInjection"
     }
    ],
@@ -7972,7 +8016,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "spongy-moth--acephate-microInjection"
     }
    ],
@@ -8090,7 +8136,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "tussock-moths--acephate-microInjection"
     }
    ],
@@ -10230,7 +10278,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "japanese-beetle--acephate-microInjection"
     },
     {
@@ -12883,7 +12933,9 @@
       "repeat": "As needed",
       "window": "At detection"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "oak-leafminers--acephate-microInjection"
     }
    ],
@@ -12979,7 +13031,9 @@
       "repeat": "As needed",
       "window": "Spring near full leaf expansion"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
+     ],
      "id": "tupelo-leafminer--acephate-microInjection"
     },
     {
@@ -22811,7 +22865,8 @@
      "preferred": true,
      "default": true,
      "notes": [
-      "Jul–Sep sprays are most critical"
+      "Jul–Sep sprays are most critical",
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "boxwood-blight--mancozeb-propiconazole-foliar"
     },
@@ -23150,7 +23205,9 @@
      },
      "preferred": true,
      "default": true,
-     "notes": [],
+     "notes": [
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
+     ],
      "id": "conifer-blights--mancozeb-propiconazole-foliar"
     },
     {
@@ -23232,7 +23289,9 @@
       "window": "First at bud-swell before buds open, then twice 14 d apart"
      },
      "default": true,
-     "notes": [],
+     "notes": [
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
+     ],
      "id": "diplodia-tip-blight--mancozeb-propiconazole-foliar"
     },
     {
@@ -23586,7 +23645,9 @@
       "window": "Three sprays 14 d apart from budbreak"
      },
      "default": true,
-     "notes": [],
+     "notes": [
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
+     ],
      "id": "sirococcus-shoot-blight--mancozeb-propiconazole-foliar"
     },
     {
@@ -23681,7 +23742,8 @@
       "window": "Same timing"
      },
      "notes": [
-      "Rotate"
+      "Rotate",
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "kabatina-tip-blight--myclobutanil-pyraclostrobin-boscalid-or--foliar"
     }
@@ -24478,7 +24540,8 @@
      },
      "default": true,
      "notes": [
-      "May reduce infection. Untested"
+      "May reduce infection. Untested",
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "seiridium-canker--mancozeb-propiconazole-foliar"
     }
@@ -24895,7 +24958,8 @@
      },
      "default": true,
      "notes": [
-      "Also suppresses shoot blights"
+      "Also suppresses shoot blights",
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "canavirgella-needlecast--mancozeb-propiconazole-foliar"
     },
@@ -25063,7 +25127,8 @@
       "window": "Same timing"
      },
      "notes": [
-      "Not edible fruit"
+      "Not edible fruit",
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "cherry-leaf-spot-shot-hole--mancozeb-foliar"
     }
@@ -25197,7 +25262,9 @@
      },
      "preferred": true,
      "default": true,
-     "notes": [],
+     "notes": [
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
+     ],
      "id": "leaf-blister--mancozeb-dormantOil"
     },
     {
@@ -25859,7 +25926,9 @@
       "window": "Three every 14–21 d from new growth ½–2 inches long"
      },
      "default": true,
-     "notes": [],
+     "notes": [
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
+     ],
      "id": "brown-spot-needle-blight--mancozeb-propiconazole-foliar"
     },
     {
@@ -25957,7 +26026,9 @@
       "repeat": "Annually",
       "window": "Same timing"
      },
-     "notes": [],
+     "notes": [
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
+     ],
      "id": "red-band-needle-blight--mancozeb-propiconazole-foliar"
     }
    ],
@@ -26019,7 +26090,8 @@
      },
      "default": true,
      "notes": [
-      "Also suppresses shoot blights"
+      "Also suppresses shoot blights",
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "needlecasts-of-pine--mancozeb-propiconazole-foliar"
     },
@@ -26095,7 +26167,8 @@
      },
      "default": true,
      "notes": [
-      "Also suppresses shoot blights"
+      "Also suppresses shoot blights",
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "needlecasts-of-douglas-fir--mancozeb-propiconazole-foliar"
     },
@@ -26155,7 +26228,9 @@
       "window": "Three 14–21 d apart from budbreak"
      },
      "default": true,
-     "notes": [],
+     "notes": [
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
+     ],
      "id": "larch-needlecast--mancozeb-propiconazole-foliar"
     },
     {
@@ -26230,7 +26305,8 @@
      },
      "default": true,
      "notes": [
-      "Also suppresses shoot blight"
+      "Also suppresses shoot blight",
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "rhizosphaera-needlecast-of-spruce--mancozeb-propiconazole-foliar"
     },
@@ -26543,7 +26619,8 @@
       "window": "Three 14 d apart from budbreak, one after petal fall"
      },
      "notes": [
-      "Fruit of ornamental pear, hawthorn, quince, serviceberry"
+      "Fruit of ornamental pear, hawthorn, quince, serviceberry",
+      "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "cedar-apple-and-related-rusts--mancozeb-propiconazole-foliar"
     },
@@ -29451,6 +29528,334 @@
     11
    ],
    "bloomSensitive": true
+  },
+  {
+   "id": "elm-zigzag-sawfly",
+   "name": "Elm zigzag sawfly",
+   "category": "caterpillars-and-sawflies",
+   "hostIds": [
+    "elm"
+   ],
+   "symptoms": [],
+   "biology": [
+    "Invasive sawfly first found in North America in Virginia (2021), now in Maryland and neighboring states. Larvae feed in a zigzag pattern from the leaf edge inward, then consume whole leaves. Several generations a year can defoliate elms by late summer. Healthy elms usually recover from occasional defoliation, so treatment is rarely needed except on high-value or stressed trees. No insecticide is labeled specifically for it yet. Use products labeled for sawflies on trees and shrubs."
+   ],
+   "treatments": [
+    {
+     "applicationType": "cultural",
+     "title": "Look for zigzag feeding on elm leaves from May. Report new county finds to the state department of agriculture.",
+     "id": "elm-zigzag-sawfly--look-for-zigzag-feeding-on-elm-leaves-fr-cultural"
+    },
+    {
+     "applicationType": "mechanical",
+     "title": "On small trees, pick larvae off into soapy water.",
+     "id": "elm-zigzag-sawfly--on-small-trees-pick-larvae-off-into-soap-mechanical"
+    },
+    {
+     "applicationType": "fertilization",
+     "title": "Water and mulch defoliated elms to support recovery.",
+     "id": "elm-zigzag-sawfly--water-and-mulch-defoliated-elms-to-suppo-fertilization"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spinosad (foliar spray)",
+     "activeIngredient": "Spinosad",
+     "months": [
+      5,
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "repeat": "Per generation",
+      "window": "As soon as larvae are found feeding in spring, repeat for later generations"
+     },
+     "preferred": true,
+     "default": true,
+     "notes": [
+      "Use a product labeled for sawflies on trees"
+     ],
+     "id": "elm-zigzag-sawfly--spinosad-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bifenthrin or pyrethrins (foliar spray)",
+     "activeIngredient": "Bifenthrin or pyrethrins",
+     "months": [
+      5,
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "repeat": "Per generation",
+      "window": "Young larvae"
+     },
+     "notes": [
+      "Pyrethroid mite-flare risk"
+     ],
+     "id": "elm-zigzag-sawfly--bifenthrin-or-pyrethrins-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Dinotefuran (foliar spray)",
+     "activeIngredient": "Dinotefuran",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Larvae present"
+     },
+     "notes": [
+      "Effective in bioassays. Field data pending. Confirm the label allows foliar use on elm"
+     ],
+     "id": "elm-zigzag-sawfly--dinotefuran-foliar"
+    }
+   ],
+   "sources": [
+    "Virginia Cooperative Extension ENTO-543 (pubs.ext.vt.edu/ENTO/ento-543/ento-543.html)",
+    "USDA Forest Service pest alert",
+    "Illinois Extension (2025)"
+   ],
+   "activeMonths": [
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
+   "id": "beech-leaf-disease",
+   "name": "Beech leaf disease",
+   "category": "foliage-diseases-and-needlecasts",
+   "hostIds": [
+    "beech"
+   ],
+   "symptoms": [],
+   "biology": [
+    "Caused by a foliar nematode (Litylenchus crenatae mccannii). Dark green bands between the leaf veins, seen best from below, then thickened, leathery, crinkled leaves, bud abortion, thinning canopy and death of smaller trees within years. Nematodes overwinter in buds and move into new buds from late summer. Confirmed in Prince William County, VA (2021), spreading in Northern Virginia, and confirmed in at least 12 Maryland counties plus Baltimore City (MDA, 2025). There is no cure. Treatments suppress symptoms on individual high-value trees. Trees in dense beech stands are poor candidates for foliar treatment because untreated neighbors reinfest them."
+   ],
+   "treatments": [
+    {
+     "applicationType": "cultural",
+     "title": "Look for dark interveinal banding on leaves (seen best from below) and aborted buds. Report new finds to the state forest health program.",
+     "id": "beech-leaf-disease--look-for-dark-interveinal-banding-on-lea-cultural"
+    },
+    {
+     "applicationType": "soilCare",
+     "title": "Mulch the root zone and irrigate in drought to reduce stress.",
+     "id": "beech-leaf-disease--mulch-the-root-zone-and-irrigate-in-drou-soilCare"
+    },
+    {
+     "applicationType": "fertilization",
+     "title": "A summer root biostimulant may help offset stress. Avoid excess nitrogen.",
+     "id": "beech-leaf-disease--a-summer-root-biostimulant-may-help-offs-fertilization"
+    },
+    {
+     "applicationType": "replacement",
+     "title": "In dense stands, plan for loss of heavily affected trees. Remove hazardous dead beech.",
+     "id": "beech-leaf-disease--in-dense-stands-plan-for-loss-of-heavily-replacement"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fluopyram (foliar spray)",
+     "activeIngredient": "Fluopyram",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 2,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "Late May to mid-July, before nematodes move into buds in early August. CAES allows late May to late August"
+     },
+     "preferred": true,
+     "default": true,
+     "notes": [
+      "Only peer-reviewed treatment shown to suppress BLD. Best on isolated trees. Very toxic to aquatic life: no use near water or storm drains. Professional use. Rotate modes of action"
+     ],
+     "id": "beech-leaf-disease--fluopyram-foliar"
+    },
+    {
+     "applicationType": "soilDrench",
+     "title": "Potassium phosphite (soil drench)",
+     "activeIngredient": "Potassium phosphite",
+     "months": [
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 2,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "June and July, one month apart"
+     },
+     "preferred": true,
+     "notes": [
+      "Most support on small trees, and results vary by site. Improvement may take several years. Follow the product label rate"
+     ],
+     "id": "beech-leaf-disease--potassium-phosphite-soilDrench"
+    },
+    {
+     "applicationType": "microInjection",
+     "title": "Potassium phosphite (micro-injection)",
+     "activeIngredient": "Potassium phosphite",
+     "months": [
+      5,
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "After leaf expansion"
+     },
+     "notes": [
+      "Manufacturer trials (2024–2025) only. Independent replication pending"
+     ],
+     "id": "beech-leaf-disease--potassium-phosphite-microInjection"
+    }
+   ],
+   "sources": [
+    "Bartlett Tree Research Labs / USDA-ARS fluopyram study (2025, PMC12497451)",
+    "Connecticut Agricultural Experiment Station BLD management options (2025)",
+    "URI Cooperative Extension BLD updates (2023–2024)",
+    "Maryland Department of Agriculture press release, June 9, 2025",
+    "Virginia Cooperative Extension (2025)",
+    "Fairfax County BLD guidance"
+   ],
+   "activeMonths": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
+   "id": "boxwood-dieback",
+   "name": "Boxwood dieback",
+   "category": "blights",
+   "hostIds": [
+    "boxwood"
+   ],
+   "symptoms": [],
+   "biology": [
+    "Caused by the fungus Colletotrichum theobromicola. Leaves bleach to tan, often on scattered branches, with dark streaks under the bark of affected stems. It spreads on infected nursery stock and may enter through pruning cuts. Do not confuse it with boxwood blight (black stem lesions, rapid leaf drop) or Volutella blight. Phytophthora root rot programs do not control it. No preventive spray is recommended by Virginia Cooperative Extension. Lab tests rank difenoconazole + pydiflumetofen and the strobilurin mixes highest, but these are not field-validated."
+   ],
+   "treatments": [
+    {
+     "applicationType": "replacement",
+     "title": "Remove and destroy symptomatic plants. Pruning out dead twigs does not control it.",
+     "id": "boxwood-dieback--remove-and-destroy-symptomatic-plants-pr-replacement"
+    },
+    {
+     "applicationType": "mechanical",
+     "title": "Disinfect pruning tools between plants. Avoid unnecessary wounding and pruning in wet weather.",
+     "id": "boxwood-dieback--disinfect-pruning-tools-between-plants-a-mechanical"
+    },
+    {
+     "applicationType": "cultural",
+     "title": "Inspect and isolate new boxwood. Buy from nurseries with clean-stock programs.",
+     "id": "boxwood-dieback--inspect-and-isolate-new-boxwood-buy-from-cultural"
+    },
+    {
+     "applicationType": "cultural",
+     "title": "Send samples to a diagnostic lab to separate dieback from blight and Volutella.",
+     "id": "boxwood-dieback--send-samples-to-a-diagnostic-lab-to-sepa-cultural"
+    }
+   ],
+   "sources": [
+    "NC IPM / NC State Extension boxwood dieback alert (2019)",
+    "LSU fungicide screening (2022)",
+    "Purdue Landscape Report",
+    "Virginia Cooperative Extension position as reported by Piedmont Master Gardeners"
+   ],
+   "activeMonths": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "curable": false,
+   "warnings": [
+    "No effective chemical treatment: validated. No preventive spray is recommended. Any fungicide use is experimental."
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
+   "id": "jumping-worms",
+   "name": "Jumping worms",
+   "category": "wildlife-and-other-pests",
+   "hostIds": [
+    "site"
+   ],
+   "symptoms": [],
+   "biology": [
+    "Invasive Amynthas earthworms, now widespread in Virginia and Maryland. They turn mulch and topsoil into loose, coffee-ground-like castings, strip organic matter, and leave shallow-rooted plants and new plantings drought-prone. Adults die in winter, and cocoons in the soil carry them to new sites in mulch, compost and plant soil."
+   ],
+   "treatments": [
+    {
+     "applicationType": "mechanical",
+     "title": "Do not move mulch, compost or soil from infested beds. Clean soil off tools and equipment between sites.",
+     "id": "jumping-worms--do-not-move-mulch-compost-or-soil-from-i-mechanical"
+    },
+    {
+     "applicationType": "cultural",
+     "title": "Inspect the root balls of incoming plants for worms and castings.",
+     "id": "jumping-worms--inspect-the-root-balls-of-incoming-plant-cultural"
+    },
+    {
+     "applicationType": "soilCare",
+     "title": "Use fine, well-aged mulch, irrigate new plantings closely, and rebuild organic matter.",
+     "id": "jumping-worms--use-fine-well-aged-mulch-irrigate-new-pl-soilCare"
+    }
+   ],
+   "sources": [
+    "University of Maryland Extension",
+    "Virginia Cooperative Extension"
+   ],
+   "activeMonths": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "curable": false,
+   "warnings": [
+    "No effective chemical treatment: labeled."
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
   },
   {
    "id": "wetwood",
