@@ -259,13 +259,14 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 ### Phytophthora root rot
 - **Hosts:** general
 - **About:** Phosphite (phosphonate) trunk injection is a current option for valuable trees. A meta-analysis of phosphite treatments on temperate trees found reduced Phytophthora symptoms in nearly all experiments, and field trials on other Phytophthora tree diseases show strong suppression of trunk lesions. High concentrations can scorch leaves.
-- **Sources:** Bangor University systematic review of biochemical control of Phytophthora in temperate trees; Kauri Protection phosphite trunk injection trials (NZ)
+- **Sources:** Bangor University systematic review of biochemical control of Phytophthora in temperate trees; Kauri Protection phosphite trunk injection trials (NZ); Michigan State University (Hausbeck) Segovis trials; Plant Disease Management Reports (oxathiapiprolin); Segovis label
 
 **Chemical**
 
 | | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
 |---|---|---|---|---|---|---|---|---|
 | | Micro-injection | Potassium phosphite | Apr–Jun, Sep–Oct | 1–2 | — | Annually | Spring after leaf-out and/or early fall, soil moist | Use a phosphite labeled for trunk injection. Leaf scorch possible at high concentrations. Evidence is mostly from other Phytophthora systems |
+| ★ | Soil drench | Oxathiapiprolin | Apr, Aug–Sep | 1–2 | — | Annually | Preventive drench before disease develops, spring and late summer | Newer FRAC 49 fungicide, highly effective on Phytophthora root rot in university trials. Labeled for commercial landscapes. Rotate or tank-mix with phosphite or mefenoxam |
 
 ## Cankers
 
@@ -303,6 +304,59 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 | | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
 |---|---|---|---|---|---|---|---|---|
 | | Micro-injection | Tebuconazole or propiconazole | Sep–Oct, Mar | 1 | — | Annually | Preventive, fall or early spring before budbreak per label | Ornamental crabapple only, not edible fruit. Independent efficacy data limited |
+
+## Blights
+
+### Fire blight (Erwinia)
+- **Hosts:** pear
+- **About:** Extension guidance (Wisconsin 2025, UC): chemical control is often impractical on large landscape trees, so cultural control comes first. Streptomycin is the most effective bloom spray where labeled. Callery pear strains, including 'Bradford', are now readily infected, and Callery pear is invasive, so steer clients away from planting it.
+- **Sources:** University of Wisconsin Extension, Fire Blight (2025); University of Missouri IPM, Fire Blight on Ornamental Pear; UC Cooperative Extension fire blight presentation (2017); University of Arkansas FSA-7534
+
+**Cultural**
+- Fertility: Avoid heavy nitrogen and heavy summer pruning, which drive succulent, susceptible growth.
+- Prune: Remove extensive infections in the dormant season. Disinfect tools between cuts.
+- Plant selection: Replace with fire-blight-resistant crabapple, serviceberry and pear cultivars. Do not plant invasive Callery pear.
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Foliar spray | Streptomycin | Apr | 2–4 | 3–4 d | Annually | During bloom when weather favors infection. Not after bloom except within 24 h of hail or wind-driven rain | Confirm ornamental use is on the label. Never spray oozing shoots (breeds resistance) |
+
+## Foliage diseases and needlecasts
+
+### Anthracnose
+- **Hosts:** general
+- **About:** Chlorothalonil, thiophanate-methyl and copper are the standard extension-listed protectants for sycamore and dogwood anthracnose. For dogwood, use a systemic (propiconazole or tebuconazole) at budbreak, then a protectant about 2 weeks later, with complete coverage. Cultural measures come first, and resistant dogwoods are available.
+- **Sources:** Colorado State Extension, Sycamore anthracnose; University of Arkansas Plant Health Clinic (dogwood anthracnose); University of Illinois Extension
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| ★ | Foliar spray | Chlorothalonil or thiophanate-methyl | Apr–Jun | 2–3 | 7–14 d | Annually | Protectant from budbreak as leaves emerge, about 2 wk after a systemic at budbreak | Rotate FRAC groups (M5 / 1) |
+
+### Spot anthracnose of dogwood (Elsinoe)
+- **Hosts:** dogwood
+- **About:** Illinois and Arkansas extension list chlorothalonil and thiophanate-methyl protectants as well as triazoles.
+- **Sources:** University of Illinois Extension; University of Arkansas Plant Health Clinic
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Foliar spray | Chlorothalonil or thiophanate-methyl | Apr–May | 2–3 | 14 d | Annually | From budbreak or bloom | Rotate with propiconazole |
+
+### Leaf spot (various fungi)
+- **Hosts:** general
+- **About:** Chlorothalonil and thiophanate-methyl are standard broad-spectrum protectants for landscape leaf spots, alongside the manual's options.
+- **Sources:** Colorado State Extension; University of Illinois Extension
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Foliar spray | Chlorothalonil or thiophanate-methyl | Apr–Aug | 2–4 | 14 d | Annually | From budbreak in wet springs | Rotate FRAC groups |
 
 ## Blights
 
@@ -387,6 +441,61 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 |---|---|---|---|---|---|---|---|---|
 | ★✓ | Cut surface | Triclopyr or glyphosate | Jul–Sep | 1 | — | Annually | Hack-and-squirt, mid to late summer (before fall color): downward cuts spaced around the trunk, about one per inch of diameter, minimum 2 | Do not girdle completely. Living tissue between cuts carries herbicide to the roots |
 | | Foliar spray | Triclopyr or glyphosate | Jul–Aug | 1 | — | Annually | Low, dense sprouts and seedlings first, then hack-and-squirt larger stems | Keep spray off desirable plants |
+
+# Insects and mites
+
+## Ticks and nuisance insects
+
+### Ticks
+- **Hosts:** site
+- **About:** Integrated tick management: rodent-targeted fipronil bait boxes cut tick infection in mice and reduce questing nymphs, and work best combined with a broadcast fungal biopesticide (Metarhizium) for a 52–95% reduction in Connecticut trials. Caution: a randomized trial of bait boxes alone (622 Connecticut households) found no reduction in household tick encounters or disease, so sell them as part of a program, not alone.
+- **Sources:** Connecticut Agricultural Experiment Station integrated control of Ixodes scapularis; Williams et al., J. Medical Entomology (2022), Guilford CT; CDC TickNET randomized trial (Hinckley et al. 2021); Northeast IPM host-targeted tick control
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Granular / bait | Fipronil rodent bait boxes | Apr, Jul | 2 | — | Annually | Spring (nymph season) and mid-summer, at woodland edges, stone walls and brush | Licensed professional product. Combine with other measures |
+| | Foliar spray | Metarhizium brunneum (fungal biopesticide) | May–Jun | 1–2 | — | Annually | Broadcast to edge habitat during nymph activity | Low-toxicity option. Most effective with bait boxes |
+
+### Mosquitoes
+- **Hosts:** site
+- **About:** Larviciding standing water that can't be emptied (rain barrels, ponds, drains) with Bti is a low-risk standard alongside source reduction.
+- **Sources:** EPA and CDC mosquito control guidance
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Granular / bait | Bacillus thuringiensis israelensis (Bti) | May–Sep | 4–5 | 30 d | Annually | Dunks or granules in standing water that can't be emptied | Specific to mosquito and black fly larvae. Safe for fish, pets and wildlife |
+
+# Vegetation management
+
+## Vegetation management
+
+### Japanese knotweed
+- **Hosts:** site
+- **About:** Late-season timing is what kills the rhizomes. After flowering (September–October), knotweed sends sugars to its roots and carries herbicide with them. If cut, wait at least 8 weeks before spraying regrowth. Results may not show until the next spring.
+- **Sources:** Penn State Extension, Japanese knotweed; Oregon State Extension (Multnomah Co.); University of Kentucky roadside trial (2006); Whatcom County Noxious Weed Board
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| ★ | Foliar spray | Glyphosate | Sep–Oct | 1 | — | Annually | After flowering, before frost. At least 8 wk after any cutting | No soil activity, so safe near trees. Repeat for several seasons |
+| | Foliar spray | Imazapyr | Jul–Oct | 1 | — | Annually | Late June to mid-October | **Soil-active: can injure nearby trees through their roots.** Avoid within tree root zones |
+
+### Phragmites
+- **Hosts:** site
+- **About:** Imazapyr gives the best residual control (June–September). Glyphosate or glyphosate + imazapyr works late summer after bloom to first frost. Use aquatic-labeled formulations near water and never spray over open water.
+- **Sources:** Lancaster County NE Phragmites guide; Kansas State University; Great Lakes Phragmites Collaborative herbicide quick guide; Penn State Extension
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| ★ | Foliar spray | Imazapyr | Jun–Sep | 1 | — | Annually | Full leaf elongation through early fall | Aquatic-labeled near water. Soil-active: keep away from desirable tree roots |
+| | Foliar spray | Glyphosate | Aug–Oct | 1 | — | Annually | After full bloom, before first killing frost | Aquatic formulation near water |
 
 # Wildlife and other pests
 

@@ -44,6 +44,10 @@
    "name": "Cut stump / hack-and-squirt"
   },
   {
+   "id": "bioDrench",
+   "name": "Biological soil drench (beneficial nematodes)"
+  },
+  {
    "id": "biocontrol",
    "name": "Biological control release"
   },
@@ -1678,10 +1682,35 @@
      },
      "notes": [],
      "id": "aphids-general--imidacloprid-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "As needed",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "aphids-general--afidopyropen-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "generalist": true,
    "activeMonths": [
@@ -1794,10 +1823,34 @@
       "Not when flowering or about to flower"
      ],
      "id": "crape-myrtle-aphid--imidacloprid-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "As needed",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "crape-myrtle-aphid--afidopyropen-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -1929,10 +1982,35 @@
      },
      "notes": [],
      "id": "giant-conifer-aphids--pyrethrins-or-neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "As needed",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "giant-conifer-aphids--afidopyropen-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -2020,10 +2098,33 @@
       "Not on plants in bloom"
      ],
      "id": "tuliptree-aphid--dinotefuran-basalBark"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      4,
+      5,
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "Annually",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "tuliptree-aphid--afidopyropen-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -2166,10 +2267,31 @@
      },
      "notes": [],
      "id": "woolly-aphids--pyrethrins-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "As needed",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "woolly-aphids--afidopyropen-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -6245,13 +6367,38 @@
       "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
      ],
      "id": "box-tree-moth--bacillus-thuringiensis-kurstaki-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "box-tree-moth--cyantraniliprole-foliar"
     }
    ],
    "sources": [
     "2024 Southeast Pest Management Recommendations",
     "Update: VDACS press release, July 24, 2025",
     "Update: University of Maryland Extension, Invasive Insects",
-    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -10081,10 +10228,34 @@
      },
      "notes": [],
      "id": "lace-bugs-general--imidacloprid-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "lace-bugs-general--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -10311,10 +10482,34 @@
       "Not on plants in flower"
      ],
      "id": "azalea-lace-bug--imidacloprid-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "azalea-lace-bug--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -11031,10 +11226,33 @@
      },
      "notes": [],
      "id": "black-vine-weevil--dinotefuran-soilDrench"
+    },
+    {
+     "applicationType": "bioDrench",
+     "title": "Entomopathogenic nematodes (Heterorhabditis) (biological soil drench)",
+     "activeIngredient": "Entomopathogenic nematodes (Heterorhabditis)",
+     "months": [
+      4,
+      5,
+      8,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "repeat": "Annually",
+      "window": "Larvae in the root zone: late summer to mid-October, and spring once soil is at least 60°F"
+     },
+     "notes": [
+      "Keep soil moist, not soggy, for 2 weeks after. Steinernema kraussei works in cooler soil. Kills larvae, complementing adult sprays"
+     ],
+     "id": "black-vine-weevil--entomopathogenic-nematodes-bioDrench"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -11288,10 +11506,33 @@
      },
      "notes": [],
      "id": "two-banded-japanese-weevil--pyrethrins-foliar"
+    },
+    {
+     "applicationType": "bioDrench",
+     "title": "Entomopathogenic nematodes (Heterorhabditis) (biological soil drench)",
+     "activeIngredient": "Entomopathogenic nematodes (Heterorhabditis)",
+     "months": [
+      4,
+      5,
+      8,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "repeat": "Annually",
+      "window": "Larvae in the root zone: late summer to mid-October, and spring once soil is at least 60°F"
+     },
+     "notes": [
+      "Keep soil moist, not soggy, for 2 weeks after. Steinernema kraussei works in cooler soil. Kills larvae, complementing adult sprays"
+     ],
+     "id": "two-banded-japanese-weevil--entomopathogenic-nematodes-bioDrench"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     6,
@@ -11601,10 +11842,34 @@
      },
      "notes": [],
      "id": "mealybugs-general--imidacloprid-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "As needed",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "mealybugs-general--afidopyropen-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "generalist": true,
    "activeMonths": [
@@ -11781,10 +12046,33 @@
      },
      "notes": [],
      "id": "taxus-mealybug--imidacloprid-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "Per generation",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "taxus-mealybug--afidopyropen-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -12107,10 +12395,34 @@
      },
      "notes": [],
      "id": "whiteflies-general--imidacloprid-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "As needed",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "whiteflies-general--afidopyropen-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "generalist": true,
    "activeMonths": [
@@ -12290,10 +12602,33 @@
      },
      "notes": [],
      "id": "azalea-whitefly--dinotefuran-soilDrench"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "Per generation",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "azalea-whitefly--afidopyropen-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -12580,10 +12915,30 @@
      },
      "notes": [],
      "id": "arborvitae-leafminer--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "arborvitae-leafminer--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -12660,10 +13015,30 @@
       "Not on plants in flower"
      ],
      "id": "azalea-leafminer--imidacloprid-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      5,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "azalea-leafminer--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -12797,10 +13172,30 @@
      },
      "notes": [],
      "id": "birch-leafminer--imidacloprid-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "birch-leafminer--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -12932,10 +13327,30 @@
      },
      "notes": [],
      "id": "boxwood-leafminer--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "boxwood-leafminer--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -13028,10 +13443,30 @@
       "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "hemlock-needleminers--emamectin-benzoate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      4,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "hemlock-needleminers--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -13125,10 +13560,30 @@
      },
      "notes": [],
      "id": "juniper-leafminers--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      5,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "juniper-leafminers--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -13239,10 +13694,30 @@
      },
      "notes": [],
      "id": "locust-leafminer--imidacloprid-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      5,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "locust-leafminer--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -13302,10 +13777,31 @@
      "preferred": true,
      "notes": [],
      "id": "magnolia-serpentine-leafminer--spinosad-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "magnolia-serpentine-leafminer--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     6,
@@ -13434,10 +13930,29 @@
      },
      "notes": [],
      "id": "native-holly-leafminer--imidacloprid-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "native-holly-leafminer--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -13557,10 +14072,31 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "oak-leafminers--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      5,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "oak-leafminers--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -13673,10 +14209,30 @@
       "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "tupelo-leafminer--emamectin-benzoate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      5,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "tupelo-leafminer--cyantraniliprole-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -14378,10 +14934,53 @@
      },
      "notes": [],
      "id": "spider-mites-cool-season--horticultural-oil-insecticidal-soap-or-n-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Etoxazole or hexythiazox (foliar spray)",
+     "activeIngredient": "Etoxazole or hexythiazox",
+     "months": [
+      4,
+      5,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Early, while mites are few (eggs and immatures); long residual"
+     },
+     "notes": [
+      "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label"
+     ],
+     "id": "spider-mites-cool-season--etoxazole-or-hexythiazox-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate or acequinocyl (foliar spray)",
+     "activeIngredient": "Fenpyroximate or acequinocyl",
+     "months": [
+      4,
+      5,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Fast knockdown of building populations"
+     },
+     "notes": [
+      "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin"
+     ],
+     "id": "spider-mites-cool-season--fenpyroximate-or-acequinocyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "generalist": true,
    "activeMonths": [
@@ -14511,10 +15110,51 @@
      },
      "notes": [],
      "id": "boxwood-spider-mite--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Etoxazole or hexythiazox (foliar spray)",
+     "activeIngredient": "Etoxazole or hexythiazox",
+     "months": [
+      4,
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Early, while mites are few (eggs and immatures); long residual"
+     },
+     "notes": [
+      "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label"
+     ],
+     "id": "boxwood-spider-mite--etoxazole-or-hexythiazox-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate or acequinocyl (foliar spray)",
+     "activeIngredient": "Fenpyroximate or acequinocyl",
+     "months": [
+      4,
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Fast knockdown of building populations"
+     },
+     "notes": [
+      "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin"
+     ],
+     "id": "boxwood-spider-mite--fenpyroximate-or-acequinocyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -14629,10 +15269,49 @@
      },
      "notes": [],
      "id": "southern-red-mite--insecticidal-soap-or-neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Etoxazole or hexythiazox (foliar spray)",
+     "activeIngredient": "Etoxazole or hexythiazox",
+     "months": [
+      4,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Early, while mites are few (eggs and immatures); long residual"
+     },
+     "notes": [
+      "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label"
+     ],
+     "id": "southern-red-mite--etoxazole-or-hexythiazox-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate or acequinocyl (foliar spray)",
+     "activeIngredient": "Fenpyroximate or acequinocyl",
+     "months": [
+      4,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Fast knockdown of building populations"
+     },
+     "notes": [
+      "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin"
+     ],
+     "id": "southern-red-mite--fenpyroximate-or-acequinocyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     3,
@@ -14783,10 +15462,49 @@
      },
      "notes": [],
      "id": "spruce-spider-mite--insecticidal-soap-or-neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Etoxazole or hexythiazox (foliar spray)",
+     "activeIngredient": "Etoxazole or hexythiazox",
+     "months": [
+      4,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Early, while mites are few (eggs and immatures); long residual"
+     },
+     "notes": [
+      "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label"
+     ],
+     "id": "spruce-spider-mite--etoxazole-or-hexythiazox-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate or acequinocyl (foliar spray)",
+     "activeIngredient": "Fenpyroximate or acequinocyl",
+     "months": [
+      4,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Fast knockdown of building populations"
+     },
+     "notes": [
+      "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin"
+     ],
+     "id": "spruce-spider-mite--fenpyroximate-or-acequinocyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     3,
@@ -14939,10 +15657,51 @@
      },
      "notes": [],
      "id": "spider-mites-warm-season--insecticidal-soap-or-neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Etoxazole or hexythiazox (foliar spray)",
+     "activeIngredient": "Etoxazole or hexythiazox",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Early, while mites are few (eggs and immatures); long residual"
+     },
+     "notes": [
+      "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label"
+     ],
+     "id": "spider-mites-warm-season--etoxazole-or-hexythiazox-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate or acequinocyl (foliar spray)",
+     "activeIngredient": "Fenpyroximate or acequinocyl",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Fast knockdown of building populations"
+     },
+     "notes": [
+      "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin"
+     ],
+     "id": "spider-mites-warm-season--fenpyroximate-or-acequinocyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "generalist": true,
    "activeMonths": [
@@ -15005,10 +15764,51 @@
       "Max 2 per yr"
      ],
      "id": "european-red-mite--bifenazate-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Etoxazole or hexythiazox (foliar spray)",
+     "activeIngredient": "Etoxazole or hexythiazox",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Early, while mites are few (eggs and immatures); long residual"
+     },
+     "notes": [
+      "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label"
+     ],
+     "id": "european-red-mite--etoxazole-or-hexythiazox-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate or acequinocyl (foliar spray)",
+     "activeIngredient": "Fenpyroximate or acequinocyl",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Fast knockdown of building populations"
+     },
+     "notes": [
+      "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin"
+     ],
+     "id": "european-red-mite--fenpyroximate-or-acequinocyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -15138,10 +15938,49 @@
      },
      "notes": [],
      "id": "honeylocust-spider-mite--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Etoxazole or hexythiazox (foliar spray)",
+     "activeIngredient": "Etoxazole or hexythiazox",
+     "months": [
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Early, while mites are few (eggs and immatures); long residual"
+     },
+     "notes": [
+      "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label"
+     ],
+     "id": "honeylocust-spider-mite--etoxazole-or-hexythiazox-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate or acequinocyl (foliar spray)",
+     "activeIngredient": "Fenpyroximate or acequinocyl",
+     "months": [
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Fast knockdown of building populations"
+     },
+     "notes": [
+      "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin"
+     ],
+     "id": "honeylocust-spider-mite--fenpyroximate-or-acequinocyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     6,
@@ -15250,10 +16089,51 @@
      },
      "notes": [],
      "id": "oak-spider-mites--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Etoxazole or hexythiazox (foliar spray)",
+     "activeIngredient": "Etoxazole or hexythiazox",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Early, while mites are few (eggs and immatures); long residual"
+     },
+     "notes": [
+      "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label"
+     ],
+     "id": "oak-spider-mites--etoxazole-or-hexythiazox-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate or acequinocyl (foliar spray)",
+     "activeIngredient": "Fenpyroximate or acequinocyl",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Fast knockdown of building populations"
+     },
+     "notes": [
+      "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin"
+     ],
+     "id": "oak-spider-mites--fenpyroximate-or-acequinocyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     6,
@@ -15441,10 +16321,51 @@
      },
      "notes": [],
      "id": "two-spotted-spider-mite--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Etoxazole or hexythiazox (foliar spray)",
+     "activeIngredient": "Etoxazole or hexythiazox",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Early, while mites are few (eggs and immatures); long residual"
+     },
+     "notes": [
+      "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label"
+     ],
+     "id": "two-spotted-spider-mite--etoxazole-or-hexythiazox-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate or acequinocyl (foliar spray)",
+     "activeIngredient": "Fenpyroximate or acequinocyl",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Fast knockdown of building populations"
+     },
+     "notes": [
+      "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin"
+     ],
+     "id": "two-spotted-spider-mite--fenpyroximate-or-acequinocyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     6,
@@ -15882,7 +16803,8 @@
    ],
    "symptoms": [],
    "biology": [
-    "Deer (blacklegged) tick and American dog tick in landscape edges, brush and tall grass. Wear permethrin-treated clothing in tick habitat. Check applicator license requirements."
+    "Deer (blacklegged) tick and American dog tick in landscape edges, brush and tall grass. Wear permethrin-treated clothing in tick habitat. Check applicator license requirements.",
+    "Update (Oct 2026): Integrated tick management: rodent-targeted fipronil bait boxes cut tick infection in mice and reduce questing nymphs, and work best combined with a broadcast fungal biopesticide (Metarhizium) for a 52–95% reduction in Connecticut trials. Caution: a randomized trial of bait boxes alone (622 Connecticut households) found no reduction in household tick encounters or disease, so sell them as part of a program, not alone."
    ],
    "treatments": [
     {
@@ -15975,10 +16897,52 @@
      },
      "notes": [],
      "id": "ticks--pyrethrins-foliar"
+    },
+    {
+     "applicationType": "granular",
+     "title": "Fipronil rodent bait boxes (granular / bait)",
+     "activeIngredient": "Fipronil rodent bait boxes",
+     "months": [
+      4,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 2,
+      "repeat": "Annually",
+      "window": "Spring (nymph season) and mid-summer, at woodland edges, stone walls and brush"
+     },
+     "notes": [
+      "Licensed professional product. Combine with other measures"
+     ],
+     "id": "ticks--fipronil-rodent-bait-boxes-granular"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Metarhizium brunneum (fungal biopesticide) (foliar spray)",
+     "activeIngredient": "Metarhizium brunneum (fungal biopesticide)",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "repeat": "Annually",
+      "window": "Broadcast to edge habitat during nymph activity"
+     },
+     "notes": [
+      "Low-toxicity option. Most effective with bait boxes"
+     ],
+     "id": "ticks--metarhizium-brunneum-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: Connecticut Agricultural Experiment Station integrated control of Ixodes scapularis",
+    "Update: Williams et al., J. Medical Entomology (2022), Guilford CT",
+    "Update: CDC TickNET randomized trial (Hinckley et al. 2021)",
+    "Update: Northeast IPM host-targeted tick control"
    ],
    "activeMonths": [
     3,
@@ -16001,7 +16965,8 @@
    ],
    "symptoms": [],
    "biology": [
-    "Adults rest in dense, shaded vegetation. State licensing applies."
+    "Adults rest in dense, shaded vegetation. State licensing applies.",
+    "Update (Oct 2026): Larviciding standing water that can't be emptied (rain barrels, ponds, drains) with Bti is a low-risk standard alongside source reduction."
    ],
    "treatments": [
     {
@@ -16051,10 +17016,34 @@
      },
      "notes": [],
      "id": "mosquitoes--pyrethrins-foliar"
+    },
+    {
+     "applicationType": "granular",
+     "title": "Bacillus thuringiensis israelensis (Bti) (granular / bait)",
+     "activeIngredient": "Bacillus thuringiensis israelensis (Bti)",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 4,
+      "visitsMax": 5,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "Dunks or granules in standing water that can't be emptied"
+     },
+     "notes": [
+      "Specific to mosquito and black fly larvae. Safe for fish, pets and wildlife"
+     ],
+     "id": "mosquitoes--bacillus-thuringiensis-israelensis-granular"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: EPA and CDC mosquito control guidance"
    ],
    "activeMonths": [
     5,
@@ -16270,10 +17259,32 @@
      },
      "notes": [],
      "id": "armored-scales-general--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "armored-scales-general--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "generalist": true,
    "activeMonths": [
@@ -16359,10 +17370,32 @@
       "Max 4 oil per season. 1% oil on sensitive species"
      ],
      "id": "bamboo-scales--horticultural-oil-dormantOil"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "bamboo-scales--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -16461,10 +17494,31 @@
      },
      "notes": [],
      "id": "black-pineleaf-scale--bifenthrin-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      6,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "black-pineleaf-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -16640,10 +17694,31 @@
      },
      "notes": [],
      "id": "cryptomeria-scale--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      6,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "cryptomeria-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -16823,10 +17898,31 @@
      },
      "notes": [],
      "id": "elongate-hemlock-scale--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      4,
+      5,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "elongate-hemlock-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -17016,10 +18112,30 @@
      },
      "notes": [],
      "id": "euonymus-scale--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "euonymus-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -17145,10 +18261,31 @@
      },
      "notes": [],
      "id": "false-oleander-scale--horticultural-oil-insecticidal-soap-or-p-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      6,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "false-oleander-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -17320,10 +18457,30 @@
      },
      "notes": [],
      "id": "gloomy-scale--dinotefuran-soilDrench"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "gloomy-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     6,
@@ -17452,10 +18609,30 @@
      },
      "notes": [],
      "id": "golden-oak-scale--bifenthrin-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "golden-oak-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -17596,10 +18773,29 @@
      },
      "notes": [],
      "id": "hemlock-scale--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "hemlock-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -17694,10 +18890,30 @@
      },
      "notes": [],
      "id": "holly-pit-scale--horticultural-oil-insecticidal-soap-or-p-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "holly-pit-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -17875,10 +19091,30 @@
      },
      "notes": [],
      "id": "japanese-maple-scale--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      6,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "japanese-maple-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -18030,10 +19266,30 @@
      },
      "notes": [],
      "id": "juniper-scale--dinotefuran-soilDrench"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "juniper-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -18162,10 +19418,30 @@
      },
      "notes": [],
      "id": "maskell-scale--bifenthrin-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "maskell-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -18298,10 +19574,31 @@
      },
      "notes": [],
      "id": "minute-cypress-scale--bifenthrin-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      3,
+      4,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "minute-cypress-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     3,
@@ -18467,10 +19764,29 @@
      },
      "notes": [],
      "id": "obscure-scale--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "obscure-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     6,
@@ -18630,10 +19946,30 @@
      },
      "notes": [],
      "id": "oleander-scale--dinotefuran-basalBark"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "oleander-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -18792,10 +20128,30 @@
      },
      "notes": [],
      "id": "oystershell-scale--dinotefuran-soilDrench"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "oystershell-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -18930,10 +20286,30 @@
      },
      "notes": [],
      "id": "pine-needle-scale--insecticidal-soap-pyrethrins-or-bifenthr-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "pine-needle-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -19112,10 +20488,30 @@
       "Labeled for edible fruit"
      ],
      "id": "san-jose-scale--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "san-jose-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -19249,10 +20645,29 @@
      },
      "notes": [],
      "id": "scurfy-scale--bifenthrin-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "scurfy-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -19399,10 +20814,30 @@
      },
      "notes": [],
      "id": "tea-scale--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      4,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "tea-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -19522,10 +20957,31 @@
      },
      "notes": [],
      "id": "walnut-scale--horticultural-oil-or-pyrethrins-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      6,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "walnut-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     6,
@@ -19605,10 +21061,31 @@
      "preferred": true,
      "notes": [],
      "id": "wax-myrtle-scale--horticultural-oil-dormantOil"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      6,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "wax-myrtle-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -19751,10 +21228,30 @@
      },
      "notes": [],
      "id": "white-peach-scale--bifenthrin-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      5,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "white-peach-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -19801,10 +21298,30 @@
      "default": true,
      "notes": [],
      "id": "white-pine-bast-scale--dinotefuran-basalBark"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "white-pine-bast-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -19972,10 +21489,32 @@
      },
      "notes": [],
      "id": "white-prunicola-scale--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spirotetramat (foliar spray)",
+     "activeIngredient": "Spirotetramat",
+     "months": [
+      4,
+      5,
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Per generation",
+      "window": "At crawlers, on actively growing plants (two-way systemic)"
+     },
+     "notes": [
+      "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales"
+     ],
+     "id": "white-prunicola-scale--spirotetramat-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -24096,7 +25635,8 @@
     "Blossoms wilt; fruit mummifies"
    ],
    "biology": [
-    "Blighted new shoots bend into a shepherd's crook. Leaves and shoots turn black as if burned. Twig, branch and stem cankers can girdle the plant part. Paclobutrazol applied to soil may reduce the number and severity of shoot infections."
+    "Blighted new shoots bend into a shepherd's crook. Leaves and shoots turn black as if burned. Twig, branch and stem cankers can girdle the plant part. Paclobutrazol applied to soil may reduce the number and severity of shoot infections.",
+    "Update (Oct 2026): Extension guidance (Wisconsin 2025, UC): chemical control is often impractical on large landscape trees, so cultural control comes first. Streptomycin is the most effective bloom spray where labeled. Callery pear strains, including 'Bradford', are now readily infected, and Callery pear is invasive, so steer clients away from planting it."
    ],
    "treatments": [
     {
@@ -24183,10 +25723,48 @@
       "Reduces shoot infections. Not on dogwood"
      ],
      "id": "fire-blight--paclobutrazol-soilDrench"
+    },
+    {
+     "applicationType": "fertilization",
+     "title": "Avoid heavy nitrogen and heavy summer pruning, which drive succulent, susceptible growth.",
+     "id": "fire-blight--avoid-heavy-nitrogen-and-heavy-summer-pr-fertilization"
+    },
+    {
+     "applicationType": "pruning",
+     "title": "Remove extensive infections in the dormant season. Disinfect tools between cuts.",
+     "id": "fire-blight--remove-extensive-infections-in-the-dorma-pruning"
+    },
+    {
+     "applicationType": "cultural",
+     "title": "Replace with fire-blight-resistant crabapple, serviceberry and pear cultivars. Do not plant invasive Callery pear.",
+     "id": "fire-blight--replace-with-fire-blight-resistant-craba-cultural"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Streptomycin (foliar spray)",
+     "activeIngredient": "Streptomycin",
+     "months": [
+      4
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 4,
+      "interval": "3–4 d",
+      "repeat": "Annually",
+      "window": "During bloom when weather favors infection. Not after bloom except within 24 h of hail or wind-driven rain"
+     },
+     "notes": [
+      "Confirm ornamental use is on the label. Never spray oozing shoots (breeds resistance)"
+     ],
+     "id": "fire-blight--streptomycin-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: University of Wisconsin Extension, Fire Blight (2025)",
+    "Update: University of Missouri IPM, Fire Blight on Ornamental Pear",
+    "Update: UC Cooperative Extension fire blight presentation (2017)",
+    "Update: University of Arkansas FSA-7534"
    ],
    "activeMonths": [
     3,
@@ -25401,7 +26979,8 @@
    ],
    "biology": [
     "Prevalent in cool, moist weather. Summer infections only matter where that weather continues. Angular, water-soaked lesions often follow the leaf veins. Can cause shoot blight and twig canker on sycamore and dogwood.",
-    "Update (Oct 2026): Trunk-injected triazoles (propiconazole, tebuconazole) are labeled for anthracnose on shade trees and avoid canopy spraying on large trees. Independent efficacy data is limited, so use them as a preventive program alongside sanitation."
+    "Update (Oct 2026): Trunk-injected triazoles (propiconazole, tebuconazole) are labeled for anthracnose on shade trees and avoid canopy spraying on large trees. Independent efficacy data is limited, so use them as a preventive program alongside sanitation.",
+    "Update (Oct 2026): Chlorothalonil, thiophanate-methyl and copper are the standard extension-listed protectants for sycamore and dogwood anthracnose. For dogwood, use a systemic (propiconazole or tebuconazole) at budbreak, then a protectant about 2 weeks later, with complete coverage. Cultural measures come first, and resistant dogwoods are available."
    ],
    "treatments": [
     {
@@ -25505,12 +27084,37 @@
       "Labeled injectable. Independent efficacy data limited. FRAC 3: rotate with non-triazoles"
      ],
      "id": "anthracnose--propiconazole-or-tebuconazole-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil or thiophanate-methyl (foliar spray)",
+     "activeIngredient": "Chlorothalonil or thiophanate-methyl",
+     "months": [
+      4,
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–14 d",
+      "repeat": "Annually",
+      "window": "Protectant from budbreak as leaves emerge, about 2 wk after a systemic at budbreak"
+     },
+     "preferred": true,
+     "notes": [
+      "Rotate FRAC groups (M5 / 1)"
+     ],
+     "id": "anthracnose--chlorothalonil-or-thiophanate-methyl-foliar"
     }
    ],
    "sources": [
     "2024 Southeast Pest Management Recommendations",
     "Update: PNW Plant Disease Management Handbook (propiconazole registered for trunk injection)",
     "Update: Alamo, Propizol and Tebuject 16 labels",
+    "Update: Colorado State Extension, Sycamore anthracnose",
+    "Update: University of Arkansas Plant Health Clinic (dogwood anthracnose)",
+    "Update: University of Illinois Extension",
     "Blake KB: VCE 450-611",
     "Blake KB: Penn State Extension"
    ],
@@ -26612,6 +28216,7 @@
    "symptoms": [],
    "biology": [
     "The species causing leaf spot varies by plant. On edible crops use only fungicides labeled for that use.",
+    "Update (Oct 2026): Chlorothalonil and thiophanate-methyl are standard broad-spectrum protectants for landscape leaf spots, alongside the manual's options.",
     "Update (Oct 2026): Common on more hosts than the manual lists. Black gum (Mycosphaerella nyssicola) gets black-freckled leaves and early leaf drop, worse in alkaline soil, and some newer cultivars resist it. Mulberry (Cercospora, Cercosporella) is hit in very rainy seasons. Persimmon and smoke tree leaf spots are usually minor. Raking fallen leaves and good soil care come first. Fungicides are rarely justified except on specimen trees with a history."
    ],
    "treatments": [
@@ -26679,10 +28284,35 @@
       "Rotate"
      ],
      "id": "leaf-spot--copper-sulfur-myclobutanil-or-pyraclostr-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil or thiophanate-methyl (foliar spray)",
+     "activeIngredient": "Chlorothalonil or thiophanate-methyl",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 4,
+      "interval": "14 d",
+      "repeat": "Annually",
+      "window": "From budbreak in wet springs"
+     },
+     "notes": [
+      "Rotate FRAC groups"
+     ],
+     "id": "leaf-spot--chlorothalonil-or-thiophanate-methyl-foliar"
     }
    ],
    "sources": [
     "2024 Southeast Pest Management Recommendations",
+    "Update: Colorado State Extension",
+    "Update: University of Illinois Extension",
     "Update: Clemson HGIC black gum",
     "Update: UF/IFAS EDIS ST422 (Nyssa sylvatica)",
     "Update: Texas A&M Plant Disease Handbook, mulberry",
@@ -27836,7 +29466,8 @@
    ],
    "symptoms": [],
    "biology": [
-    "Small angular lesions on leaves and flower bracts."
+    "Small angular lesions on leaves and flower bracts.",
+    "Update (Oct 2026): Illinois and Arkansas extension list chlorothalonil and thiophanate-methyl protectants as well as triazoles."
    ],
    "treatments": [
     {
@@ -27887,10 +29518,32 @@
      },
      "notes": [],
      "id": "spot-anthracnose-of-dogwood--copper-myclobutanil-or-pyraclostrobin-bo-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil or thiophanate-methyl (foliar spray)",
+     "activeIngredient": "Chlorothalonil or thiophanate-methyl",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "14 d",
+      "repeat": "Annually",
+      "window": "From budbreak or bloom"
+     },
+     "notes": [
+      "Rotate with propiconazole"
+     ],
+     "id": "spot-anthracnose-of-dogwood--chlorothalonil-or-thiophanate-methyl-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: University of Illinois Extension",
+    "Update: University of Arkansas Plant Health Clinic"
    ],
    "activeMonths": [
     4,
@@ -28273,12 +29926,36 @@
       "Use a phosphite labeled for trunk injection. Leaf scorch possible at high concentrations. Evidence is mostly from other Phytophthora systems"
      ],
      "id": "phytophthora-root-rot--potassium-phosphite-microInjection"
+    },
+    {
+     "applicationType": "soilDrench",
+     "title": "Oxathiapiprolin (soil drench)",
+     "activeIngredient": "Oxathiapiprolin",
+     "months": [
+      4,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "repeat": "Annually",
+      "window": "Preventive drench before disease develops, spring and late summer"
+     },
+     "preferred": true,
+     "notes": [
+      "Newer FRAC 49 fungicide, highly effective on Phytophthora root rot in university trials. Labeled for commercial landscapes. Rotate or tank-mix with phosphite or mefenoxam"
+     ],
+     "id": "phytophthora-root-rot--oxathiapiprolin-soilDrench"
     }
    ],
    "sources": [
     "2024 Southeast Pest Management Recommendations",
     "Update: Bangor University systematic review of biochemical control of Phytophthora in temperate trees",
-    "Update: Kauri Protection phosphite trunk injection trials (NZ)"
+    "Update: Kauri Protection phosphite trunk injection trials (NZ)",
+    "Update: Michigan State University (Hausbeck) Segovis trials",
+    "Update: Plant Disease Management Reports (oxathiapiprolin)",
+    "Update: Segovis label"
    ],
    "generalist": true,
    "activeMonths": [
@@ -29502,7 +31179,8 @@
    ],
    "symptoms": [],
    "biology": [
-    "Extremely invasive and needs multiple treatments. Live plant parts removed from the site can root and invade the disposal site."
+    "Extremely invasive and needs multiple treatments. Live plant parts removed from the site can root and invade the disposal site.",
+    "Update (Oct 2026): Late-season timing is what kills the rhizomes. After flowering (September–October), knotweed sends sugars to its roots and carries herbicide with them. If cut, wait at least 8 weeks before spraying regrowth. Results may not show until the next spring."
    ],
    "treatments": [
     {
@@ -29524,10 +31202,55 @@
       "Needs 2 or more applications over several seasons"
      ],
      "id": "japanese-knotweed--triclopyr-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Glyphosate (foliar spray)",
+     "activeIngredient": "Glyphosate",
+     "months": [
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "After flowering, before frost. At least 8 wk after any cutting"
+     },
+     "preferred": true,
+     "notes": [
+      "No soil activity, so safe near trees. Repeat for several seasons"
+     ],
+     "id": "japanese-knotweed--glyphosate-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Imazapyr (foliar spray)",
+     "activeIngredient": "Imazapyr",
+     "months": [
+      7,
+      8,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Late June to mid-October"
+     },
+     "notes": [
+      "**Soil-active: can injure nearby trees through their roots.** Avoid within tree root zones"
+     ],
+     "id": "japanese-knotweed--imazapyr-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: Penn State Extension, Japanese knotweed",
+    "Update: Oregon State Extension (Multnomah Co.)",
+    "Update: University of Kentucky roadside trial (2006)",
+    "Update: Whatcom County Noxious Weed Board"
    ],
    "activeMonths": [
     7,
@@ -29596,7 +31319,8 @@
    ],
    "symptoms": [],
    "biology": [
-    "Non-native invasive wetland grass over 10 ft tall that crowds out native vegetation. Herbicide works best in late summer during and after flowering. Multiple treatments over time are needed."
+    "Non-native invasive wetland grass over 10 ft tall that crowds out native vegetation. Herbicide works best in late summer during and after flowering. Multiple treatments over time are needed.",
+    "Update (Oct 2026): Imazapyr gives the best residual control (June–September). Glyphosate or glyphosate + imazapyr works late summer after bloom to first frost. Use aquatic-labeled formulations near water and never spray over open water."
    ],
    "treatments": [
     {
@@ -29644,10 +31368,56 @@
       "Aquatic-labeled formulation. Not in estuaries"
      ],
      "id": "phragmites--triclopyr-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Imazapyr (foliar spray)",
+     "activeIngredient": "Imazapyr",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Full leaf elongation through early fall"
+     },
+     "preferred": true,
+     "notes": [
+      "Aquatic-labeled near water. Soil-active: keep away from desirable tree roots"
+     ],
+     "id": "phragmites--imazapyr-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Glyphosate (foliar spray)",
+     "activeIngredient": "Glyphosate",
+     "months": [
+      8,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "After full bloom, before first killing frost"
+     },
+     "notes": [
+      "Aquatic formulation near water"
+     ],
+     "id": "phragmites--glyphosate-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: Lancaster County NE Phragmites guide",
+    "Update: Kansas State University",
+    "Update: Great Lakes Phragmites Collaborative herbicide quick guide",
+    "Update: Penn State Extension"
    ],
    "activeMonths": [
     7,
@@ -30503,12 +32273,35 @@
       "Coverage of leaf undersides is critical"
      ],
      "id": "andromeda-lace-bug--horticultural-oil-or-insecticidal-soap-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Cyantraniliprole (foliar spray)",
+     "activeIngredient": "Cyantraniliprole",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Same timing as the main spray, translaminar with local systemic movement"
+     },
+     "notes": [
+      "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)"
+     ],
+     "id": "andromeda-lace-bug--cyantraniliprole-foliar"
     }
    ],
    "sources": [
     "UMass Extension Professional Insect & Mite Guide, Stephanitis takeyai",
     "Nair, Univ. of Georgia dissertation (2011)",
-    "RHS Pieris lacebug profile"
+    "RHS Pieris lacebug profile",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -30586,12 +32379,34 @@
       "Short residual. Coverage is hard on large trees"
      ],
      "id": "asian-woolly-hackberry-aphid--insecticidal-soap-or-horticultural-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Afidopyropen (foliar spray)",
+     "activeIngredient": "Afidopyropen",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–14 d",
+      "repeat": "As needed",
+      "window": "At detection, thorough coverage"
+     },
+     "notes": [
+      "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration"
+     ],
+     "id": "asian-woolly-hackberry-aphid--afidopyropen-foliar"
     }
    ],
    "sources": [
     "Mississippi State Extension Bug's Eye View (2022)",
     "UC Riverside Center for Invasive Species Research",
-    "UC IPM"
+    "UC IPM",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,

@@ -18,6 +18,7 @@ const METHODS = {
   "macro-injection": "macroInjection",
   "granular / bait": "granular",
   "cut surface": "cutSurface",
+  "biological drench": "bioDrench",
 };
 const CULTURAL_TAGS = {
   prune: "pruning",
@@ -41,6 +42,7 @@ const APPLICATION_TYPES = [
   ["macroInjection", "Macro-injection (direct systemic)"],
   ["granular", "Granular, bait or tick tube"],
   ["cutSurface", "Cut stump / hack-and-squirt"],
+  ["bioDrench", "Biological soil drench (beneficial nematodes)"],
   ["biocontrol", "Biological control release"],
   ["pruning", "Pruning"],
   ["mechanical", "Mechanical / sanitation"],
@@ -227,6 +229,65 @@ for (const id of BTK_FOR) {
     notes: ["Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"],
   });
   c.sources.push(`Current supplement (verified ${VERIFIED}): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)`);
+}
+
+// Category-wide additions from the per-problem currency review (Oct 2026; sources in current-supplement.md).
+// Each adds one row to every listed problem, timed like that problem's main (✓ or first) spray.
+const byCategory = (cat, except = []) => conditions.filter((c) => c.category === cat && !except.includes(c.id)).map((c) => c.id);
+const SPIDER_MITES = byCategory("mites", ["eriophyid-mites-general", "ash-flower-gall-mite", "hemlock-rust-mite", "pear-leaf-blister-mite",
+  "white-pine-rust-mite", "baldcypress-rust-mite", "filbert-big-bud-mite"]);
+const CURRENCY_RULES = [
+  {
+    ids: SPIDER_MITES, method: "foliar", ai: "Etoxazole or hexythiazox", apps: [1, 1],
+    window: "Early, while mites are few (eggs and immatures); long residual",
+    note: "Mite growth regulators (IRAC 10): do not rotate one with the other. Add an adulticide if adults are present. Not for eriophyid mites. Edible fruit: check label",
+  },
+  {
+    ids: SPIDER_MITES, method: "foliar", ai: "Fenpyroximate or acequinocyl", apps: [1, 1],
+    window: "Fast knockdown of building populations",
+    note: "Mitochondrial inhibitors (IRAC 21A / 20B): never use back to back with each other or pyridaben. Rotate with bifenazate, spiromesifen and abamectin",
+  },
+  {
+    ids: ["aphids-general", "crape-myrtle-aphid", "giant-conifer-aphids", "tuliptree-aphid", "woolly-aphids", "asian-woolly-hackberry-aphid",
+      "mealybugs-general", "taxus-mealybug", "whiteflies-general", "azalea-whitefly"],
+    method: "foliar", ai: "Afidopyropen", apps: [1, 2], interval: "7–14 d",
+    window: "At detection, thorough coverage",
+    note: "New mode of action (IRAC 9D). Low risk to bees and predatory mites. Not on coleus, ficus or poinsettia. Confirm state registration",
+  },
+  {
+    ids: [...byCategory("lace-bugs"), "arborvitae-leafminer", "azalea-leafminer", "birch-leafminer", "boxwood-leafminer", "hemlock-needleminers",
+      "juniper-leafminers", "locust-leafminer", "magnolia-serpentine-leafminer", "native-holly-leafminer", "oak-leafminers", "tupelo-leafminer", "box-tree-moth"],
+    method: "foliar", ai: "Cyantraniliprole", apps: [1, 1],
+    window: "Same timing as the main spray, translaminar with local systemic movement",
+    note: "IRAC 28, the same group as chlorantraniliprole: do not alternate the two. Landscape soil drench not labeled (containers only)",
+  },
+  {
+    ids: byCategory("armored-scales"), method: "foliar", ai: "Spirotetramat", apps: [1, 1],
+    window: "At crawlers, on actively growing plants (two-way systemic)",
+    note: "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales",
+  },
+  {
+    ids: ["black-vine-weevil", "two-banded-japanese-weevil"], method: "bioDrench", ai: "Entomopathogenic nematodes (Heterorhabditis)",
+    months: [4, 5, 8, 9, 10], apps: [1, 2], window: "Larvae in the root zone: late summer to mid-October, and spring once soil is at least 60°F",
+    note: "Keep soil moist, not soggy, for 2 weeks after. Steinernema kraussei works in cooler soil. Kills larvae, complementing adult sprays",
+  },
+];
+for (const r of CURRENCY_RULES) for (const id of r.ids) {
+  const c = conditions.find((x) => x.id === id);
+  if (!c) { fail(`CURRENCY_RULES: no condition ${id}`); continue; }
+  const main = c.treatments.find((t) => t.schedule && t.default && t.applicationType === "foliar")
+    || c.treatments.find((t) => t.schedule && t.applicationType === "foliar") || c.treatments.find((t) => t.schedule);
+  const months = r.months || main?.months || c.activeMonths;
+  if (!months?.length) { fail(`CURRENCY_RULES: no months for ${id}`); continue; }
+  c.treatments.push({
+    applicationType: r.method,
+    title: `${r.ai} (${r.method === "bioDrench" ? "biological soil drench" : "foliar spray"})`,
+    activeIngredient: r.ai,
+    months,
+    schedule: { visitsMin: r.apps[0], visitsMax: r.apps[1], ...(r.interval ? { interval: r.interval } : {}), repeat: main?.schedule?.repeat || "As needed", window: r.window },
+    notes: [r.note],
+  });
+  if (!c.sources.some((x) => x.includes("currency review"))) c.sources.push(`Current supplement (verified ${VERIFIED}): currency review additions`);
 }
 
 // Product status changes since the manual (applied to every option using the product).

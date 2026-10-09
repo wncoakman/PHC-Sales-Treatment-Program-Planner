@@ -262,3 +262,13 @@ test("current methods: BLD thiabendazole biennial, phosphite basal 2–3, HWA ta
   assert.equal(basal.schedule.visitsMax, 3);
   assert.ok(kb.conditionById["hemlock-woolly-adelgid"].treatments.some((t) => t.activeIngredient === "Imidacloprid + dinotefuran"));
 });
+
+test("currency review: category-wide current options present, not defaults", () => {
+  const has = (id, ai) => kb.conditionById[id].treatments.some((t) => t.activeIngredient === ai);
+  assert.ok(has("two-spotted-spider-mite", "Etoxazole or hexythiazox") && !has("eriophyid-mites-general", "Etoxazole or hexythiazox"));
+  assert.ok(has("whiteflies-general", "Afidopyropen") && has("boxwood-leafminer", "Cyantraniliprole") && has("japanese-maple-scale", "Spirotetramat"));
+  assert.ok(has("black-vine-weevil", "Entomopathogenic nematodes (Heterorhabditis)"));
+  assert.ok(has("phytophthora-root-rot", "Oxathiapiprolin") && has("japanese-knotweed", "Glyphosate"));
+  const p = problem("black-vine-weevil");
+  assert.ok(!defaultSelection(p).some((id) => id.includes("nematodes")));
+});

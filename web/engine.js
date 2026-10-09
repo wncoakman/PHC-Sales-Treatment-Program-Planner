@@ -12,7 +12,7 @@ export const MITIGATIONS = [
   ["removal", "Removal / replacement"],
 ];
 
-const CHEMICAL_TYPES = new Set(["foliar", "dormantOil", "barkSpray", "basalBark", "soilDrench", "microInjection", "macroInjection", "granular", "cutSurface"]);
+const CHEMICAL_TYPES = new Set(["foliar", "dormantOil", "barkSpray", "basalBark", "soilDrench", "microInjection", "macroInjection", "granular", "cutSurface", "bioDrench"]);
 const SPRAY_TYPES = new Set(["foliar", "dormantOil", "barkSpray"]);
 const ENCLOSED_TYPES = new Set(["microInjection", "macroInjection"]);
 const NEONICS = ["imidacloprid", "dinotefuran", "acetamiprid", "clothianidin", "thiamethoxam"];
