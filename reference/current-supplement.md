@@ -133,6 +133,48 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 - **Sources:** UF/IFAS EDIS ST204 (Cotinus coggygria); Oregon State Extension EM 8979 (hazelnut pests)
 
 
+## Borers and bark beetles
+
+### Emerald ash borer
+- **Hosts:** ash
+- **About:** Current guidance (Purdue, cited by Ohio State Extension in 2026) says emamectin benzoate injections protect for up to 3 years. Re-treat every 2 years under heavy pressure, and every 3 where EAB has passed its peak. Inject mid-May to mid-June. Azadirachtin (TreeAzin) injection is the organic option, also used by municipalities. Some areas release parasitoid wasps (state and USDA programs) alongside protection of high-value trees.
+- **Sources:** Ohio State Extension Q&A (March 2026, citing Purdue); University of Vermont case study (2025)
+
+### Ambrosia beetles – general
+- **Hosts:** general
+- **About:** Current NC State and UGA guidance for granulate ambrosia beetle: protect high-value, young or stressed trees with pyrethroid trunk sprays re-applied every 2–3 weeks through the spring flight. Flights start in warm spells from mid-February and peak about early April. Sprays only work before beetles bore in. Imidacloprid and other systemics do not work. Highly susceptible hosts include dogwood, redbud, maples, flowering cherry, crape myrtle, magnolia, styrax, sweetgum and azalea.
+- **Sources:** NC State Extension, Granulate Ambrosia Beetle pest alert (Buncombe Co., Feb 2025) and NC State publication; UGA Extension granulate ambrosia beetle
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| ★ | Bark spray | Bifenthrin or permethrin | Mar–May | 3–5 | 14–21 d | Annually | From the first warm-spell flight (Feb–Mar) through peak (early Apr) and into May, trunk from 4.5 ft to the ground | Targeted trunk spray to minimize drift. Systemics do not work |
+
+### Crapemyrtle bark scale
+- **Hosts:** crapemyrtle
+- **About:** A multi-state trial (LSU AgCenter, Texas A&M, Arkansas) found soil-applied neonicotinoids (imidacloprid, dinotefuran) the most effective treatments, giving complete control for at least four months in three trials. Foliar and trunk sprays were less effective and shorter-lived. Apply the drench at budbreak, before bloom and before peak crawlers. Allow several weeks for uptake. Sooty mold takes months to weather off. Expect to re-treat the next year. Monitor crawlers with double-sided tape.
+- **Sources:** LSU AgCenter, Crape myrtle bark scale management updates; NC State Extension (Wilson Co.); Mississippi State Extension Bug's Eye View (2023); University of Arkansas Extension
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| ★ | Soil drench | Imidacloprid | Mar–May | 1 | — | Annually | At budbreak, before bloom and peak crawlers | Most effective in multi-state trials. Not during bloom (pollinators) |
+| ★ | Soil drench | Dinotefuran | Mar–May | 1 | — | Annually | At budbreak, before bloom | Faster uptake than imidacloprid. Not during bloom |
+| | Foliar spray | Bifenthrin | Apr–May | 1 | — | As needed | Right before or at crawler peak (mid-Apr to early May) | Quick knockdown only. Supplements a systemic |
+
+### Hemlock woolly adelgid
+- **Hosts:** hemlock
+- **About:** Michigan State guidance: dinotefuran moves fast and is best on heavily infested or declining trees, but lasts only 1–2 years. Imidacloprid takes a year or more to reach the top of large trees but protects for 4–7 years. For heavily infested trees, applicators use a basal bark tank mix of both for rapid knockdown plus long-term protection. Check both labels allow basal bark use and tank mixing (FIFRA 2(ee)). Judge dinotefuran by new growth the following late fall or winter, and imidacloprid a year after treatment.
+- **Sources:** Michigan State University Extension E3349, Options for protecting hemlock trees from HWA; MSU, How to treat hemlock trees for HWA; State of Michigan, Plan to treat trees for HWA (March 2026)
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| ★ | Basal bark | Imidacloprid + dinotefuran | Apr–May, Sep–Oct | 1 | — | Every 4–7 yrs | Heavily infested or declining trees, spring or fall. Trunk from ground to 4–5 ft, low pressure | Dinotefuran gives knockdown, imidacloprid long-term protection. Confirm labels permit basal use and tank mix |
+
 ## Caterpillars and sawflies
 
 ### Elm zigzag sawfly
@@ -193,8 +235,8 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 ### Beech leaf disease
 - **Hosts:** beech
 - **Active:** May–Nov
-- **About:** Caused by a foliar nematode (Litylenchus crenatae mccannii). Dark green bands between the leaf veins, seen best from below, then thickened, leathery, crinkled leaves, bud abortion, thinning canopy and death of smaller trees within years. Nematodes overwinter in buds and move into new buds from late summer. Confirmed in Prince William County, VA (2021), spreading in Northern Virginia, and confirmed in at least 12 Maryland counties plus Baltimore City (MDA, 2025). There is no cure. Treatments suppress symptoms on individual high-value trees. Trees in dense beech stands are poor candidates for foliar treatment because untreated neighbors reinfest them.
-- **Sources:** Bartlett Tree Research Labs / USDA-ARS fluopyram study (2025, PMC12497451); Connecticut Agricultural Experiment Station BLD management options (2025); URI Cooperative Extension BLD updates (2023–2024); Maryland Department of Agriculture press release, June 9, 2025; Virginia Cooperative Extension (2025); Fairfax County BLD guidance
+- **About:** Caused by a foliar nematode (Litylenchus crenatae mccannii). Current best practice for high-value trees is thiabendazole root flare injection every 2–3 years, with phosphite basal bark or soil applications and foliar fluopyram as alternatives or additions. Dark green bands between the leaf veins, seen best from below, then thickened, leathery, crinkled leaves, bud abortion, thinning canopy and death of smaller trees within years. Nematodes overwinter in buds and move into new buds from late summer. Confirmed in Prince William County, VA (2021), spreading in Northern Virginia, and confirmed in at least 12 Maryland counties plus Baltimore City (MDA, 2025). There is no cure. Treatments suppress symptoms on individual high-value trees. Trees in dense beech stands are poor candidates for foliar treatment because untreated neighbors reinfest them.
+- **Sources:** Loyd et al., Thiabendazole as a therapeutic root flare injection for BLD, Arboriculture & Urban Forestry 51(3) (2025); EPA label MA240001 (Arbotect 20-S, 2024); Penn State Extension BLD; Maine DACF BLD; Bartlett Tree Research Labs / USDA-ARS fluopyram study (2025, PMC12497451); Connecticut Agricultural Experiment Station BLD management options (2025); URI Cooperative Extension BLD updates (2023–2024); Maryland Department of Agriculture press release, June 9, 2025; Virginia Cooperative Extension (2025); Fairfax County BLD guidance
 
 **Cultural**
 - Monitor: Look for dark interveinal banding on leaves (seen best from below) and aborted buds. Report new finds to the state forest health program.
@@ -206,9 +248,61 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 
 | | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
 |---|---|---|---|---|---|---|---|---|
-| ★✓ | Foliar spray | Fluopyram | Jun–Aug | 2 | 30 d | Annually | Late May to mid-July, before nematodes move into buds in early August. CAES allows late May to late August | Only peer-reviewed treatment shown to suppress BLD. Best on isolated trees. Very toxic to aquatic life: no use near water or storm drains. Professional use. Rotate modes of action |
+| ★✓ | Macro-injection | Thiabendazole | May–Sep | 1 | — | Every 2–3 yrs | Root flare injection at or below ground level, after leaf expansion with moist soil | Peer-reviewed (Loyd et al. 2025, Arboriculture & Urban Forestry): improved canopy and reduced nematodes in buds at 11 and 22 months. Labeled for BLD (Arbotect 20-S). Fairfax County rates it "very effective". Trunk-wood injection is less effective. Retreat every 2–3+ years or when symptoms return |
+| ★ | Basal bark | Potassium phosphite | Jun–Aug | 2–3 | 30 d | Annually | June to early August (May–Aug window). Wet the bark from the ground up, about 1 ft of height per inch of DBH | Published protocols use 2 applications a month apart. A third is arborist practice. CAES: a surfactant (e.g. Pentra-Bark) does not improve uptake. Results build over several years |
+| ★ | Foliar spray | Fluopyram | Jun–Aug | 2 | 30 d | Annually | Late May to mid-July, before nematodes move into buds in early August. CAES allows late May to late August | Peer-reviewed suppression (Bartlett/USDA-ARS 2025). Best on isolated trees. Very toxic to aquatic life: no use near water or storm drains. Professional use. Rotate modes of action |
 | ★ | Soil drench | Potassium phosphite | Jun–Jul | 2 | 30 d | Annually | June and July, one month apart | Most support on small trees, and results vary by site. Improvement may take several years. Follow the product label rate |
 | | Micro-injection | Potassium phosphite | May–Jul | 1 | — | Annually | After leaf expansion | Manufacturer trials (2024–2025) only. Independent replication pending |
+
+## Root diseases
+
+### Phytophthora root rot
+- **Hosts:** general
+- **About:** Phosphite (phosphonate) trunk injection is a current option for valuable trees. A meta-analysis of phosphite treatments on temperate trees found reduced Phytophthora symptoms in nearly all experiments, and field trials on other Phytophthora tree diseases show strong suppression of trunk lesions. High concentrations can scorch leaves.
+- **Sources:** Bangor University systematic review of biochemical control of Phytophthora in temperate trees; Kauri Protection phosphite trunk injection trials (NZ)
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Micro-injection | Potassium phosphite | Apr–Jun, Sep–Oct | 1–2 | — | Annually | Spring after leaf-out and/or early fall, soil moist | Use a phosphite labeled for trunk injection. Leaf scorch possible at high concentrations. Evidence is mostly from other Phytophthora systems |
+
+## Cankers
+
+### Phytophthora bleeding canker
+- **Hosts:** general
+- **About:** Phosphite trunk injection is an alternative to bark spray for valuable trees.
+- **Sources:** Bangor University systematic review; Kauri Protection phosphite trunk injection trials (NZ)
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Micro-injection | Potassium phosphite | Apr–Jun, Sep–Oct | 1–2 | — | Annually | Spring after leaf-out and/or early fall | Labeled trunk-injection phosphite. Leaf scorch possible at high concentrations |
+
+## Foliage diseases and needlecasts
+
+### Anthracnose
+- **Hosts:** general
+- **About:** Trunk-injected triazoles (propiconazole, tebuconazole) are labeled for anthracnose on shade trees and avoid canopy spraying on large trees. Independent efficacy data is limited, so use them as a preventive program alongside sanitation.
+- **Sources:** PNW Plant Disease Management Handbook (propiconazole registered for trunk injection); Alamo, Propizol and Tebuject 16 labels
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Micro-injection | Propiconazole or tebuconazole | Sep–Oct, Mar–Apr | 1 | — | Annually | Preventive: fall after leaf drop begins, or early spring before budbreak per label | Labeled injectable. Independent efficacy data limited. FRAC 3: rotate with non-triazoles |
+
+### Scab (apple, pear, pyracantha and others)
+- **Hosts:** apple
+- **About:** On ornamental crabapple, a trunk-injected triazole (tebuconazole or propiconazole) is a labeled preventive alternative to repeated canopy sprays. Independent efficacy data is limited.
+- **Sources:** PNW Plant Disease Management Handbook, crabapple scab; Tebuject 16 and Propizol labels
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Micro-injection | Tebuconazole or propiconazole | Sep–Oct, Mar | 1 | — | Annually | Preventive, fall or early spring before budbreak per label | Ornamental crabapple only, not edible fruit. Independent efficacy data limited |
 
 ## Blights
 

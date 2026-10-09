@@ -60,7 +60,7 @@ test("default selection: recommended systemic first; cultural listed but uncheck
   const h = defaultSelection(problem("hemlock-woolly-adelgid", {}, {}));
   assert.deepEqual(h, ["hemlock-woolly-adelgid--imidacloprid-soilDrench"]); // systemic over the dormant oil spray
   assert.deepEqual(defaultSelection(problem("crapemyrtle-bark-scale")), ["crapemyrtle-bark-scale--acetamiprid-basalBark"]);
-  assert.deepEqual(defaultSelection(problem("beech-leaf-disease")), ["beech-leaf-disease--potassium-phosphite-soilDrench"]); // ★ systemic beats ✓ foliar
+  assert.deepEqual(defaultSelection(problem("beech-leaf-disease")), ["beech-leaf-disease--thiabendazole-macroInjection"]); // current best practice
   assert.deepEqual(defaultSelection(problem("boxwood-blight")), ["boxwood-blight--mancozeb-propiconazole-foliar"]); // no systemic: ✓ program
   for (const id of ["drought", "boxwood-blight", "hemlock-woolly-adelgid"]) {
     const pr = problem(id);
@@ -252,4 +252,13 @@ test("no horticultural oil on bald cypress", () => {
   const oil = p.options.filter((o) => o.chemical && /horticultural oil/i.test(o.treatment.title));
   assert.ok(oil.length && oil.every((o) => o.notAdvised));
   assert.ok(!problem("spider-mites-cool-season", {}, { hostId: "spruce" }).options.some((o) => o.notAdvised));
+});
+
+test("current methods: BLD thiabendazole biennial, phosphite basal 2–3, HWA tank mix", () => {
+  const bld = kb.conditionById["beech-leaf-disease"].treatments;
+  const tbz = bld.find((t) => t.id === "beech-leaf-disease--thiabendazole-macroInjection");
+  assert.ok(tbz.preferred && tbz.default && tbz.schedule.repeat === "Every 2–3 yrs");
+  const basal = bld.find((t) => t.id === "beech-leaf-disease--potassium-phosphite-basalBark");
+  assert.equal(basal.schedule.visitsMax, 3);
+  assert.ok(kb.conditionById["hemlock-woolly-adelgid"].treatments.some((t) => t.activeIngredient === "Imidacloprid + dinotefuran"));
 });
