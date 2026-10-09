@@ -13,10 +13,19 @@ windows, and compliance flags. No application rates. Works offline once added to
   - `sw.js`: offline cache. **Bump `VERSION` after any change** so installed copies update.
 - `reference/pest-management-reference.md` (**local only, gitignored**): **primary content source**, a structured transcription of the
   2024 Southeast Pest Management Recommendations manual (no rates). Edit here, then `npm run build:kb`.
+- `reference/current-supplement.md`: current information the manual lacks (e.g. beech leaf disease, boxwood dieback,
+  elm zigzag sawfly) and updates merged into manual entries, with sources and a verified date. The build also prints
+  hosts with thin coverage as candidates for new supplement entries.
 - `reference/blake-kb-v1.1.json`: Blake's KB, kept for VA/MD/DC rules, cost-share, EAB thresholds and abiotic disorders.
 - `scripts/build-kb.mjs`: markdown + Blake overlays → `web/data/knowledge_base.json` (fails on unknown hosts/methods/months).
 - `tests/engine.test.mjs`: data-integrity and rules tests: `npm test`
 - `Sources/`, `App/`, `project.yml`: shelved native iOS version (shares the same JSON via symlink).
+
+## Job logistics (backstage)
+The work address on the first page is geocoded (OpenStreetMap Nominatim) and routed to every base in
+`web/data/bases.json` (public OSRM router). The closest base, business-hours drive time (free-flow × `trafficFactor`)
+and band (15 min or less / 15–30 / over 30) are stored with the plan and logged on the device; view at `#ops`.
+Add bases to `web/data/bases.json` (name, address), then `npm run geocode:bases`. Note: the file is served publicly.
 
 ## Run locally
 `cd web && python3 -m http.server 8765`, then open http://localhost:8765

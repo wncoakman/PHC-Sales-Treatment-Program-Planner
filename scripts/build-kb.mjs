@@ -112,8 +112,11 @@ const hostIds = new Set(hosts.map((h) => h.id));
 
 // ---- conditions ----
 const categories = [];
+
+/** Parse the condition sections (from "# Insects and mites" on) of a reference-format markdown file. */
+function parseConditions(text, defaultSource) {
 const conditions = [];
-const body = md.slice(md.indexOf("\n# Insects and mites"));
+const body = text.slice(text.indexOf("\n# Insects and mites"));
 let category = null;
 let cond = null;
 let mode = null;
@@ -130,14 +133,14 @@ for (const raw of body.split("\n")) {
   }
   if (line.startsWith("### ")) {
     const name = line.slice(4).trim();
-    cond = { id: slug(name), name, category, hostIds: [], symptoms: [], biology: [], treatments: [], sources: ["2024 Southeast Pest Management Recommendations"] };
+    cond = { id: slug(name), name, category, hostIds: [], symptoms: [], biology: [], treatments: [], sources: [defaultSource] };
     if (!category) fail(`${name}: no category`);
     conditions.push(cond);
     mode = "meta";
     continue;
   }
   if (!cond) continue;
-  const meta = line.match(/^- \*\*(Hosts|Active|GDD|About):\*\* (.*)$/);
+  const meta = line.match(/^- \*\*(Hosts|Active|GDD|About|Sources):\*\* (.*)$/);
   if (meta && mode === "meta") {
     const [, key, val] = meta;
     if (key === "Hosts") {
@@ -152,6 +155,7 @@ for (const raw of body.split("\n")) {
       if (note) cond.peakNote = note[1];
     } else if (key === "GDD") cond.peakNote = [cond.peakNote, `GDD ${val}`].filter(Boolean).join(" · ");
     else if (key === "About") cond.biology.push(val);
+    else if (key === "Sources") cond.sources = val.split(";").map((x) => x.trim());
     continue;
   }
   if (line === "**Cultural**") { mode = "cultural"; continue; }
@@ -184,6 +188,33 @@ for (const raw of body.split("\n")) {
       notes: notes === "—" ? [] : [notes],
     });
   }
+}
+return conditions;
+}
+
+const conditions = parseConditions(md, "2024 Southeast Pest Management Recommendations");
+
+// ---- current supplement: new problems, and updates merged into manual entries ----
+const VERIFIED = "Oct 2026";
+for (const sup of parseConditions(readFileSync(new URL("reference/current-supplement.md", root), "utf8"), `Current supplement (verified ${VERIFIED})`)) {
+  const target = conditions.find((c) => c.id === sup.id);
+  if (!target) {
+    sup.reviewFlags = [`Not in the 2024 manual: added from current sources (verified ${VERIFIED}). Re-check yearly.`];
+    conditions.push(sup);
+    continue;
+  }
+  target.biology.push(...sup.biology.map((b) => `Update (${VERIFIED}): ${b}`));
+  target.treatments.push(...sup.treatments);
+  target.sources.push(...sup.sources.map((x) => `Update: ${x}`));
+}
+
+// Product status changes since the manual (applied to every option using the product).
+const PRODUCT_NOTES = [
+  [/mancozeb/i, "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."],
+  [/acephate/i, "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."],
+];
+for (const c of conditions) for (const t of c.treatments) for (const [re, note] of PRODUCT_NOTES) {
+  if (re.test(t.activeIngredient || "")) t.notes.push(note);
 }
 
 // ---- ids, defaults, flags ----
@@ -233,6 +264,10 @@ for (const c of conditions) {
   for (const h of c.hostIds) if (!hostIds.has(h)) fail(`${c.id}: unknown host ${h}`);
 }
 
+// Coverage check: hosts with few specific problems are candidates for the current supplement.
+const thin = hosts.filter((h) => h.id !== "site" && conditions.filter((c) => c.hostIds.includes(h.id)).length < 3);
+if (thin.length) console.log(`coverage: under 3 host-specific problems: ${thin.map((h) => h.id).join(", ")}`);
+
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
@@ -241,8 +276,8 @@ if (errors.length) {
 const kb = {
   meta: {
     title: "DMV Plant Health Care Treatment Planner",
-    version: "2.0.0",
-    source: "2024 Southeast Pest Management Recommendations (structured transcription, reference/pest-management-reference.md); VA/MD/DC rules and abiotic disorders from Blake's DMV PHC KB v1.0",
+    version: "2.1.0",
+    source: "2024 Southeast Pest Management Recommendations (primary; structured transcription), current supplement verified Oct 2026 (reference/current-supplement.md), VA/MD/DC rules and abiotic disorders from Blake's DMV PHC KB v1.0",
     reviewStatus: "unreviewed",
     disclaimer: "Framework for treatment planning only. No rates are provided; product selection, rates, and timing must follow the label. Months are DMV approximations of the manual's phenology and degree-day timing. Confirm diagnosis and current VA/MD/DC regulations before application.",
   },

@@ -123,7 +123,7 @@ test("landscape: calendar, totals, export", () => {
   assert.ok(may.items.some((i) => i.plant === "Ash ×2 (front)" && i.option.treatment.id === EAB_INJECT));
 
   const text = exportText(kb, site(), entries, selected, "Test");
-  assert.ok(text.includes("ASH ×2 (FRONT)") && text.includes("Applications: 1 application") && text.includes("ANNUAL CALENDAR"));
+  assert.ok(text.includes("ASH ×2 (FRONT)") && text.includes("Applications: 1 ·") && text.includes("ANNUAL CALENDAR"));
   assert.ok(text.includes("Applications per year: 7–8"));
 });
 
@@ -172,4 +172,28 @@ test("visit framework: combines overlapping windows, respects spacing", async ()
   for (let i = 1; i < blight.length; i++) assert.ok(blight[i] - blight[i - 1] >= 2, "30 d spacing");
   const text = exportText(kb, site(), entries, selected, "T");
   assert.ok(text.includes("VISIT FRAMEWORK") && text.includes("Visit 1:"));
+});
+
+test("chosen application counts drive the visit framework", async () => {
+  const { visitPlan, chosenCount } = await import("../web/engine.js");
+  const s = { visitsMin: 2, visitsMax: 4 };
+  assert.equal(chosenCount(s, undefined), 2);
+  assert.equal(chosenCount(s, 3), 3);
+  assert.equal(chosenCount(s, 9), 2); // outside the reference range
+  const entries = planLandscape(kb, site(), [{ uid: "b", hostId: "boxwood", conditionIds: ["boxwood-blight"] }]);
+  const id = "boxwood-blight--mancozeb-propiconazole-foliar";
+  const selected = new Set([selKey("b", id)]);
+  assert.equal(visitPlan(entries, selected).applications, 6);
+  assert.equal(visitPlan(entries, selected, { [selKey("b", id)]: 7 }).applications, 7);
+  assert.ok(exportText(kb, site(), entries, selected, "", { [selKey("b", id)]: 7 }).includes("Applications: 7 (reference 6–7)"));
+});
+
+test("current supplement fills gaps in the manual", () => {
+  const bld = kb.conditionById["beech-leaf-disease"];
+  assert.ok(bld && bld.hostIds.includes("beech") && bld.reviewFlags[0].startsWith("Not in the 2024 manual"));
+  assert.ok(problemsForHost(kb, "beech").common.some((c) => c.id === "beech-leaf-disease"));
+  const fluo = opt(problem("beech-leaf-disease", { nearWater: true }), "beech-leaf-disease--fluopyram-foliar");
+  assert.ok(fluo.flags.some((f) => f.text.startsWith("Aquatic toxicity")));
+  assert.ok(kb.conditionById["box-tree-moth"].biology.some((b) => b.startsWith("Update")));
+  assert.ok(kb.conditionById["boxwood-blight"].treatments.some((t) => (t.notes || []).some((n) => n.includes("EPA proposed"))));
 });

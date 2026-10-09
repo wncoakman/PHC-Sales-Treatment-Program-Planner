@@ -17,7 +17,7 @@ const SPRAY_TYPES = new Set(["foliar", "dormantOil", "barkSpray"]);
 const ENCLOSED_TYPES = new Set(["microInjection", "macroInjection"]);
 const NEONICS = ["imidacloprid", "dinotefuran", "acetamiprid", "clothianidin", "thiamethoxam"];
 const POLLINATOR_HAZARDS = [...NEONICS, "bifenthrin", "permethrin", "pyrethroid", "carbaryl", "spinosad", "abamectin", "pyriproxyfen"];
-const AQUATIC_HAZARDS = ["bifenthrin", "permethrin", "pyrethroid", "pyrethrins", "chlorantraniliprole", "chlorothalonil", "diflubenzuron", "copper", "carbaryl", "abamectin", "mancozeb", "pyraclostrobin", "trifloxystrobin"];
+const AQUATIC_HAZARDS = ["bifenthrin", "fluopyram", "permethrin", "pyrethroid", "pyrethrins", "chlorantraniliprole", "chlorothalonil", "diflubenzuron", "copper", "carbaryl", "abamectin", "mancozeb", "pyraclostrobin", "trifloxystrobin"];
 
 export function mitigationOf(applicationTypeId) {
   if (CHEMICAL_TYPES.has(applicationTypeId)) return "chemical";
@@ -201,6 +201,12 @@ export function landscapeCalendar(entries, selected) {
   return out;
 }
 
+/** Applications chosen for a program: the user's pick within the reference range, else the minimum. */
+export function chosenCount(schedule, pick) {
+  const n = Number(pick);
+  return Number.isInteger(n) && n >= schedule.visitsMin && n <= schedule.visitsMax ? n : Math.max(1, schedule.visitsMin);
+}
+
 /** Applications per year across the selected chemical programs (range; programs scheduled separately). */
 export function applicationTotals(entries, selected) {
   let min = 0, max = 0, programs = 0;
@@ -271,12 +277,12 @@ function programTimeline(option, count) {
  * and every other application that is open then (window, spacing) is done on the same visit.
  * Returns { visits: [{ slot, from, to, items: [{ plant, problem, option, n, of }] }], applications, compressed }.
  */
-export function visitPlan(entries, selected) {
+export function visitPlan(entries, selected, counts = {}) {
   const programs = [];
   for (const e of entries) for (const p of e.problems) for (const o of p.options) {
     const s = o.treatment.schedule;
     if (!o.chemical || o.notAdvised || !s || !selected.has(selKey(e.plant.uid, o.treatment.id))) continue;
-    const of = Math.max(1, s.visitsMin);
+    const of = chosenCount(s, counts[selKey(e.plant.uid, o.treatment.id)]);
     const tl = programTimeline(o, of);
     programs.push({ plant: plantName(e), problem: p.condition.name, option: o, of, done: 0, earliest: tl.first, ...tl });
   }
@@ -326,11 +332,13 @@ export function describeVisitWindow(v) {
 
 const MARK = { info: "[i]", caution: "[!]", stop: "[X]" };
 
-function optionLines(o) {
+function optionLines(o, pick) {
   const t = o.treatment, s = t.schedule;
   const out = [`• ${t.title} [${o.type.name}]${o.notAdvised ? " NOT ADVISED under current conditions." : ""}`];
   if (s) {
-    out.push(`    Applications: ${describeVisits(s)}${s.interval ? `, ${s.interval}` : ""} · Repeat: ${s.repeat}`);
+    const n = chosenCount(s, pick);
+    const range = s.visitsMin === s.visitsMax ? "" : ` (reference ${s.visitsMin}–${s.visitsMax})`;
+    out.push(`    Applications: ${n}${range}${s.interval ? `, ${s.interval}` : ""} · Repeat: ${s.repeat}`);
     out.push(`    Window: ${s.window}`);
   } else if (t.months?.length) {
     out.push(`    When: ${describeMonths(t.months)}`);
@@ -341,7 +349,7 @@ function optionLines(o) {
 }
 
 /** Plain-text plan for sharing (text, email, notes, CRM). */
-export function exportText(kb, site, entries, selected, siteLabel = "") {
+export function exportText(kb, site, entries, selected, siteLabel = "", counts = {}) {
   const out = ["PHC TREATMENT PLAN"];
   if (siteLabel) out.push(`Site: ${siteLabel}`);
   const factors = [site.nearWater && "near water", site.sensitiveSite && "school/daycare/park", site.publicProperty && "public property"].filter(Boolean);
@@ -356,11 +364,11 @@ export function exportText(kb, site, entries, selected, siteLabel = "") {
       for (const f of p.flags) out.push(`${MARK[f.level]} ${f.text}`);
       const chosen = p.options.filter((o) => selected.has(selKey(e.plant.uid, o.treatment.id)));
       const chem = chosen.filter((o) => o.chemical), cult = chosen.filter((o) => !o.chemical);
-      if (chem.length) { out.push("Chemical:"); chem.forEach((o) => out.push(...optionLines(o))); }
+      if (chem.length) { out.push("Chemical:"); chem.forEach((o) => out.push(...optionLines(o, counts[selKey(e.plant.uid, o.treatment.id)]))); }
       if (cult.length) { out.push("Cultural:"); cult.forEach((o) => out.push(...optionLines(o))); }
     }
   }
-  const vp = visitPlan(entries, selected);
+  const vp = visitPlan(entries, selected, counts);
   if (vp.visits.length) {
     out.push("", `######## VISIT FRAMEWORK: ${vp.visits.length} SITE VISIT${vp.visits.length === 1 ? "" : "S"} (${vp.applications} APPLICATIONS) ########`);
     vp.visits.forEach((v, i) => {
