@@ -203,6 +203,7 @@ for (const sup of parseConditions(readFileSync(new URL("reference/current-supple
     conditions.push(sup);
     continue;
   }
+  for (const h of sup.hostIds) if (!target.hostIds.includes(h)) target.hostIds.push(h);
   target.biology.push(...sup.biology.map((b) => `Update (${VERIFIED}): ${b}`));
   target.treatments.push(...sup.treatments);
   target.sources.push(...sup.sources.map((x) => `Update: ${x}`));
@@ -286,7 +287,9 @@ for (const c of conditions) {
 }
 
 // Coverage check: hosts with few specific problems are candidates for the current supplement.
-const thin = hosts.filter((h) => h.id !== "site" && conditions.filter((c) => c.hostIds.includes(h.id)).length < 3);
+// Hosts researched Oct 2026 with few known DMV problems beyond the broad-host-range ones; re-check when the supplement is reviewed.
+const COVERAGE_REVIEWED = ["larch", "persimmon", "treeofheaven", "tupelo", "vinca", "waxmyrtle"];
+const thin = hosts.filter((h) => h.id !== "site" && !COVERAGE_REVIEWED.includes(h.id) && conditions.filter((c) => c.hostIds.includes(h.id)).length < 3);
 if (thin.length) console.log(`coverage: under 3 host-specific problems: ${thin.map((h) => h.id).join(", ")}`);
 
 if (errors.length) {

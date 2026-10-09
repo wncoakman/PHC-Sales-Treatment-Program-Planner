@@ -236,3 +236,20 @@ test("whole-property programs: soil care 2 visits (spring, fall), resilience 1 (
   const text = exportText(kb, site(), [pe], selected, "X");
   assert.ok(text.includes("WHOLE PROPERTY") && text.includes("Standard Soil Care") && text.includes("Phosphite salts"));
 });
+
+test("thin hosts filled from the supplement", () => {
+  const common = (h) => problemsForHost(kb, h).common.map((c) => c.id);
+  assert.ok(common("pieris").includes("andromeda-lace-bug"));
+  assert.ok(common("baldcypress").includes("cypress-twig-gall-midge") && common("baldcypress").includes("baldcypress-rust-mite"));
+  assert.ok(common("hackberry").includes("asian-woolly-hackberry-aphid"));
+  assert.ok(common("mulberry").includes("leaf-spot") && common("mulberry").includes("bacterial-blight"));
+  assert.ok(common("treeofheaven").includes("tree-of-heaven-control"));
+  assert.ok(!kb.conditionById["baldcypress-rust-mite"].treatments.some((t) => /oil/i.test(t.activeIngredient || "")));
+});
+
+test("no horticultural oil on bald cypress", () => {
+  const p = problem("spider-mites-cool-season", {}, { hostId: "baldcypress" });
+  const oil = p.options.filter((o) => o.chemical && /horticultural oil/i.test(o.treatment.title));
+  assert.ok(oil.length && oil.every((o) => o.notAdvised));
+  assert.ok(!problem("spider-mites-cool-season", {}, { hostId: "spruce" }).options.some((o) => o.notAdvised));
+});
