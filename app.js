@@ -34,6 +34,12 @@ function save() {
 }
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+// Problem ids renamed in knowledge base 2.0 (manual-based).
+const RENAMED = {
+  "two-lined-chestnut-borer": "twolined-chestnut-borer", "beech-scale": "beech-bark-scale", aphids: "aphids-general",
+  bagworm: "bagworms", phytophthora: "phytophthora-root-rot", verticillium: "verticillium-wilt",
+  diplodia: "diplodia-tip-blight", "cedar-apple-rust": "cedar-apple-and-related-rusts",
+};
 const uid = () => Math.random().toString(36).slice(2, 9);
 const plantByUid = (id) => state.plants.find((p) => p.uid === id);
 
@@ -183,7 +189,7 @@ function optionHtml(plantUid, o, selected) {
       <div>
         <div class="title">${esc(t.title)}</div>
         <div class="small"><span class="chip">${esc(o.type.name)}</span>
-          ${o.chemical ? (o.preferred ? ` <span class="chip pref">Recommended</span>` : ` <span class="chip">Alternative</span>`) : ""}</div>
+          ${o.chemical ? (o.preferred ? ` <span class="chip pref">Preferred</span>` : ` <span class="chip">Alternative</span>`) : ""}</div>
         ${o.notAdvised ? `<div class="small status-notAdvised">Not advised under current conditions</div>` : ""}
         ${s ? `
           <div class="small"><b>Applications:</b> ${describeVisits(s)}${s.interval ? `, ${esc(s.interval)}` : ""}</div>
@@ -215,7 +221,7 @@ function renderResult() {
     ${entries.map((e) => `
       <h3 class="plant">${esc(plantName(e))}</h3>
       ${e.problems.map((p) => {
-        const chem = p.options.filter((o) => o.chemical).sort((a, b) => b.preferred - a.preferred);
+        const chem = p.options.filter((o) => o.chemical).sort((a, b) => !!b.treatment.default - !!a.treatment.default || b.preferred - a.preferred);
         const cult = p.options.filter((o) => !o.chemical);
         return `
           <h4>${esc(p.condition.name)}</h4>
@@ -288,7 +294,7 @@ function renderCondition(id) {
         const s = t.schedule;
         return `<div class="row" style="display:block">
           <div class="title">${esc(t.title)}</div>
-          <div class="small"><span class="chip">${esc(kb.typeById[t.applicationType].name)}</span>${t.preferred ? ` <span class="chip pref">Recommended</span>` : ""}</div>
+          <div class="small"><span class="chip">${esc(kb.typeById[t.applicationType].name)}</span>${t.preferred ? ` <span class="chip pref">Preferred</span>` : ""}</div>
           ${s ? `<div class="small">${describeVisits(s)}${s.interval ? `, ${esc(s.interval)}` : ""} · ${esc(s.repeat)}<br>Window: ${esc(s.window)}</div>`
             : `<div class="small">${describeMonths(t.months)}</div>`}
           <div class="small muted">${esc(t.purpose)}</div>
@@ -352,9 +358,9 @@ async function start() {
     $view.innerHTML = `<p>Could not load the knowledge base. Connect once to install the offline copy.</p>`;
     return;
   }
-  // Drop saved references that no longer exist after a data update.
+  // Carry saved plants across data updates: follow renamed problems, drop ones that no longer exist.
   state.plants = state.plants.filter((p) => kb.hostById[p.hostId]);
-  for (const p of state.plants) p.conditionIds = p.conditionIds.filter((id) => kb.conditionById[id]);
+  for (const p of state.plants) p.conditionIds = p.conditionIds.map((id) => RENAMED[id] || id).filter((id) => kb.conditionById[id]);
   window.addEventListener("hashchange", route);
   route();
   if ("serviceWorker" in navigator) {
