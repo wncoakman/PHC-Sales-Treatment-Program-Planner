@@ -197,6 +197,45 @@ export function planLandscape(kb, site, plants) {
 
 export const selKey = (plantUid, treatmentId) => `${plantUid}:${treatmentId}`;
 
+/** Whole-property programs switched on from the first page (fixed backstage definitions). */
+export const PROGRAM_UID = "property";
+export const SITE_PROGRAMS = [
+  {
+    key: "soilCare", label: "Include Standard Soil Care", name: "Standard Soil Care",
+    treatment: {
+      id: "standard-soil-care", title: "Liquid fertilizer / bio-stimulant humates (soil drench)", applicationType: "soilDrench",
+      months: [3, 4, 9, 10], default: true, preferred: true,
+      schedule: { visitsMin: 2, visitsMax: 2, repeat: "Annually", window: "Spring (Mar–Apr) and fall (Sep–Oct)" },
+      notes: ["Whole-property soil care: root-zone drench of trees and shrubs"],
+    },
+  },
+  {
+    key: "resilience", label: "Add Resilience Support", name: "Resilience Support",
+    treatment: {
+      id: "resilience-support", title: "Phosphite salts (soil drench)", applicationType: "soilDrench",
+      months: [7, 8], default: true, preferred: true,
+      schedule: { visitsMin: 1, visitsMax: 1, repeat: "Annually", window: "Mid to late summer (Jul–Aug)" },
+      notes: ["Whole-property resilience support: root-zone drench of trees and shrubs"],
+    },
+  },
+];
+
+/** The selected whole-property programs as a plan entry ("Whole property"), or null when none are on. */
+export function siteProgramEntry(kb, choices = {}) {
+  const on = SITE_PROGRAMS.filter((p) => choices[p.key]);
+  if (!on.length) return null;
+  return {
+    plant: { uid: PROGRAM_UID, hostId: "site", qty: 1, label: "", conditionIds: [] },
+    host: { id: "site", name: "Whole property" },
+    problems: on.map((p) => ({
+      condition: { id: p.treatment.id, name: p.name },
+      flags: [],
+      crownStop: false,
+      options: [{ treatment: p.treatment, type: kb.typeById[p.treatment.applicationType], mitigation: "chemical", chemical: true, preferred: true, notAdvised: false, flags: [] }],
+    })),
+  };
+}
+
 export function plantName(entry) {
   const p = entry.plant;
   let s = entry.host?.name || p.hostId;
@@ -390,7 +429,7 @@ export function exportText(kb, site, entries, selected, siteLabel = "", counts =
       for (const f of p.flags) out.push(`${MARK[f.level]} ${f.text}`);
       const chosen = p.options.filter((o) => selected.has(selKey(e.plant.uid, o.treatment.id)));
       const chem = chosen.filter((o) => o.chemical), cult = chosen.filter((o) => !o.chemical);
-      if (chem.length) { out.push("Chemical:"); chem.forEach((o) => out.push(...optionLines(o, counts[selKey(e.plant.uid, o.treatment.id)]))); }
+      if (chem.length) { out.push(e.plant.uid === PROGRAM_UID ? "Program:" : "Chemical:"); chem.forEach((o) => out.push(...optionLines(o, counts[selKey(e.plant.uid, o.treatment.id)]))); }
       if (cult.length) { out.push("Cultural:"); cult.forEach((o) => out.push(...optionLines(o))); }
     }
   }

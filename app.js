@@ -1,7 +1,7 @@
 import {
   MITIGATIONS, describeMonths, describeVisits, indexKb, problemsForHost, matchesQuery, mitigationOf,
   planLandscape, defaultSelection, landscapeCalendar, applicationTotals, exportText, selKey, plantName, monthName,
-  visitPlan, slotName, describeVisitWindow, chosenCount,
+  visitPlan, slotName, describeVisitWindow, chosenCount, SITE_PROGRAMS, siteProgramEntry, PROGRAM_UID,
 } from "./engine.js";
 import { assessAddress, BANDS } from "./logistics.js";
 
@@ -19,6 +19,8 @@ function defaultState() {
   return {
     siteLabel: "",
     inspectionDate: new Date().toLocaleDateString("en-CA"), // YYYY-MM-DD, local time
+    /** Whole-property programs: { soilCare, resilience } (definitions in engine SITE_PROGRAMS). */
+    programs: { soilCare: false, resilience: false },
     leadNumber: "",
     site: { address: "", jurisdiction: "VA", nearWater: false, sensitiveSite: false, publicProperty: false },
     /** Backstage job logistics for the work address (closest base, drive-time band). Not shown in the plan. */
@@ -34,7 +36,7 @@ function defaultState() {
 function loadState() {
   try {
     const s = JSON.parse(localStorage.getItem(STORE_KEY));
-    if (s && Array.isArray(s.plants)) return { ...defaultState(), ...s, counts: s.counts || {}, site: { ...defaultState().site, ...s.site } };
+    if (s && Array.isArray(s.plants)) return { ...defaultState(), ...s, counts: s.counts || {}, programs: { ...defaultState().programs, ...s.programs }, site: { ...defaultState().site, ...s.site } };
   } catch {}
   return defaultState();
 }
@@ -84,6 +86,7 @@ function renderLandscape() {
     <label class="row"><span>SingleOps lead #</span><input type="text" id="leadNumber" inputmode="numeric" value="${esc(state.leadNumber)}" style="width:140px"></label>
     <div class="row"><input type="text" id="siteLabel" placeholder="Prospect / client name" value="${esc(state.siteLabel)}" style="flex:1"></div>
     <div class="row"><input type="text" id="address" autocomplete="street-address" placeholder="Work address: street, city, state ZIP" value="${esc(s.address)}" style="flex:1"></div>
+    ${SITE_PROGRAMS.map((p) => `<label class="row"><span>${esc(p.label)}</span><input type="checkbox" data-program="${p.key}" ${state.programs[p.key] ? "checked" : ""}></label>`).join("")}
 
     <h2>Plants (${state.plants.length})</h2>
     ${state.plants.map((p) => `
@@ -95,7 +98,7 @@ function renderLandscape() {
       </a>`).join("") || `<p class="small muted">Add each tree or ornamental in the landscape, then choose its problems.</p>`}
     <a class="primary" href="#add">+ Add plant</a>
 
-    <button class="primary" id="build" ${state.plants.some((p) => p.conditionIds.length) ? "" : "disabled"}>Build treatment plan</button>
+    <button class="primary" id="build" ${hasPlan() ? "" : "disabled"}>Build treatment plan</button>
     <button class="link" id="clear">Start new landscape</button>`;
 
   $view.querySelector("#siteLabel").oninput = (e) => { state.siteLabel = e.target.value; save(); };
@@ -105,6 +108,11 @@ function renderLandscape() {
     save();
     runLogistics();
   };
+  $view.querySelectorAll("[data-program]").forEach((c) => c.onchange = () => {
+    state.programs[c.dataset.program] = c.checked;
+    save();
+    $view.querySelector("#build").disabled = !hasPlan();
+  });
   $view.querySelector("#inspectionDate").onchange = (e) => { state.inspectionDate = e.target.value; save(); };
   $view.querySelector("#leadNumber").oninput = (e) => { state.leadNumber = e.target.value.trim(); save(); };
   $view.querySelector("#build").onclick = () => { location.hash = "#result"; };
@@ -216,11 +224,15 @@ function optionHtml(plantUid, o, selected) {
     </label>`;
 }
 
+const hasPlan = () => state.plants.some((p) => p.conditionIds.length) || SITE_PROGRAMS.some((p) => state.programs[p.key]);
+
 function renderResult() {
   const plants = state.plants.filter((p) => p.conditionIds.length);
-  if (!plants.length) { location.hash = "#plan"; return; }
+  if (!hasPlan()) { location.hash = "#plan"; return; }
   setHeader("Treatment Plan", `<a href="#plan">Edit</a>`);
   const entries = planLandscape(kb, state.site, plants);
+  const programEntry = siteProgramEntry(kb, state.programs);
+  if (programEntry) entries.push(programEntry);
   const selected = selectionFor(entries);
   const cal = landscapeCalendar(entries, selected);
   const tot = applicationTotals(entries, selected);
@@ -230,7 +242,7 @@ function renderResult() {
     <p class="small muted">${esc(state.siteLabel || "Unnamed prospect")}${state.leadNumber ? ` · Lead #${esc(state.leadNumber)}` : ""}${state.inspectionDate ? ` · Inspected ${esc(state.inspectionDate)}` : ""}<br>
       ${esc(state.site.address || "No work address")} · ${state.site.jurisdiction} · ${plants.length} plant entr${plants.length === 1 ? "y" : "ies"}</p>
     ${tot.programs ? `<div class="banner"><b>${vp.visits.length}</b> site visit${vp.visits.length === 1 ? "" : "s"}/year
-      covering <b>${vp.applications}</b> applications from ${tot.programs} chemical program${tot.programs === 1 ? "" : "s"}
+      covering <b>${vp.applications}</b> applications from ${tot.programs} treatment program${tot.programs === 1 ? "" : "s"}
       (${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`} applications across the reference ranges) ·
       <a id="jump" style="cursor:pointer;text-decoration:underline">see visit framework</a></div>` : ""}
     ${entries.map((e) => `
@@ -241,7 +253,7 @@ function renderResult() {
         return `
           <h4>${esc(p.condition.name)}</h4>
           ${flagsHtml(p.flags)}
-          ${chem.length ? `<div class="group">Chemical</div>${chem.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}
+          ${chem.length ? `<div class="group">${e.plant.uid === PROGRAM_UID ? "Program" : "Chemical"}</div>${chem.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}
           ${cult.length ? `<div class="group">Cultural</div>${cult.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}`;
       }).join("")}`).join("")}
     ${vp.visits.length ? `<h2 id="visits">Visit framework: minimum site visits</h2>
