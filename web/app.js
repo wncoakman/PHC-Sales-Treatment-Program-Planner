@@ -18,6 +18,8 @@ let state = loadState();
 function defaultState() {
   return {
     siteLabel: "",
+    inspectionDate: new Date().toLocaleDateString("en-CA"), // YYYY-MM-DD, local time
+    leadNumber: "",
     site: { address: "", jurisdiction: "VA", nearWater: false, sensitiveSite: false, publicProperty: false },
     /** Backstage job logistics for the work address (closest base, drive-time band). Not shown in the plan. */
     logistics: null,
@@ -76,19 +78,12 @@ function selectionFor(entries) {
 function renderLandscape() {
   const s = state.site;
   setHeader("Landscape");
-  const checkbox = (key, label) =>
-    `<label class="row"><span>${label}</span><input type="checkbox" data-site="${key}" ${s[key] ? "checked" : ""}></label>`;
   $view.innerHTML = `
-    <h2>Work address</h2>
-    <div class="row"><input type="text" id="address" autocomplete="street-address" placeholder="Street, city, state ZIP" value="${esc(s.address)}" style="flex:1"></div>
-    <h2>Site</h2>
-    <div class="row"><input type="text" id="siteLabel" placeholder="Client / property (optional)" value="${esc(state.siteLabel)}" style="flex:1"></div>
-    <div class="row"><span>Jurisdiction</span><div class="seg" style="flex:1">
-      ${["VA", "MD", "DC"].map((j) => `<button data-j="${j}" class="${s.jurisdiction === j ? "on" : ""}">${j}</button>`).join("")}
-    </div></div>
-    ${checkbox("nearWater", "Near water / Bay buffer")}
-    ${checkbox("sensitiveSite", "School, daycare, or park")}
-    ${checkbox("publicProperty", "Public property")}
+    <h2>Job</h2>
+    <label class="row"><span>Site inspection date</span><input type="date" id="inspectionDate" value="${esc(state.inspectionDate)}"></label>
+    <label class="row"><span>SingleOps lead #</span><input type="text" id="leadNumber" inputmode="numeric" value="${esc(state.leadNumber)}" style="width:140px"></label>
+    <div class="row"><input type="text" id="siteLabel" placeholder="Prospect / client name" value="${esc(state.siteLabel)}" style="flex:1"></div>
+    <div class="row"><input type="text" id="address" autocomplete="street-address" placeholder="Work address: street, city, state ZIP" value="${esc(s.address)}" style="flex:1"></div>
 
     <h2>Plants (${state.plants.length})</h2>
     ${state.plants.map((p) => `
@@ -110,8 +105,8 @@ function renderLandscape() {
     save();
     runLogistics();
   };
-  $view.querySelectorAll("[data-j]").forEach((b) => b.onclick = () => { s.jurisdiction = b.dataset.j; save(); renderLandscape(); });
-  $view.querySelectorAll("[data-site]").forEach((c) => c.onchange = () => { s[c.dataset.site] = c.checked; save(); });
+  $view.querySelector("#inspectionDate").onchange = (e) => { state.inspectionDate = e.target.value; save(); };
+  $view.querySelector("#leadNumber").oninput = (e) => { state.leadNumber = e.target.value.trim(); save(); };
   $view.querySelector("#build").onclick = () => { location.hash = "#result"; };
   $view.querySelector("#clear").onclick = () => {
     if (state.plants.length && !$view.querySelector("#clear").dataset.armed) {
@@ -119,9 +114,7 @@ function renderLandscape() {
       b.dataset.armed = "1"; b.textContent = "Tap again to clear all plants";
       return;
     }
-    const keep = state.site.jurisdiction;
     state = defaultState();
-    state.site.jurisdiction = keep;
     save(); renderLandscape();
   };
 }
@@ -234,7 +227,8 @@ function renderResult() {
   const vp = visitPlan(entries, selected, state.counts);
 
   $view.innerHTML = `
-    <p class="small muted">${esc(state.siteLabel || "Unnamed site")} · ${state.site.jurisdiction} · ${plants.length} plant entr${plants.length === 1 ? "y" : "ies"}</p>
+    <p class="small muted">${esc(state.siteLabel || "Unnamed prospect")}${state.leadNumber ? ` · Lead #${esc(state.leadNumber)}` : ""}${state.inspectionDate ? ` · Inspected ${esc(state.inspectionDate)}` : ""}<br>
+      ${esc(state.site.address || "No work address")} · ${state.site.jurisdiction} · ${plants.length} plant entr${plants.length === 1 ? "y" : "ies"}</p>
     ${tot.programs ? `<div class="banner"><b>${vp.visits.length}</b> site visit${vp.visits.length === 1 ? "" : "s"}/year
       covering <b>${vp.applications}</b> applications from ${tot.programs} chemical program${tot.programs === 1 ? "" : "s"}
       (${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`} applications across the reference ranges) ·
@@ -278,7 +272,7 @@ function renderResult() {
     window.scrollTo(0, y);
   });
   $view.querySelector("#jump")?.addEventListener("click", () => $view.querySelector("#visits").scrollIntoView({ behavior: "smooth" }));
-  $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel, state.counts));
+  $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel, state.counts, { inspectionDate: state.inspectionDate, leadNumber: state.leadNumber }));
 }
 
 async function sharePlan(text) {
@@ -390,7 +384,6 @@ async function runLogistics() {
     // Set jurisdiction from the geocoded state when the address is in VA, MD or DC.
     if (result.jurisdiction && result.jurisdiction !== state.site.jurisdiction) {
       state.site.jurisdiction = result.jurisdiction;
-      if ((location.hash || "#plan").startsWith("#plan")) renderLandscape();
     }
     save();
     logJob(result);
@@ -407,7 +400,7 @@ function opsLog() {
 
 function logJob(result) {
   const log = opsLog().filter((r) => r.address !== result.address);
-  log.unshift({ ...result, siteLabel: state.siteLabel });
+  log.unshift({ ...result, siteLabel: state.siteLabel, leadNumber: state.leadNumber, inspectionDate: state.inspectionDate });
   try { localStorage.setItem(OPS_LOG_KEY, JSON.stringify(log.slice(0, 500))); } catch {}
 }
 
@@ -423,7 +416,7 @@ function renderOps() {
     <p class="small muted">Drive times: OpenStreetMap / OSRM free-flow × ${esc(bases.trafficFactor)} business-hours traffic factor.</p>
     <h2>Job locations (${log.length})</h2>
     ${log.map((r) => `<div class="row" style="display:block">
-      <div class="title">${esc(r.address)}${r.siteLabel ? ` <span class="small muted">(${esc(r.siteLabel)})</span>` : ""}</div>
+      <div class="title">${esc(r.address)}${r.siteLabel ? ` <span class="small muted">(${esc(r.siteLabel)}${r.leadNumber ? ` · lead ${esc(r.leadNumber)}` : ""})</span>` : ""}</div>
       <div class="small">${r.error ? `<span class="status-outOfWindow">${esc(r.error)}</span>`
         : `${esc(r.baseName)} · ${esc(r.minutes)} min · <b>${esc(band(r.band))}</b> <span class="muted">(${esc(r.method)}${r.precision && r.precision !== "address" ? `; located by ${esc(r.precision)}` : ""})</span>`}</div>
       <div class="small muted">${esc(r.computedAt?.slice(0, 10))}</div></div>`).join("") || `<p class="small muted">None yet.</p>`}`;

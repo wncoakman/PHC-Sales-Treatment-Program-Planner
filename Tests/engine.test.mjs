@@ -197,3 +197,9 @@ test("current supplement fills gaps in the manual", () => {
   assert.ok(kb.conditionById["box-tree-moth"].biology.some((b) => b.startsWith("Update")));
   assert.ok(kb.conditionById["boxwood-blight"].treatments.some((t) => (t.notes || []).some((n) => n.includes("EPA proposed"))));
 });
+
+test("export header carries job fields", () => {
+  const entries = planLandscape(kb, site({ address: "1 Main St, Fairfax, VA 22030" }), []);
+  const t = exportText(kb, site({ address: "1 Main St, Fairfax, VA 22030" }), entries, new Set(), "Smith", {}, { leadNumber: "4521", inspectionDate: "2026-10-09" });
+  assert.ok(t.includes("Prospect / client: Smith") && t.includes("Work address: 1 Main St") && t.includes("SingleOps lead #: 4521") && t.includes("Site inspection date: 2026-10-09"));
+});
