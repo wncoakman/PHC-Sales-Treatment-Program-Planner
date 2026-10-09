@@ -54,12 +54,20 @@ test("diagnostic options are excluded from plans", () => {
 
 const EAB_INJECT = "emerald-ash-borer--emamectin-benzoate-microInjection";
 
-test("default selection: default (✓) chemical + cultural, no removal", () => {
+test("default selection: recommended systemic first; cultural listed but unchecked; no removal", () => {
   const p = problem("emerald-ash-borer", {}, { crownLoss: 10 });
   assert.deepEqual(defaultSelection(p), [EAB_INJECT]);
   const h = defaultSelection(problem("hemlock-woolly-adelgid", {}, {}));
-  assert.ok(h.includes("hemlock-woolly-adelgid--imidacloprid-soilDrench") && h.includes("hemlock-woolly-adelgid--horticultural-oil-dormantOil"));
-  assert.ok(!h.includes("hemlock-woolly-adelgid--dinotefuran-basalBark"));
+  assert.deepEqual(h, ["hemlock-woolly-adelgid--imidacloprid-soilDrench"]); // systemic over the dormant oil spray
+  assert.deepEqual(defaultSelection(problem("crapemyrtle-bark-scale")), ["crapemyrtle-bark-scale--acetamiprid-basalBark"]);
+  assert.deepEqual(defaultSelection(problem("beech-leaf-disease")), ["beech-leaf-disease--potassium-phosphite-soilDrench"]); // ★ systemic beats ✓ foliar
+  assert.deepEqual(defaultSelection(problem("boxwood-blight")), ["boxwood-blight--mancozeb-propiconazole-foliar"]); // no systemic: ✓ program
+  for (const id of ["drought", "boxwood-blight", "hemlock-woolly-adelgid"]) {
+    const pr = problem(id);
+    const sel = new Set(defaultSelection(pr));
+    assert.ok(pr.options.filter((o) => !o.chemical).every((o) => !sel.has(o.treatment.id)), `${id}: cultural unchecked`);
+    assert.ok(pr.options.some((o) => !o.chemical), `${id}: cultural still listed`);
+  }
 });
 
 test("EAB crown loss above max: chemical not advised, removal selected", () => {
@@ -113,7 +121,7 @@ test("landscape: calendar, totals, export", () => {
   ];
   const entries = planLandscape(kb, site(), plants);
   const selected = new Set(entries.flatMap((e) => e.problems.flatMap((p) => defaultSelection(p).map((id) => selKey(e.plant.uid, id)))));
-  assert.ok(selected.has(`a:${EAB_INJECT}`) && selected.has("b:boxwood-blight--mancozeb-propiconazole-foliar") && selected.has("a:dr-water"));
+  assert.ok(selected.has(`a:${EAB_INJECT}`) && selected.has("b:boxwood-blight--mancozeb-propiconazole-foliar") && !selected.has("a:dr-water"));
 
   const tot = applicationTotals(entries, selected);
   assert.deepEqual(tot, { programs: 2, min: 7, max: 8 }); // EAB injection 1 + boxwood blight monthly 6–7
@@ -202,4 +210,14 @@ test("export header carries job fields", () => {
   const entries = planLandscape(kb, site({ address: "1 Main St, Fairfax, VA 22030" }), []);
   const t = exportText(kb, site({ address: "1 Main St, Fairfax, VA 22030" }), entries, new Set(), "Smith", {}, { leadNumber: "4521", inspectionDate: "2026-10-09" });
   assert.ok(t.includes("Prospect / client: Smith") && t.includes("Work address: 1 Main St") && t.includes("SingleOps lead #: 4521") && t.includes("Site inspection date: 2026-10-09"));
+});
+
+test("host contraindications: no neonicotinoids on linden", () => {
+  const onLinden = problem("japanese-beetle", {}, { hostId: "linden" });
+  const imid = opt(onLinden, "japanese-beetle--imidacloprid-soilDrench");
+  assert.ok(imid.notAdvised && imid.flags.some((f) => f.level === "stop" && f.text.includes("linden")));
+  assert.ok(!defaultSelection(onLinden).some((id) => /imidacloprid|dinotefuran/.test(id)));
+  assert.ok(!opt(onLinden, "japanese-beetle--acetamiprid-basalBark").notAdvised);
+  const onRose = problem("japanese-beetle", {}, { hostId: "rose" });
+  assert.deepEqual(defaultSelection(onRose), ["japanese-beetle--imidacloprid-soilDrench"]);
 });

@@ -113,18 +113,30 @@ export function planProblem(kb, condition, site, plant = {}) {
 
   const options = condition.treatments
     .filter((t) => mitigationOf(t.applicationType) !== "diagnostic")
-    .map((t) => assessOption(kb, t, condition, site, juris, crownStop));
+    .map((t) => assessOption(kb, t, condition, site, juris, crownStop, plant));
   return { condition, flags, options, crownStop };
 }
 
-function assessOption(kb, t, condition, site, juris, crownStop) {
+// Host-specific contraindications from the reference (option text match → not advised on that host).
+const HOST_BLOCKS = [
+  { host: "linden", match: ["imidacloprid", "dinotefuran"], text: "Never apply imidacloprid or dinotefuran to linden (Tilia). Use acetamiprid basal bark or a non-neonicotinoid option." },
+  { host: "dogwood", match: ["paclobutrazol"], text: "Do not treat dogwood (Cornus) with paclobutrazol." },
+];
+const EDIBLE_HOSTS = new Set(["peach"]);
+
+function assessOption(kb, t, condition, site, juris, crownStop, plant = {}) {
   const type = kb.typeById[t.applicationType] || { id: t.applicationType, name: t.applicationType };
   const mitigation = mitigationOf(type.id);
   const chemical = mitigation === "chemical";
   const text = [t.title, ...(t.notes || [])].join(" ").toLowerCase();
   const has = (list) => list.some((w) => text.includes(w));
   const flags = [];
-  const notAdvised = chemical && crownStop;
+  const block = chemical && HOST_BLOCKS.find((b) => b.host === plant.hostId && has(b.match));
+  const notAdvised = chemical && (crownStop || !!block);
+  if (block) flags.push(flag("stop", block.text));
+  if (chemical && EDIBLE_HOSTS.has(plant.hostId) && /not (on )?(edible|fruit)|not where nuts/i.test(text)) {
+    flags.push(flag("caution", "Label excludes edible fruit or nut trees. Use only where the crop will not be eaten."));
+  }
 
   if (t.suppressiveOnly) flags.push(flag("info", "Suppressive only; repeat treatments expected."));
   if (t.requiresLicense) flags.push(flag("caution", "Certified applicator required; check restricted-use status."));
@@ -153,11 +165,22 @@ function costShareFlag(cs, site, plant) {
   return flag("info", `Cost-share eligible: ${cs.text}`);
 }
 
-/** Options checked by default: the reference's default (✓) chemical program plus cultural and mechanical care. Removal only when chemical is ruled out. */
+export const SYSTEMIC_TYPES = new Set(["soilDrench", "basalBark", "microInjection", "macroInjection"]);
+export const isSystemic = (o) => SYSTEMIC_TYPES.has(o.type.id);
+
+/**
+ * Options checked by default. Chemical: the recommended (★ or ✓) systemic option when the reference has one
+ * (✓ first), otherwise the reference's ✓ program. Cultural practices are listed but left unchecked.
+ * Removal is checked only when chemical protection is ruled out.
+ */
 export function defaultSelection(problem) {
-  return problem.options
-    .filter((o) => (o.chemical ? o.treatment.default && !o.notAdvised : o.mitigation !== "removal" || problem.crownStop))
-    .map((o) => o.treatment.id);
+  const chem = problem.options.filter((o) => o.chemical && !o.notAdvised);
+  const systemic = chem.filter((o) => isSystemic(o) && (o.treatment.default || o.preferred));
+  const pick = systemic.length
+    ? [systemic.find((o) => o.treatment.default) || systemic.find((o) => o.preferred)]
+    : chem.filter((o) => o.treatment.default);
+  const removal = problem.crownStop ? problem.options.filter((o) => o.mitigation === "removal") : [];
+  return [...pick, ...removal].map((o) => o.treatment.id);
 }
 
 /**

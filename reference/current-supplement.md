@@ -4,6 +4,10 @@ The 2024 manual is the primary reference. This file adds problems it does not co
 
 In this file ★ means the best-supported current option, not a manual bold. Last verified: October 2026. Re-check each entry's sources at least yearly.
 
+**Rule-based additions (applied by the build, listed here for review):**
+- **Btk for caterpillars:** a Bacillus thuringiensis kurstaki (Btk) foliar row is added to the defoliating caterpillar entries listed in `BTK_FOR` in `scripts/build-kb.mjs`, timed like the entry's main caterpillar spray. Btk is the standard selective option for young larvae and spares natural enemies, but the manual omits it. Sources: Ohio State BYGL (bagworm); UGA and University of Maryland Extension (box tree moth).
+- **Product status notes:** mancozeb (pending EPA decision on residential ornamental uses), acephate (EPA proposed keeping only tree injection) and emamectin benzoate (TREE-äge formulations are restricted use) are noted on every option that uses them.
+
 # Insects and mites
 
 ## Caterpillars and sawflies
@@ -42,6 +46,23 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 **Cultural**
 - Biocontrol: In natural areas, ask the state forest health program about predator beetle releases. Do not apply insecticide to release trees.
 
+
+### Spotted lanternfly
+- **Hosts:** treeofheaven
+- **About:** Current extension practice: use circle traps on trunks rather than bare sticky bands, which catch birds and other wildlife (if bands are used, cage them with wire mesh). Removing every tree of heaven can push lanternflies onto desirable plants. Keep a few male (non-seeding) trees as trap trees treated with a systemic insecticide, and remove the rest.
+- **Sources:** Penn State Extension Spotted Lanternfly Management Guide; Rutgers Extension SLF trapping; Michigan State University SLF update (2020)
+
+**Cultural**
+- Mechanical: Put circle traps on infested trunks. Avoid bare sticky bands (wildlife bycatch).
+- Mechanical: Scrape egg masses Oct–Apr into alcohol or hand sanitizer.
+- Removal: Remove female (seeding) tree of heaven after treating it with herbicide. Keep about 15% of male trees as systemic-treated trap trees.
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | Micro-injection | Imidacloprid | Jun–Jul | 1 | — | Annually | Trap trees and infested ornamentals, early summer | Not on linden or fruiting trees |
+
 # Diseases
 
 ## Foliage diseases and needlecasts
@@ -65,6 +86,34 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 | ★✓ | Foliar spray | Fluopyram | Jun–Aug | 2 | 30 d | Annually | Late May to mid-July, before nematodes move into buds in early August. CAES allows late May to late August | Only peer-reviewed treatment shown to suppress BLD. Best on isolated trees. Very toxic to aquatic life: no use near water or storm drains. Professional use. Rotate modes of action |
 | ★ | Soil drench | Potassium phosphite | Jun–Jul | 2 | 30 d | Annually | June and July, one month apart | Most support on small trees, and results vary by site. Improvement may take several years. Follow the product label rate |
 | | Micro-injection | Potassium phosphite | May–Jul | 1 | — | Annually | After leaf expansion | Manufacturer trials (2024–2025) only. Independent replication pending |
+
+## Blights
+
+### Boxwood blight
+- **Hosts:** boxwood
+- **About:** Current Virginia guidance (SPES-557) puts prevention and sanitation first. Once boxwood blight is in a landscape it is hard and costly to control with fungicides, which protect but do not cure. After diagnosis, double-bag diseased plants, leaf litter and surface soil for the landfill, then spray nearby healthy boxwood every 7–14 days per label. Chlorothalonil and fludioxonil are established protectants. Rotate and mix chemistries, and get thorough coverage inside dense canopies.
+- **Sources:** Virginia Tech SPES-557 boxwood blight BMPs (2023); University of Delaware Extension boxwood blight fact sheet; NC State fungicide trials (Ivors); Purdue BP-203-W
+
+**Cultural**
+- Sanitation: After diagnosis, double-bag diseased plants, leaf litter and surface soil for the landfill, or bury them 2 ft deep away from boxwood.
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| ★ | Foliar spray | Chlorothalonil | Apr–Oct | 6–12 | 7–14 d | Annually | Protectant program on healthy boxwood near infections, warm wet weather (above 60°F with rain expected) | Rotate. Some labels restrict use near playgrounds, schools and daycare |
+| ★ | Foliar spray | Fludioxonil + chlorothalonil | Apr–Oct | 6–12 | 7–14 d | Annually | Tank mix, same timing | Rotate with other chemistries |
+
+## Vascular and wilt diseases
+
+### Oak wilt
+- **Hosts:** oak
+- **About:** Sap beetles find fresh wounds within minutes, and wounds stay attractive for about 3 days. If an oak must be pruned or wounded during the growing season, seal the wound immediately. This is the one case where wound paint is recommended. Do not move unseasoned firewood from diseased red oaks. Repeat preventive propiconazole about every 2 years.
+- **Sources:** Texas A&M Plant Disease Handbook, Eight Step Program to Oak Wilt Management; Michigan State University Extension; NY DEC oak wilt booklet
+
+**Cultural**
+- Prune: If pruning or wounding oaks Apr–Jul cannot be avoided, seal the wound immediately with pruning sealer or latex paint.
+- Sanitation: Do not move unseasoned firewood from diseased oaks. Season it for at least a year or debark it.
 
 ## Blights
 

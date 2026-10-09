@@ -208,10 +208,31 @@ for (const sup of parseConditions(readFileSync(new URL("reference/current-supple
   target.sources.push(...sup.sources.map((x) => `Update: ${x}`));
 }
 
+// Btk: the standard selective option for young caterpillars, omitted by the manual (see current-supplement.md).
+const BTK_FOR = ["caterpillar-defoliators-general", "apple-and-thorn-skeletonizer", "bagworms", "box-tree-moth", "cankerworms",
+  "eastern-tent-caterpillar", "elm-spanworm", "fall-webworm", "forest-tent-caterpillar", "hemlock-looper", "juniper-webworm",
+  "leafroller-caterpillars", "linden-looper", "mimosa-webworm", "oak-leaftier", "oak-skeletonizer", "orange-striped-oakworm",
+  "satin-moth", "spongy-moth", "tussock-moths", "walnut-caterpillar"];
+for (const id of BTK_FOR) {
+  const c = conditions.find((x) => x.id === id);
+  if (!c) { fail(`BTK_FOR: no condition ${id}`); continue; }
+  const main = c.treatments.find((t) => t.schedule && t.applicationType === "foliar" && t.default) || c.treatments.find((t) => t.schedule && t.applicationType === "foliar");
+  c.treatments.push({
+    applicationType: "foliar",
+    title: "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+    activeIngredient: "Bacillus thuringiensis kurstaki (Btk)",
+    months: main.months,
+    schedule: { visitsMin: 2, visitsMax: 3, interval: "7–10 d", repeat: main.schedule.repeat, window: "Young larvae (early instars), thorough coverage" },
+    notes: ["Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"],
+  });
+  c.sources.push(`Current supplement (verified ${VERIFIED}): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)`);
+}
+
 // Product status changes since the manual (applied to every option using the product).
 const PRODUCT_NOTES = [
   [/mancozeb/i, "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."],
   [/acephate/i, "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."],
+  [/emamectin/i, "TREE-äge formulations are restricted-use pesticides: certified applicators only."],
 ];
 for (const c of conditions) for (const t of c.treatments) for (const [re, note] of PRODUCT_NOTES) {
   if (re.test(t.activeIngredient || "")) t.notes.push(note);
