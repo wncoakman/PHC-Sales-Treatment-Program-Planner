@@ -8,7 +8,7 @@ windows, and compliance flags. No application rates. Works offline once added to
 - `web/`: **the app** (static files; host this folder anywhere with HTTPS)
   - `data/knowledge_base.json`: generated content. **Do not edit by hand**; run `npm run build:kb`.
   - `engine.js`: rules (timing windows, crown-loss thresholds, MD neonicotinoid, bloom/pollinator, near-water,
-    sensitive sites, cost-share eligibility, annual schedule, text export).
+    sensitive sites, cost-share eligibility, annual schedule, minimum-visit framework, text export).
   - `app.js`, `index.html`: screens (Plan, Library, Reference).
   - `sw.js`: offline cache. **Bump `VERSION` after any change** so installed copies update.
 - `reference/pest-management-reference.md` (**local only, gitignored**): **primary content source**, a structured transcription of the

@@ -212,6 +212,118 @@ export function applicationTotals(entries, selected) {
   return { programs, min, max };
 }
 
+// ---------- Visit framework ----------
+// The year is 24 half-month slots (0 = early Jan, 1 = late Jan, ...).
+
+const SLOTS = 24;
+export const slotName = (s) => `${s % 2 ? "Late" : "Early"} ${MONTHS[Math.floor(s / 2)]}`;
+
+/** Minimum spacing in slots from an interval like "14 d", "4–6 wk", "3 mo" (uses the low end); null when none given. */
+export function intervalSlots(interval) {
+  const m = String(interval || "").match(/(\d+)\s*(?:[–-]\s*\d+)?\s*\+?\s*(d|wk|mo)\b/);
+  if (!m) return null;
+  const days = Number(m[1]) * { d: 1, wk: 7, mo: 30 }[m[2]];
+  return Math.max(1, Math.round(days / 15));
+}
+
+/** Allowed slots and contiguous runs (e.g. "Apr–May, Aug–Sep" = 2 runs) for an option's months. */
+function slotRuns(months) {
+  const allowed = new Set((months?.length ? months : MONTHS.map((_, i) => i + 1)).flatMap((m) => [2 * (m - 1), 2 * (m - 1) + 1]));
+  const runs = [];
+  for (let s = 0; s < SLOTS; s++) {
+    if (!allowed.has(s)) continue;
+    if (allowed.has(s - 1)) runs[runs.length - 1].push(s); else runs.push([s]);
+  }
+  return { allowed, runs };
+}
+
+/**
+ * One program's applications: earliest/latest slot for each, honoring its window and spacing.
+ * Without a stated interval, applications go one per window run ("Apr, Aug") when there are enough runs,
+ * otherwise at least one half-month apart.
+ */
+function programTimeline(option, count) {
+  const { allowed, runs } = slotRuns(option.treatment.months);
+  const step = intervalSlots(option.treatment.schedule?.interval);
+  const perRun = step == null && runs.length >= count && count > 1;
+  const runOf = (s) => runs.findIndex((r) => r.includes(s));
+  const nextAfter = (s) => {
+    if (perRun) return runs[runOf(s) + 1]?.[0] ?? null;
+    for (let t = s + (step ?? 1); t < SLOTS; t++) if (allowed.has(t)) return t;
+    return null;
+  };
+  const prevBefore = (s) => {
+    if (perRun) { const r = runs[runOf(s) - 1]; return r ? r[r.length - 1] : null; }
+    for (let t = s - (step ?? 1); t >= 0; t--) if (allowed.has(t)) return t;
+    return null;
+  };
+  const latest = new Array(count);
+  latest[count - 1] = runs[runs.length - 1].at(-1);
+  for (let i = count - 2; i >= 0; i--) latest[i] = latest[i + 1] == null ? null : prevBefore(latest[i + 1]);
+  // Repeating programs ("monthly from budbreak") start in the window's first month and keep their rhythm.
+  const anchored = step != null && count > 1;
+  return { allowed, latest, nextAfter, first: runs[0][0], cap: anchored ? runs[0][0] + 1 : null, step: anchored ? step : null };
+}
+
+/**
+ * Fewest site visits that cover every checked chemical program's minimum applications.
+ * Greedy by deadline: each visit falls at the latest slot the most urgent pending application allows,
+ * and every other application that is open then (window, spacing) is done on the same visit.
+ * Returns { visits: [{ slot, from, to, items: [{ plant, problem, option, n, of }] }], applications, compressed }.
+ */
+export function visitPlan(entries, selected) {
+  const programs = [];
+  for (const e of entries) for (const p of e.problems) for (const o of p.options) {
+    const s = o.treatment.schedule;
+    if (!o.chemical || o.notAdvised || !s || !selected.has(selKey(e.plant.uid, o.treatment.id))) continue;
+    const of = Math.max(1, s.visitsMin);
+    const tl = programTimeline(o, of);
+    programs.push({ plant: plantName(e), problem: p.condition.name, option: o, of, done: 0, earliest: tl.first, ...tl });
+  }
+  const visits = [];
+  const compressed = new Set();
+  let applications = 0;
+  for (let guard = 0; guard < 500; guard++) {
+    const pending = programs.filter((g) => g.done < g.of);
+    if (!pending.length) break;
+    // Latest workable slot; a program that can no longer fit its window is done as early as possible (and reported).
+    const deadline = (g) => {
+      const last = g.latest[g.done];
+      if (last == null || last < g.earliest) return g.earliest;
+      for (let t = Math.min(last, g.cap ?? SLOTS); t >= g.earliest; t--) if (g.allowed.has(t)) return t;
+      return g.earliest;
+    };
+    const slot = Math.min(...pending.map(deadline));
+    const items = [];
+    let from = 0, to = SLOTS - 1;
+    for (const g of pending) {
+      const urgent = deadline(g) === slot;
+      if (!(urgent || (g.earliest <= slot && g.allowed.has(slot)))) continue;
+      if (g.latest[g.done] == null || g.latest[g.done] < g.earliest) compressed.add(g);
+      from = Math.max(from, Math.min(g.earliest, slot));
+      to = Math.min(to, Math.max(deadline(g), slot));
+      items.push({ plant: g.plant, problem: g.problem, option: g.option, n: g.done + 1, of: g.of });
+      g.done++;
+      applications++;
+      if (g.done < g.of) {
+        g.earliest = g.nextAfter(slot) ?? SLOTS - 1;
+        if (g.step != null) g.cap = slot + g.step + 1; // no more than ~2 weeks past the interval
+      }
+    }
+    visits.push({ slot, from, to, items });
+  }
+  visits.sort((a, b) => a.slot - b.slot);
+  return {
+    visits,
+    applications,
+    compressed: [...compressed].map((g) => ({ plant: g.plant, problem: g.problem, option: g.option })),
+  };
+}
+
+export function describeVisitWindow(v) {
+  return v.from === v.to ? slotName(v.slot) : `${slotName(v.from)} – ${slotName(v.to)}`;
+}
+
 const MARK = { info: "[i]", caution: "[!]", stop: "[X]" };
 
 function optionLines(o) {
@@ -247,6 +359,15 @@ export function exportText(kb, site, entries, selected, siteLabel = "") {
       if (chem.length) { out.push("Chemical:"); chem.forEach((o) => out.push(...optionLines(o))); }
       if (cult.length) { out.push("Cultural:"); cult.forEach((o) => out.push(...optionLines(o))); }
     }
+  }
+  const vp = visitPlan(entries, selected);
+  if (vp.visits.length) {
+    out.push("", `######## VISIT FRAMEWORK: ${vp.visits.length} SITE VISIT${vp.visits.length === 1 ? "" : "S"} (${vp.applications} APPLICATIONS) ########`);
+    vp.visits.forEach((v, i) => {
+      out.push(`Visit ${i + 1}: ${slotName(v.slot)}${v.from !== v.to ? ` (flexible ${describeVisitWindow(v)})` : ""}`);
+      for (const it of v.items) out.push(`  - ${it.plant}: ${it.option.treatment.title} (${it.problem})${it.of > 1 ? ` [${it.n} of ${it.of}]` : ""}`);
+    });
+    for (const c of vp.compressed) out.push(`[!] ${c.plant}: ${c.option.treatment.title} does not fit its window at the stated spacing; scheduled as early as possible.`);
   }
   const cal = landscapeCalendar(entries, selected);
   if (cal.length) {

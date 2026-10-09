@@ -139,3 +139,37 @@ test("month ranges", () => {
   assert.equal(describeMonths([]), "Any time");
   assert.equal(describeMonths([6]), "Jun");
 });
+
+test("visit framework: combines overlapping windows, respects spacing", async () => {
+  const { visitPlan, intervalSlots } = await import("../web/engine.js");
+  assert.equal(intervalSlots("14 d"), 1);
+  assert.equal(intervalSlots("4–6 wk"), 2);
+  assert.equal(intervalSlots("3 mo"), 6);
+  assert.equal(intervalSlots(undefined), null);
+
+  const plants = [
+    { uid: "a", hostId: "ash", qty: 1, dbh: 20, crownLoss: 10, conditionIds: ["emerald-ash-borer"] },
+    { uid: "b", hostId: "boxwood", qty: 12, conditionIds: ["boxwood-blight", "boxwood-leafminer"] },
+    { uid: "c", hostId: "maple", qty: 1, conditionIds: ["gloomy-scale"] },
+  ];
+  const entries = planLandscape(kb, site(), plants);
+  const selected = new Set(entries.flatMap((e) => e.problems.flatMap((p) => defaultSelection(p).map((id) => selKey(e.plant.uid, id)))));
+  const vp = visitPlan(entries, selected);
+  const tot = applicationTotals(entries, selected);
+  assert.equal(vp.applications, tot.min);
+  assert.ok(vp.visits.length < vp.applications, `${vp.visits.length} visits for ${vp.applications} applications`);
+
+  // Every application lands inside its program's months, and repeat applications keep their spacing.
+  const byProgram = new Map();
+  for (const v of vp.visits) for (const it of v.items) {
+    const months = it.option.treatment.months;
+    assert.ok(months.includes(Math.floor(v.slot / 2) + 1), `${it.option.treatment.id} at slot ${v.slot}`);
+    const k = `${it.plant}|${it.option.treatment.id}`;
+    byProgram.set(k, [...(byProgram.get(k) || []), v.slot]);
+  }
+  const blight = [...byProgram.entries()].find(([k]) => k.includes("boxwood-blight"))[1];
+  assert.equal(blight.length, 6); // monthly Apr–Oct, minimum 6
+  for (let i = 1; i < blight.length; i++) assert.ok(blight[i] - blight[i - 1] >= 2, "30 d spacing");
+  const text = exportText(kb, site(), entries, selected, "T");
+  assert.ok(text.includes("VISIT FRAMEWORK") && text.includes("Visit 1:"));
+});

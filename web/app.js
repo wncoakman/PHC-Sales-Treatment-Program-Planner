@@ -1,6 +1,7 @@
 import {
   MITIGATIONS, describeMonths, describeVisits, indexKb, problemsForHost, matchesQuery, mitigationOf,
   planLandscape, defaultSelection, landscapeCalendar, applicationTotals, exportText, selKey, plantName, monthName,
+  visitPlan, slotName, describeVisitWindow,
 } from "./engine.js";
 
 const $view = document.getElementById("view");
@@ -212,12 +213,14 @@ function renderResult() {
   const selected = selectionFor(entries);
   const cal = landscapeCalendar(entries, selected);
   const tot = applicationTotals(entries, selected);
+  const vp = visitPlan(entries, selected);
 
   $view.innerHTML = `
     <p class="small muted">${esc(state.siteLabel || "Unnamed site")} · ${state.site.jurisdiction} · ${plants.length} plant entr${plants.length === 1 ? "y" : "ies"}</p>
-    ${tot.programs ? `<div class="banner"><b>${tot.programs}</b> chemical program${tot.programs === 1 ? "" : "s"} ·
-      <b>${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`}</b> applications/year before combining same-day visits ·
-      service months: ${cal.map((c) => monthName(c.month)).join(", ")}</div>` : ""}
+    ${tot.programs ? `<div class="banner"><b>${vp.visits.length}</b> site visit${vp.visits.length === 1 ? "" : "s"}/year
+      covering <b>${vp.applications}</b> applications from ${tot.programs} chemical program${tot.programs === 1 ? "" : "s"}
+      (${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`} applications if each program is run at its full count) ·
+      <a id="jump" style="cursor:pointer;text-decoration:underline">see visit framework</a></div>` : ""}
     ${entries.map((e) => `
       <h3 class="plant">${esc(plantName(e))}</h3>
       ${e.problems.map((p) => {
@@ -229,6 +232,13 @@ function renderResult() {
           ${chem.length ? `<div class="group">Chemical</div>${chem.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}
           ${cult.length ? `<div class="group">Cultural</div>${cult.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}`;
       }).join("")}`).join("")}
+    ${vp.visits.length ? `<h2 id="visits">Visit framework: minimum site visits</h2>
+      <p class="small muted">Checked chemical programs at their minimum application count, combined into the fewest visits that respect each window and interval. Flexible range = dates that still work for every application on the visit.</p>
+      ${vp.visits.map((v, i) => `<div class="row" style="display:block">
+        <div class="title">Visit ${i + 1}: ${slotName(v.slot)} <span class="small muted">${v.from !== v.to ? `flexible ${esc(describeVisitWindow(v))}` : ""}</span></div>
+        <div class="small">${v.items.map((it) => `${esc(it.plant)}: ${esc(it.option.treatment.title)} <span class="muted">(${esc(it.problem)}${it.of > 1 ? `, ${it.n} of ${it.of}` : ""})</span>`).join("<br>")}</div>
+      </div>`).join("")}
+      ${vp.compressed.map((c) => `<div class="flag caution">${esc(c.plant)}: ${esc(c.option.treatment.title)} does not fit its window at the stated spacing; scheduled as early as possible.</div>`).join("")}` : ""}
     ${cal.length ? `<h2>Annual calendar: application windows (checked items)</h2>
       ${cal.map((c) => `<div class="row" style="align-items:flex-start"><b style="width:42px;flex:none">${monthName(c.month)}</b>
         <div class="small">${c.items.map((i) => `${esc(i.plant)}: ${esc(i.option.treatment.title)} <span class="muted">(${esc(i.problem)})</span>`).join("<br>")}</div></div>`).join("")}` : ""}
@@ -242,6 +252,7 @@ function renderResult() {
     renderResult();
     window.scrollTo(0, y);
   });
+  $view.querySelector("#jump")?.addEventListener("click", () => $view.querySelector("#visits").scrollIntoView({ behavior: "smooth" }));
   $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel));
 }
 
