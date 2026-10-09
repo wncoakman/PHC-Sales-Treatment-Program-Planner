@@ -121,6 +121,7 @@ export function planProblem(kb, condition, site, plant = {}) {
 const HOST_BLOCKS = [
   { host: "linden", match: ["imidacloprid", "dinotefuran"], text: "Never apply imidacloprid or dinotefuran to linden (Tilia). Use acetamiprid basal bark or a non-neonicotinoid option." },
   { host: "dogwood", match: ["paclobutrazol"], text: "Do not treat dogwood (Cornus) with paclobutrazol." },
+  { host: "baldcypress", match: ["horticultural oil", "dormant oil"], text: "Bald cypress is very sensitive to horticultural oil: do not use oil or oil tank mixes." },
 ];
 const EDIBLE_HOSTS = new Set(["peach"]);
 

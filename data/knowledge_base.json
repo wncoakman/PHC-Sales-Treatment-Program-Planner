@@ -7262,11 +7262,14 @@
     "cherry",
     "azalea",
     "hawthorn",
-    "oak"
+    "oak",
+    "smoketree",
+    "filbert"
    ],
    "symptoms": [],
    "biology": [
-    "Leaves rolled or tied with silk on crabapple, rosaceous hosts and azaleas."
+    "Leaves rolled or tied with silk on crabapple, rosaceous hosts and azaleas.",
+    "Update (Oct 2026): Oblique-banded leafroller rolls smoke tree leaves in June, and leafrollers also attack hazelnut. It rarely needs control on smoke tree. Hand-pick, or use Btk on young larvae."
    ],
    "treatments": [
     {
@@ -7387,6 +7390,8 @@
    ],
    "sources": [
     "2024 Southeast Pest Management Recommendations",
+    "Update: UF/IFAS EDIS ST204 (Cotinus coggygria)",
+    "Update: Oregon State Extension EM 8979 (hazelnut pests)",
     "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
@@ -23188,11 +23193,13 @@
     "peach",
     "pear",
     "lilac",
-    "viburnum"
+    "viburnum",
+    "mulberry"
    ],
    "symptoms": [],
    "biology": [
-    "Also called bacterial blast or bacterial canker. Shoots, leaves and blossoms blight in spring, turn black and cling to branches, much like fire blight. Cankers form on branches and stems. On hydrangea it starts as purple spots that merge into leaf blight. Worst in warm, rainy springs and dense plantings."
+    "Also called bacterial blast or bacterial canker. Shoots, leaves and blossoms blight in spring, turn black and cling to branches, much like fire blight. Cankers form on branches and stems. On hydrangea it starts as purple spots that merge into leaf blight. Worst in warm, rainy springs and dense plantings.",
+    "Update (Oct 2026): Bacterial blight of mulberry causes water-soaked leaf spots, black streaks on shoots and wilting shoot tips."
    ],
    "treatments": [
     {
@@ -23287,7 +23294,8 @@
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: Texas A&M Plant Disease Handbook, mulberry"
    ],
    "activeMonths": [
     3,
@@ -26426,11 +26434,16 @@
     "holly",
     "kalmia",
     "crapemyrtle",
-    "azalea"
+    "azalea",
+    "tupelo",
+    "mulberry",
+    "persimmon",
+    "smoketree"
    ],
    "symptoms": [],
    "biology": [
-    "The species causing leaf spot varies by plant. On edible crops use only fungicides labeled for that use."
+    "The species causing leaf spot varies by plant. On edible crops use only fungicides labeled for that use.",
+    "Update (Oct 2026): Common on more hosts than the manual lists. Black gum (Mycosphaerella nyssicola) gets black-freckled leaves and early leaf drop, worse in alkaline soil, and some newer cultivars resist it. Mulberry (Cercospora, Cercosporella) is hit in very rainy seasons. Persimmon and smoke tree leaf spots are usually minor. Raking fallen leaves and good soil care come first. Fungicides are rarely justified except on specimen trees with a history."
    ],
    "treatments": [
     {
@@ -26500,7 +26513,12 @@
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: Clemson HGIC black gum",
+    "Update: UF/IFAS EDIS ST422 (Nyssa sylvatica)",
+    "Update: Texas A&M Plant Disease Handbook, mulberry",
+    "Update: UF/IFAS EDIS ST204 (Cotinus)",
+    "Update: USDA PLANTS fact sheet (persimmon)"
    ],
    "activeMonths": [
     4,
@@ -27078,7 +27096,8 @@
     "lilac",
     "elm",
     "viburnum",
-    "perennials"
+    "perennials",
+    "mulberry"
    ],
    "symptoms": [
     "White powdery coating on leaf surfaces",
@@ -27086,7 +27105,8 @@
     "Early leaf drop in severe cases"
    ],
    "biology": [
-    "White powdery growth on upper leaf surfaces, with yellowing and deformed leaves and shoots. Occurs in warm, humid weather. Rain is not needed for infection."
+    "White powdery growth on upper leaf surfaces, with yellowing and deformed leaves and shoots. Occurs in warm, humid weather. Rain is not needed for infection.",
+    "Update (Oct 2026): Also affects mulberry buds and young leaves."
    ],
    "treatments": [
     {
@@ -27149,7 +27169,8 @@
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: Texas A&M Plant Disease Handbook, mulberry"
    ],
    "activeMonths": [
     5,
@@ -30170,6 +30191,480 @@
    "bloomSensitive": true
   },
   {
+   "id": "andromeda-lace-bug",
+   "name": "Andromeda lace bug",
+   "category": "lace-bugs",
+   "hostIds": [
+    "pieris",
+    "azalea"
+   ],
+   "symptoms": [],
+   "biology": [
+    "A Japanese lace bug (Stephanitis takeyai) whose preferred host is Japanese andromeda (Pieris japonica), and it also attacks rhododendron. The upper leaf surface turns pale and mottled, with dark excrement, flattened bugs and cast skins underneath. Management follows the azalea lace bug program. Host choice matters: P. phillyreifolia and P. japonica 'Variegata' resisted lace bugs in trials, while 'Cavatine' and 'Temple Bells' were susceptible."
+   ],
+   "treatments": [
+    {
+     "applicationType": "cultural",
+     "title": "Plant Pieris in part shade. Sun-exposed plants are damaged most.",
+     "id": "andromeda-lace-bug--plant-pieris-in-part-shade-sun-exposed-p-cultural"
+    },
+    {
+     "applicationType": "cultural",
+     "title": "Use resistant Pieris (P. phillyreifolia, P. japonica 'Variegata') for new plantings.",
+     "id": "andromeda-lace-bug--use-resistant-pieris-for-new-plantings-cultural"
+    },
+    {
+     "applicationType": "biocontrol",
+     "title": "Green lacewing larvae.",
+     "id": "andromeda-lace-bug--green-lacewing-larvae-biocontrol"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Flupyradifurone (foliar spray)",
+     "activeIngredient": "Flupyradifurone",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7+ d",
+      "repeat": "As needed",
+      "window": "At nymph detection"
+     },
+     "preferred": true,
+     "default": true,
+     "notes": [
+      "OK in bloom"
+     ],
+     "id": "andromeda-lace-bug--flupyradifurone-foliar"
+    },
+    {
+     "applicationType": "soilDrench",
+     "title": "Imidacloprid (soil drench)",
+     "activeIngredient": "Imidacloprid",
+     "months": [
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Mid-summer to early fall for next year"
+     },
+     "preferred": true,
+     "notes": [
+      "Watch for mite flare-ups"
+     ],
+     "id": "andromeda-lace-bug--imidacloprid-soilDrench"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Horticultural oil or insecticidal soap (foliar spray)",
+     "activeIngredient": "Horticultural oil or insecticidal soap",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 2,
+      "interval": "14 d",
+      "repeat": "Per generation",
+      "window": "At nymphs"
+     },
+     "notes": [
+      "Coverage of leaf undersides is critical"
+     ],
+     "id": "andromeda-lace-bug--horticultural-oil-or-insecticidal-soap-foliar"
+    }
+   ],
+   "sources": [
+    "UMass Extension Professional Insect & Mite Guide, Stephanitis takeyai",
+    "Nair, Univ. of Georgia dissertation (2011)",
+    "RHS Pieris lacebug profile"
+   ],
+   "activeMonths": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "peakNote": "GDD about 120 (base 50°F from March 1) for first nymphs; reported ranges vary",
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ],
+   "bloomSensitive": true
+  },
+  {
+   "id": "asian-woolly-hackberry-aphid",
+   "name": "Asian woolly hackberry aphid",
+   "category": "aphids",
+   "hostIds": [
+    "hackberry"
+   ],
+   "symptoms": [],
+   "biology": [
+    "A white, waxy aphid on hackberry leaf undersides (Shivaphis celti). It drips heavy honeydew and causes sooty mold over cars, patios and paving. Trees are not seriously harmed. Established across the Southeast and reported north to Illinois, but not yet confirmed in VA/MD by extension, so confirm the ID before treating. Treat only where honeydew is unacceptable."
+   ],
+   "treatments": [
+    {
+     "applicationType": "cultural",
+     "title": "Confirm the ID. Use water-sensitive cards under the canopy to gauge honeydew and decide whether to treat.",
+     "id": "asian-woolly-hackberry-aphid--confirm-the-id-use-water-sensitive-cards-cultural"
+    },
+    {
+     "applicationType": "soilCare",
+     "title": "Keep trees watered after a systemic treatment so it moves into the tree.",
+     "id": "asian-woolly-hackberry-aphid--keep-trees-watered-after-a-systemic-trea-soilCare"
+    },
+    {
+     "applicationType": "soilDrench",
+     "title": "Imidacloprid (soil drench)",
+     "activeIngredient": "Imidacloprid",
+     "months": [
+      3,
+      4
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Late winter to early spring, before or as trees leaf out"
+     },
+     "preferred": true,
+     "default": true,
+     "notes": [
+      "Season-long control. Later spring applications still help. Not in late summer or fall"
+     ],
+     "id": "asian-woolly-hackberry-aphid--imidacloprid-soilDrench"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Insecticidal soap or horticultural oil (foliar spray)",
+     "activeIngredient": "Insecticidal soap or horticultural oil",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "repeat": "As needed",
+      "window": "When colonies build"
+     },
+     "notes": [
+      "Short residual. Coverage is hard on large trees"
+     ],
+     "id": "asian-woolly-hackberry-aphid--insecticidal-soap-or-horticultural-oil-foliar"
+    }
+   ],
+   "sources": [
+    "Mississippi State Extension Bug's Eye View (2022)",
+    "UC Riverside Center for Invasive Species Research",
+    "UC IPM"
+   ],
+   "activeMonths": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
+   "id": "baldcypress-rust-mite",
+   "name": "Baldcypress rust mite",
+   "category": "mites",
+   "hostIds": [
+    "baldcypress"
+   ],
+   "symptoms": [],
+   "biology": [
+    "An eriophyid mite (Epitrimerus taxodii) that bronzes and browns bald cypress foliage in summer, worst in dry summers without irrigation. **Bald cypress is very sensitive to horticultural oil, so do not use oil or oil tank mixes on it.**"
+   ],
+   "treatments": [
+    {
+     "applicationType": "soilCare",
+     "title": "Irrigate in dry summers to reduce mite damage.",
+     "id": "baldcypress-rust-mite--irrigate-in-dry-summers-to-reduce-mite-d-soilCare"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spiromesifen (foliar spray)",
+     "activeIngredient": "Spiromesifen",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "repeat": "As needed",
+      "window": "At detection"
+     },
+     "preferred": true,
+     "default": true,
+     "notes": [
+      "No horticultural oil on bald cypress"
+     ],
+     "id": "baldcypress-rust-mite--spiromesifen-foliar"
+    },
+    {
+     "applicationType": "microInjection",
+     "title": "Abamectin (micro-injection)",
+     "activeIngredient": "Abamectin",
+     "months": [
+      5
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Spring, on trees with a history"
+     },
+     "notes": [],
+     "id": "baldcypress-rust-mite--abamectin-microInjection"
+    }
+   ],
+   "sources": [
+    "University of Arkansas Plant Health Clinic Newsletter (2018)",
+    "UF/IFAS EDIS EP557 key pests of bald cypress"
+   ],
+   "activeMonths": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
+   "id": "filbert-big-bud-mite",
+   "name": "Filbert big bud mite",
+   "category": "mites",
+   "hostIds": [
+    "filbert"
+   ],
+   "symptoms": [],
+   "biology": [
+    "Eriophyid mites (Phytoptus avellanae and Cecidophyopsis vermiformis) live inside hazelnut buds, which swell abnormally (\"big bud\") and often die. Inside the galls, mites are protected from sprays, so treatments must hit mites as they move to new buds in spring before galls form. Cultivars differ in susceptibility."
+   ],
+   "treatments": [
+    {
+     "applicationType": "pruning",
+     "title": "On small plants, pick off and destroy swollen buds in late winter.",
+     "id": "filbert-big-bud-mite--on-small-plants-pick-off-and-destroy-swo-pruning"
+    },
+    {
+     "applicationType": "cultural",
+     "title": "Avoid highly susceptible cultivars ('Ennis', 'Lewis', 'Clark') where big bud is common.",
+     "id": "filbert-big-bud-mite--avoid-highly-susceptible-cultivars-where-cultural"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Horticultural oil (foliar spray)",
+     "activeIngredient": "Horticultural oil",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "14 d",
+      "repeat": "Annually",
+      "window": "Spring, as mites migrate to new buds, before galls form"
+     },
+     "preferred": true,
+     "default": true,
+     "notes": [
+      "Timing is critical"
+     ],
+     "id": "filbert-big-bud-mite--horticultural-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Spiromesifen (foliar spray)",
+     "activeIngredient": "Spiromesifen",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Same timing"
+     },
+     "notes": [
+      "Not where nuts are harvested unless labeled"
+     ],
+     "id": "filbert-big-bud-mite--spiromesifen-foliar"
+    }
+   ],
+   "sources": [
+    "PNW Insect Management Handbook, hazelnut bud mite",
+    "Connecticut Agricultural Experiment Station Plant Pest Handbook, Hazelnut/Filbert"
+   ],
+   "activeMonths": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
+   "id": "cypress-twig-gall-midge",
+   "name": "Cypress twig gall midge",
+   "category": "gall-makers",
+   "hostIds": [
+    "baldcypress"
+   ],
+   "symptoms": [],
+   "biology": [
+    "Midges lay eggs on new bald cypress growth in late spring, and larvae induce spongy twig galls that turn brown and weigh branches down. Damage is mostly cosmetic. Insecticides are not advised because natural enemies emerging with the midges usually regulate populations."
+   ],
+   "treatments": [
+    {
+     "applicationType": "mechanical",
+     "title": "Rake up and destroy fallen galls in autumn or early spring, before the midges emerge.",
+     "id": "cypress-twig-gall-midge--rake-up-and-destroy-fallen-galls-in-autu-mechanical"
+    }
+   ],
+   "sources": [
+    "UF/IFAS EDIS EP557, cypress twig gall midge"
+   ],
+   "activeMonths": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "curable": false,
+   "warnings": [
+    "No effective chemical treatment: recommended. Natural enemies usually keep it in check."
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
+   "id": "hackberry-witches-broom",
+   "name": "Hackberry witches' broom",
+   "category": "gall-makers",
+   "hostIds": [
+    "hackberry"
+   ],
+   "symptoms": [],
+   "biology": [
+    "Dense clusters of short twigs on hackberry, linked to an eriophyid mite and a powdery mildew fungus. Cosmetic, with no lasting harm to tree health."
+   ],
+   "treatments": [
+    {
+     "applicationType": "pruning",
+     "title": "Prune out brooms where they are unsightly or create dense, weak branching.",
+     "id": "hackberry-witches-broom--prune-out-brooms-where-they-are-unsightl-pruning"
+    }
+   ],
+   "sources": [
+    "University extension hackberry fact sheets"
+   ],
+   "activeMonths": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "curable": false,
+   "warnings": [
+    "No effective chemical treatment: needed."
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
+   "id": "larch-casebearer",
+   "name": "Larch casebearer",
+   "category": "caterpillars-and-sawflies",
+   "hostIds": [
+    "larch"
+   ],
+   "symptoms": [],
+   "biology": [
+    "Tiny caterpillars living in cigar-shaped cases mine new larch needles in spring. Heavy populations make trees look bronzed by mid-June. Adults fly late June to early July. Introduced parasitoids and weather usually regulate populations, and extension sources list no routine landscape spray."
+   ],
+   "treatments": [
+    {
+     "applicationType": "cultural",
+     "title": "Scout new foliage as it emerges in spring for mined, whitened needles and cases.",
+     "id": "larch-casebearer--scout-new-foliage-as-it-emerges-in-sprin-cultural"
+    },
+    {
+     "applicationType": "cultural",
+     "title": "Avoid planting larch in open-grown edge sites, which are attacked most.",
+     "id": "larch-casebearer--avoid-planting-larch-in-open-grown-edge--cultural"
+    },
+    {
+     "applicationType": "fertilization",
+     "title": "Water and mulch heavily defoliated trees to support refoliation.",
+     "id": "larch-casebearer--water-and-mulch-heavily-defoliated-trees-fertilization"
+    }
+   ],
+   "sources": [
+    "UMass Extension larch casebearer fact sheet",
+    "USDA Forest Service FIDL 96",
+    "Michigan State University Extension",
+    "Oregon Department of Forestry"
+   ],
+   "activeMonths": [
+    4,
+    5,
+    6,
+    7
+   ],
+   "curable": false,
+   "warnings": [
+    "No effective chemical treatment: routinely recommended. Natural enemies and weather are the main controls."
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
    "id": "elm-zigzag-sawfly",
    "name": "Elm zigzag sawfly",
    "category": "caterpillars-and-sawflies",
@@ -30443,6 +30938,86 @@
    "curable": false,
    "warnings": [
     "No effective chemical treatment: validated. No preventive spray is recommended. Any fungicide use is experimental."
+   ],
+   "reviewFlags": [
+    "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
+   ]
+  },
+  {
+   "id": "tree-of-heaven-control",
+   "name": "Tree of heaven control",
+   "category": "vegetation-management",
+   "hostIds": [
+    "treeofheaven"
+   ],
+   "symptoms": [],
+   "biology": [
+    "An invasive tree and the preferred host of spotted lanternfly. Cutting it without herbicide makes it worse, because it answers with masses of stump sprouts and root suckers, and cut-stump treatment also encourages suckering. Use hack-and-squirt in mid to late summer so herbicide moves to the roots. Expect follow-up treatment of resprouts for several years. Where lanternfly is present, keep a few male trees as systemic-treated trap trees (see Spotted lanternfly)."
+   ],
+   "treatments": [
+    {
+     "applicationType": "replacement",
+     "title": "Do not cut tree of heaven before herbicide. For hazard trees, treat first and fell about 30 days later.",
+     "id": "tree-of-heaven-control--do-not-cut-tree-of-heaven-before-herbici-replacement"
+    },
+    {
+     "applicationType": "cultural",
+     "title": "Recheck treated stands each summer and treat resprouts and suckers.",
+     "id": "tree-of-heaven-control--recheck-treated-stands-each-summer-and-t-cultural"
+    },
+    {
+     "applicationType": "cutSurface",
+     "title": "Triclopyr or glyphosate (cut surface)",
+     "activeIngredient": "Triclopyr or glyphosate",
+     "months": [
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Hack-and-squirt, mid to late summer (before fall color): downward cuts spaced around the trunk, about one per inch of diameter, minimum 2"
+     },
+     "preferred": true,
+     "default": true,
+     "notes": [
+      "Do not girdle completely. Living tissue between cuts carries herbicide to the roots"
+     ],
+     "id": "tree-of-heaven-control--triclopyr-or-glyphosate-cutSurface"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Triclopyr or glyphosate (foliar spray)",
+     "activeIngredient": "Triclopyr or glyphosate",
+     "months": [
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Low, dense sprouts and seedlings first, then hack-and-squirt larger stems"
+     },
+     "notes": [
+      "Keep spray off desirable plants"
+     ],
+     "id": "tree-of-heaven-control--triclopyr-or-glyphosate-foliar"
+    }
+   ],
+   "sources": [
+    "Penn State Extension, Tree-of-Heaven",
+    "Penn State Center for Private Forests (2023)",
+    "Alabama Extension, Tree-of-Heaven identification and control",
+    "Pennsylvania Department of Agriculture invasive species brochure"
+   ],
+   "activeMonths": [
+    7,
+    8,
+    9,
+    10
    ],
    "reviewFlags": [
     "Not in the 2024 manual: added from current sources (verified Oct 2026). Re-check yearly."
