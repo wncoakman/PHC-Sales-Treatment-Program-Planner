@@ -12,12 +12,12 @@ export const MITIGATIONS = [
   ["removal", "Removal / replacement"],
 ];
 
-const CHEMICAL_TYPES = new Set(["foliar", "dormantOil", "barkSpray", "basalBark", "soilDrench", "microInjection", "macroInjection"]);
+const CHEMICAL_TYPES = new Set(["foliar", "dormantOil", "barkSpray", "basalBark", "soilDrench", "microInjection", "macroInjection", "granular", "cutSurface"]);
 const SPRAY_TYPES = new Set(["foliar", "dormantOil", "barkSpray"]);
 const ENCLOSED_TYPES = new Set(["microInjection", "macroInjection"]);
-const NEONICS = ["imidacloprid", "dinotefuran", "clothianidin", "thiamethoxam"];
+const NEONICS = ["imidacloprid", "dinotefuran", "acetamiprid", "clothianidin", "thiamethoxam"];
 const POLLINATOR_HAZARDS = [...NEONICS, "bifenthrin", "permethrin", "pyrethroid", "carbaryl", "spinosad", "abamectin", "pyriproxyfen"];
-const AQUATIC_HAZARDS = ["bifenthrin", "permethrin", "pyrethroid", "chlorothalonil", "diflubenzuron", "copper", "carbaryl", "abamectin", "trifloxystrobin"];
+const AQUATIC_HAZARDS = ["bifenthrin", "permethrin", "pyrethroid", "pyrethrins", "chlorantraniliprole", "chlorothalonil", "diflubenzuron", "copper", "carbaryl", "abamectin", "mancozeb", "pyraclostrobin", "trifloxystrobin"];
 
 export function mitigationOf(applicationTypeId) {
   if (CHEMICAL_TYPES.has(applicationTypeId)) return "chemical";
@@ -153,10 +153,10 @@ function costShareFlag(cs, site, plant) {
   return flag("info", `Cost-share eligible: ${cs.text}`);
 }
 
-/** Options checked by default: the preferred chemical program plus cultural and mechanical care. Removal only when chemical is ruled out. */
+/** Options checked by default: the reference's default (✓) chemical program plus cultural and mechanical care. Removal only when chemical is ruled out. */
 export function defaultSelection(problem) {
   return problem.options
-    .filter((o) => (o.chemical ? o.preferred && !o.notAdvised : o.mitigation !== "removal" || problem.crownStop))
+    .filter((o) => (o.chemical ? o.treatment.default && !o.notAdvised : o.mitigation !== "removal" || problem.crownStop))
     .map((o) => o.treatment.id);
 }
 

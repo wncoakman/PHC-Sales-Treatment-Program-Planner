@@ -2,7 +2,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/engine.test.mjs",
+    "build:kb": "node scripts/build-kb.mjs",
+    "test": "node scripts/build-kb.mjs && node --test tests/engine.test.mjs",
     "deploy": "npm test && git push origin main && git push origin `git subtree split --prefix web main`:refs/heads/gh-pages --force"
   }
 }

@@ -1,0 +1,2681 @@
+{
+ "meta": {
+  "title": "DMV Plant Health Care Treatment Planner",
+  "version": "1.1.0",
+  "source": "DMV PHC Knowledge Base v1.0 (Aug 2026), normalized for the app",
+  "reviewStatus": "unreviewed",
+  "disclaimer": "Framework for treatment planning only. No rates are provided; product selection, rates, and timing must follow the label. Confirm diagnosis and current VA/MD/DC regulations before application."
+ },
+ "applicationTypes": [
+  {
+   "id": "foliar",
+   "name": "Foliar spray"
+  },
+  {
+   "id": "dormantOil",
+   "name": "Dormant / horticultural oil spray"
+  },
+  {
+   "id": "barkSpray",
+   "name": "Bark / trunk spray"
+  },
+  {
+   "id": "basalBark",
+   "name": "Systemic basal bark spray"
+  },
+  {
+   "id": "soilDrench",
+   "name": "Systemic soil drench / soil injection"
+  },
+  {
+   "id": "microInjection",
+   "name": "Micro-injection (direct systemic)"
+  },
+  {
+   "id": "macroInjection",
+   "name": "Macro-injection (direct systemic)"
+  },
+  {
+   "id": "pruning",
+   "name": "Sanitation pruning"
+  },
+  {
+   "id": "mechanical",
+   "name": "Mechanical / physical control"
+  },
+  {
+   "id": "soilCare",
+   "name": "Soil & root care"
+  },
+  {
+   "id": "fertilization",
+   "name": "Plant health fertilization / nutrient treatment"
+  },
+  {
+   "id": "cultural",
+   "name": "Cultural care & site management"
+  },
+  {
+   "id": "diagnostic",
+   "name": "Lab diagnosis / monitoring visit"
+  },
+  {
+   "id": "replacement",
+   "name": "Removal & replacement planning"
+  }
+ ],
+ "hosts": [
+  {
+   "id": "apple",
+   "name": "Apple / crabapple"
+  },
+  {
+   "id": "arborvitae",
+   "name": "Arborvitae"
+  },
+  {
+   "id": "ash",
+   "name": "Ash"
+  },
+  {
+   "id": "azalea",
+   "name": "Azalea / rhododendron"
+  },
+  {
+   "id": "beech",
+   "name": "Beech"
+  },
+  {
+   "id": "birch",
+   "name": "Birch"
+  },
+  {
+   "id": "boxwood",
+   "name": "Boxwood"
+  },
+  {
+   "id": "catalpa",
+   "name": "Catalpa"
+  },
+  {
+   "id": "cherry",
+   "name": "Cherry"
+  },
+  {
+   "id": "cotoneaster",
+   "name": "Cotoneaster"
+  },
+  {
+   "id": "crapemyrtle",
+   "name": "Crape myrtle"
+  },
+  {
+   "id": "dogwood",
+   "name": "Dogwood"
+  },
+  {
+   "id": "elm",
+   "name": "Elm"
+  },
+  {
+   "id": "euonymus",
+   "name": "Euonymus"
+  },
+  {
+   "id": "fir",
+   "name": "Fir"
+  },
+  {
+   "id": "hawthorn",
+   "name": "Hawthorn"
+  },
+  {
+   "id": "hemlock",
+   "name": "Hemlock"
+  },
+  {
+   "id": "hickory",
+   "name": "Hickory / pecan"
+  },
+  {
+   "id": "holly",
+   "name": "Holly"
+  },
+  {
+   "id": "juniper",
+   "name": "Juniper / Eastern red cedar"
+  },
+  {
+   "id": "leyland",
+   "name": "Leyland cypress"
+  },
+  {
+   "id": "lilac",
+   "name": "Lilac"
+  },
+  {
+   "id": "linden",
+   "name": "Linden"
+  },
+  {
+   "id": "magnolia",
+   "name": "Magnolia"
+  },
+  {
+   "id": "maple",
+   "name": "Maple"
+  },
+  {
+   "id": "mulberry",
+   "name": "Mulberry"
+  },
+  {
+   "id": "oak",
+   "name": "Oak"
+  },
+  {
+   "id": "pachysandra",
+   "name": "Pachysandra"
+  },
+  {
+   "id": "pear",
+   "name": "Pear"
+  },
+  {
+   "id": "perennials",
+   "name": "Herbaceous perennials"
+  },
+  {
+   "id": "persimmon",
+   "name": "Persimmon"
+  },
+  {
+   "id": "pine",
+   "name": "Pine"
+  },
+  {
+   "id": "poplar",
+   "name": "Poplar"
+  },
+  {
+   "id": "redbud",
+   "name": "Redbud"
+  },
+  {
+   "id": "rose",
+   "name": "Rose"
+  },
+  {
+   "id": "serviceberry",
+   "name": "Serviceberry"
+  },
+  {
+   "id": "smoketree",
+   "name": "Smoke tree"
+  },
+  {
+   "id": "spruce",
+   "name": "Spruce"
+  },
+  {
+   "id": "sweetgum",
+   "name": "Sweetgum"
+  },
+  {
+   "id": "sycamore",
+   "name": "Sycamore"
+  },
+  {
+   "id": "treeofheaven",
+   "name": "Tree of heaven"
+  },
+  {
+   "id": "walnut",
+   "name": "Walnut"
+  },
+  {
+   "id": "willow",
+   "name": "Willow"
+  }
+ ],
+ "categories": [
+  {
+   "id": "fungal",
+   "name": "Fungal diseases"
+  },
+  {
+   "id": "bacterial",
+   "name": "Bacterial diseases"
+  },
+  {
+   "id": "viral",
+   "name": "Viral & phytoplasma diseases"
+  },
+  {
+   "id": "abiotic",
+   "name": "Abiotic disorders"
+  },
+  {
+   "id": "borer",
+   "name": "Borers"
+  },
+  {
+   "id": "sucking",
+   "name": "Scale, adelgids & sucking insects"
+  },
+  {
+   "id": "defoliator",
+   "name": "Defoliators & leaf feeders"
+  },
+  {
+   "id": "mite",
+   "name": "Mites"
+  }
+ ],
+ "conditions": [
+  {
+   "id": "boxwood-blight",
+   "name": "Boxwood Blight",
+   "scientificName": "Calonectria pseudonaviculata",
+   "category": "fungal",
+   "hostIds": [
+    "boxwood",
+    "pachysandra"
+   ],
+   "hostNote": "All Buxus species; pachysandra occasionally infected.",
+   "symptoms": [
+    "Circular tan to brown leaf spots with dark borders",
+    "Rapid, complete defoliation within days to weeks in humid weather",
+    "Black streaks and cankers on green stems",
+    "White spore masses on undersides of fresh lesions (hand lens)"
+   ],
+   "biology": [
+    "Spreads by water splash, tools, clothing, and infected nursery stock",
+    "Spores survive in soil and leaf debris 5+ years",
+    "Favored by temperatures above 60°F with wet leaves"
+   ],
+   "activeMonths": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "peakNote": "Most aggressive June–September in the DMV.",
+   "treatments": [
+    {
+     "id": "bb-foliar",
+     "title": "Preventive fungicide program",
+     "applicationType": "foliar",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "purpose": "Protects healthy foliage from new infection. Does not cure infected tissue.",
+     "notes": [
+      "Rotate FRAC groups every 2–3 applications: chlorothalonil (M5), tebuconazole / propiconazole (3), thiophanate-methyl (1)",
+      "Avoid propiconazole on heat-stressed plants"
+     ],
+     "schedule": {
+      "visitsMin": 4,
+      "visitsMax": 6,
+      "interval": "7–14 days during warm, wet weather",
+      "repeat": "Annually",
+      "window": "May–Sep; peak risk Jun–Sep"
+     },
+     "preferred": true
+    },
+    {
+     "id": "bb-sanitation",
+     "title": "Remove and destroy infected plants and debris",
+     "applicationType": "pruning",
+     "purpose": "Removes the spore source. Infected material is bagged and removed, never composted.",
+     "notes": [
+      "Sanitize tools with 70% isopropyl alcohol or 1:9 bleach between cuts",
+      "Clean clothing and equipment before leaving the site"
+     ]
+    },
+    {
+     "id": "bb-cultural",
+     "title": "Irrigation and mulch adjustments",
+     "applicationType": "cultural",
+     "purpose": "Switching to drip or early-morning watering and adding 2–4 in. of mulch reduces leaf wetness and splash spread."
+    },
+    {
+     "id": "bb-replace",
+     "title": "Replace with resistant cultivars or alternatives",
+     "applicationType": "replacement",
+     "purpose": "Resistant boxwood (e.g., 'Winter Gem', 'Green Mountain', 'Justin Brouwers') or non-boxwood alternatives such as Ilex crenata end the cycle."
+    }
+   ],
+   "regulatory": [
+    {
+     "jurisdictions": [
+      "VA"
+     ],
+     "text": "VDACS runs a Voluntary Boxwood Blight Cleanliness Program for nurseries; commercial movement of infected stock is regulated."
+    }
+   ],
+   "sources": [
+    "VCE PPWS-49",
+    "MDA Boxwood Blight BMP",
+    "VDACS Boxwood Blight Program"
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): bb-foliar."
+   ]
+  },
+  {
+   "id": "anthracnose",
+   "name": "Anthracnose",
+   "scientificName": "Discula, Apiognomonia and other genera",
+   "category": "fungal",
+   "hostIds": [
+    "dogwood",
+    "oak",
+    "sycamore",
+    "maple",
+    "ash",
+    "hickory"
+   ],
+   "symptoms": [
+    "Dogwood: tan blotches with purple borders, shoot blight, sprouts low on the trunk; can kill trees",
+    "Oak: irregular brown blotches along veins, leaf distortion, early drop",
+    "Sycamore: spring bud and shoot blight, papery brown leaves, heavy defoliation in cold wet springs"
+   ],
+   "biology": [
+    "Cool (below 60°F), wet weather during leaf emergence drives infection",
+    "Overwinters in twig cankers and fallen leaves"
+   ],
+   "activeMonths": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "treatments": [
+    {
+     "id": "an-foliar",
+     "title": "Spring protective fungicide program",
+     "applicationType": "foliar",
+     "months": [
+      3,
+      4,
+      5
+     ],
+     "purpose": "Protects new leaves and shoots during the infection window.",
+     "notes": [
+      "Myclobutanil (FRAC 3), propiconazole (FRAC 3), or thiophanate-methyl (FRAC 1)"
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–14 days",
+      "repeat": "Annually",
+      "window": "Bud break through full leaf expansion (Mar–May)"
+     },
+     "preferred": true
+    },
+    {
+     "id": "an-inject",
+     "title": "Systemic fungicide injection for high-value trees",
+     "applicationType": "microInjection",
+     "months": [
+      3,
+      4,
+      5
+     ],
+     "purpose": "Delivers protection directly into the tree. Suited to large or high-value specimens that are hard to spray.",
+     "notes": [
+      "Propiconazole injection per KB; confirm label for host and timing"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Spring, before or at bud break"
+     }
+    },
+    {
+     "id": "an-sanitation",
+     "title": "Leaf litter cleanup and dead twig pruning",
+     "applicationType": "pruning",
+     "months": [
+      10,
+      11,
+      12,
+      1,
+      2
+     ],
+     "purpose": "Removes overwintering infection sources."
+    },
+    {
+     "id": "an-cultural",
+     "title": "Avoid overhead irrigation during leaf-out",
+     "applicationType": "cultural",
+     "purpose": "Reduces leaf wetness during the spring infection period."
+    }
+   ],
+   "sources": [
+    "VCE 450-611",
+    "Penn State Extension"
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): an-inject."
+   ]
+  },
+  {
+   "id": "phytophthora",
+   "name": "Phytophthora Root & Crown Rot",
+   "scientificName": "Phytophthora spp.",
+   "category": "fungal",
+   "hostIds": [
+    "dogwood",
+    "azalea",
+    "boxwood",
+    "holly"
+   ],
+   "generalist": true,
+   "hostNote": "Dogwood, rhododendron, azalea, boxwood, holly, and many others.",
+   "symptoms": [
+    "Yellowing or wilting despite adequate soil moisture",
+    "Brown, water-soaked crown and root tissue",
+    "Dark discoloration beneath bark at the soil line",
+    "Brown/black roots with no white root tips"
+   ],
+   "biology": [
+    "Favored by poorly drained, compacted, heavy clay soils and overwatering",
+    "Water mold that spreads in soil and irrigation water"
+   ],
+   "lookalikeIds": [
+    "irrigation"
+   ],
+   "treatments": [
+    {
+     "id": "ph-drainage",
+     "title": "Drainage and irrigation correction",
+     "applicationType": "cultural",
+     "purpose": "Reducing watering frequency and improving drainage is the foundation of recovery.",
+     "notes": [
+      "Raise planting grade if needed; let soil dry between waterings"
+     ]
+    },
+    {
+     "id": "ph-drench",
+     "title": "Systemic root-protection soil drench",
+     "applicationType": "soilDrench",
+     "months": [
+      3,
+      4,
+      5,
+      9,
+      10
+     ],
+     "purpose": "Suppresses the root pathogen and protects new roots. Preventive / suppressive, not curative.",
+     "notes": [
+      "Mefenoxam / metalaxyl (FRAC 4, phenylamide) or phosphonates: fosetyl-Al, phosphorous acid (FRAC P07)"
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 2,
+      "interval": "Spring and fall",
+      "repeat": "Annually",
+      "window": "Mar–May and Sep–Oct, soil moist not saturated"
+     },
+     "preferred": true
+    },
+    {
+     "id": "ph-inject",
+     "title": "Phosphonate trunk injection or basal bark treatment",
+     "applicationType": "microInjection",
+     "months": [
+      3,
+      4,
+      5,
+      9,
+      10
+     ],
+     "purpose": "Delivers root-protecting phosphonate directly into the tree's vascular system.",
+     "notes": [
+      "Phosphite products are also labeled as basal bark sprays; confirm label"
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 2,
+      "interval": "Spring and fall",
+      "repeat": "Annually",
+      "window": "Mar–May and Sep–Oct"
+     }
+    },
+    {
+     "id": "ph-replant",
+     "title": "Replant planning",
+     "applicationType": "replacement",
+     "purpose": "Avoid replanting susceptible species in infested soil without remediation."
+    }
+   ],
+   "reviewFlags": [
+    "Source KB grouped mefenoxam/metalaxyl with phosphonates. They are phenylamides (FRAC 4); phosphonates are FRAC P07 (formerly 33). Corrected here."
+   ]
+  },
+  {
+   "id": "powdery-mildew",
+   "name": "Powdery Mildew",
+   "scientificName": "Erysiphe, Podosphaera spp.",
+   "category": "fungal",
+   "hostIds": [
+    "dogwood",
+    "oak",
+    "rose",
+    "crapemyrtle",
+    "euonymus",
+    "lilac"
+   ],
+   "symptoms": [
+    "White powdery coating on leaf surfaces",
+    "Distorted, stunted new growth",
+    "Early leaf drop in severe cases"
+   ],
+   "biology": [
+    "Rarely kills established plants; mainly an appearance and vigor problem"
+   ],
+   "activeMonths": [
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "treatments": [
+    {
+     "id": "pm-foliar",
+     "title": "Protective fungicide program",
+     "applicationType": "foliar",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "purpose": "Protects foliage and stops spread to new leaves.",
+     "notes": [
+      "Trifloxystrobin (FRAC 11), myclobutanil (FRAC 3), bicarbonate products"
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 4,
+      "interval": "10–14 days",
+      "repeat": "Annually",
+      "window": "At first symptoms, typically Jun–Aug"
+     },
+     "preferred": true
+    },
+    {
+     "id": "pm-cultural",
+     "title": "Airflow pruning and fertility adjustment",
+     "applicationType": "cultural",
+     "purpose": "Thinning for air movement and avoiding excess nitrogen reduces mildew pressure."
+    },
+    {
+     "id": "pm-replace",
+     "title": "Resistant cultivar selection",
+     "applicationType": "replacement",
+     "purpose": "Resistant cultivars (e.g., dogwood 'Stellar Pink', 'Celestial') for new plantings."
+    }
+   ],
+   "reviewFlags": [
+    "Source KB gives no timing. Months and 'at first sign' timing were added and need review.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): pm-foliar."
+   ]
+  },
+  {
+   "id": "cedar-apple-rust",
+   "name": "Cedar-Apple Rust",
+   "scientificName": "Gymnosporangium spp.",
+   "category": "fungal",
+   "hostIds": [
+    "juniper",
+    "apple",
+    "hawthorn"
+   ],
+   "hostNote": "Alternates between Eastern red cedar and apple / crabapple / hawthorn.",
+   "symptoms": [
+    "Orange gelatinous horns on cedar galls in early spring",
+    "Bright orange-yellow spots on apple/crabapple leaves",
+    "Tube-like structures on leaf undersides"
+   ],
+   "activeMonths": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "treatments": [
+    {
+     "id": "ru-foliar",
+     "title": "Bloom-period protective fungicide on apple-family hosts",
+     "applicationType": "foliar",
+     "months": [
+      4,
+      5
+     ],
+     "purpose": "Protects leaves during the spring infection window.",
+     "notes": [
+      "Myclobutanil per KB; KB also lists triadimefon (verify current registration)"
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 days",
+      "repeat": "Annually",
+      "window": "Pink bud through petal fall (Apr–May)"
+     },
+     "preferred": true
+    },
+    {
+     "id": "ru-galls",
+     "title": "Remove galls from cedars",
+     "applicationType": "pruning",
+     "months": [
+      1,
+      2,
+      3
+     ],
+     "purpose": "Removing galls in late winter, before wet weather, eliminates the spring spore source."
+    },
+    {
+     "id": "ru-replace",
+     "title": "Resistant crabapple selection",
+     "applicationType": "replacement",
+     "purpose": "Choose rust-resistant crabapple cultivars for new plantings."
+    }
+   ],
+   "reviewFlags": [
+    "Triadimefon availability for ornamentals should be verified.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): ru-foliar."
+   ]
+  },
+  {
+   "id": "verticillium",
+   "name": "Verticillium Wilt",
+   "scientificName": "Verticillium dahliae",
+   "category": "fungal",
+   "hostIds": [
+    "maple",
+    "redbud",
+    "magnolia",
+    "smoketree",
+    "catalpa"
+   ],
+   "generalist": true,
+   "symptoms": [
+    "Sudden wilting and death of one or more branches (flagging)",
+    "Olive-green to brown streaking in sapwood (diagnostic)",
+    "One-sided canopy death; wilted leaves stay attached"
+   ],
+   "curable": false,
+   "labConfirmation": true,
+   "treatments": [
+    {
+     "id": "ve-lab",
+     "title": "Lab confirmation",
+     "applicationType": "diagnostic",
+     "purpose": "Confirms the diagnosis before investing in a long-term care plan.",
+     "notes": [
+      "VCE Plant Disease Clinic (KB lists $35 submission fee; verify)"
+     ]
+    },
+    {
+     "id": "ve-prune",
+     "title": "Remove affected branches to healthy wood",
+     "applicationType": "pruning",
+     "purpose": "Removes dying limbs and reduces stress on the tree."
+    },
+    {
+     "id": "ve-vigor",
+     "title": "Vigor support: fertilization and irrigation",
+     "applicationType": "fertilization",
+     "purpose": "A well-nourished, well-watered tree can wall off the infection.",
+     "notes": [
+      "Avoid root wounding; do not replant susceptible species in infested soil"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "diplodia",
+   "name": "Diplodia Tip Blight",
+   "scientificName": "Diplodia sapinea",
+   "category": "fungal",
+   "hostIds": [
+    "pine"
+   ],
+   "hostNote": "Austrian pine most susceptible; also Scotch and Eastern white pine.",
+   "symptoms": [
+    "New shoots brown and die in spring while older needles stay green",
+    "Resinous stem cankers",
+    "Small black fruiting bodies at needle and cone bases",
+    "Worst on the lower two-thirds of the tree"
+   ],
+   "activeMonths": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "treatments": [
+    {
+     "id": "di-foliar",
+     "title": "Three-spray spring protection program",
+     "applicationType": "foliar",
+     "months": [
+      3,
+      4,
+      5
+     ],
+     "purpose": "Protects each flush of new shoots during infection.",
+     "notes": [
+      "Chlorothalonil or propiconazole"
+     ],
+     "schedule": {
+      "visitsMin": 3,
+      "visitsMax": 3,
+      "interval": "Bud swell → bud break → 2 weeks after",
+      "repeat": "Annually",
+      "window": "Bud swell through 2 weeks after bud break (Mar–May)"
+     },
+     "preferred": true
+    },
+    {
+     "id": "di-prune",
+     "title": "Prune out infected tips in dry weather",
+     "applicationType": "pruning",
+     "purpose": "Reduces spore load. Tools are sanitized between cuts."
+    },
+    {
+     "id": "di-remove",
+     "title": "Removal of heavily infected trees",
+     "applicationType": "replacement",
+     "purpose": "Protects neighboring pines when a tree is beyond recovery."
+    }
+   ]
+  },
+  {
+   "id": "fire-blight",
+   "name": "Fire Blight",
+   "scientificName": "Erwinia amylovora",
+   "category": "bacterial",
+   "hostIds": [
+    "apple",
+    "pear",
+    "hawthorn",
+    "serviceberry",
+    "cotoneaster"
+   ],
+   "symptoms": [
+    "Shoot tips die and bend into a shepherd's crook",
+    "Leaves brown but stay attached, as if scorched",
+    "Amber bacterial ooze from cankers in humid weather",
+    "Blossoms wilt; fruit mummifies"
+   ],
+   "biology": [
+    "Spread by pollinators, rain splash, and pruning tools",
+    "Infects blossoms and wounds in warm (65–86°F), wet weather at bloom"
+   ],
+   "activeMonths": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "treatments": [
+    {
+     "id": "fb-prune",
+     "title": "Sanitation pruning 6–12 in. below symptoms",
+     "applicationType": "pruning",
+     "purpose": "Removes active cankers. Tools are sterilized between every cut and debris is removed from site.",
+     "notes": [
+      "Prune in dry weather; dormant-season pruning of cankers preferred"
+     ]
+    },
+    {
+     "id": "fb-copper",
+     "title": "Bloom-period protective bactericide sprays",
+     "applicationType": "foliar",
+     "months": [
+      3,
+      4,
+      5
+     ],
+     "purpose": "Protects blossoms during the infection window.",
+     "notes": [
+      "Copper products; streptomycin only where labeled for the site (resistance documented)"
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "5–7 days during bloom",
+      "repeat": "Annually",
+      "window": "Early bloom through petal fall (Mar–May)"
+     },
+     "preferred": true
+    },
+    {
+     "id": "fb-phos",
+     "title": "Canker suppression with phosphorous acid",
+     "applicationType": "basalBark",
+     "purpose": "Suppressive support for canker management.",
+     "notes": [
+      "Phosphorous acid products; confirm label for application method"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Spring"
+     },
+     "months": [
+      3,
+      4,
+      5
+     ]
+    }
+   ],
+   "reviewFlags": [
+    "Streptomycin labeling for landscape ornamentals varies; verify before recommending.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): fb-copper, fb-phos."
+   ]
+  },
+  {
+   "id": "bacterial-leaf-scorch",
+   "name": "Bacterial Leaf Scorch",
+   "scientificName": "Xylella fastidiosa",
+   "category": "bacterial",
+   "hostIds": [
+    "oak",
+    "elm",
+    "sycamore",
+    "mulberry",
+    "sweetgum",
+    "maple",
+    "dogwood"
+   ],
+   "hostNote": "Red, pin, and scarlet oaks most susceptible.",
+   "symptoms": [
+    "Irregular brown leaf-margin scorch from mid-summer to fall",
+    "Yellow to red band between brown and green tissue (oak)",
+    "Progresses branch by branch over years"
+   ],
+   "biology": [
+    "Spread by leafhoppers and spittlebugs, not pruning tools",
+    "Lives in the water-conducting tissue; no cure"
+   ],
+   "lookalikeIds": [
+    "drought"
+   ],
+   "curable": false,
+   "labConfirmation": true,
+   "treatments": [
+    {
+     "id": "bls-lab",
+     "title": "Lab confirmation (ELISA/PCR)",
+     "applicationType": "diagnostic",
+     "purpose": "Confirms the infection. Trees should not be treated or removed on suspicion alone."
+    },
+    {
+     "id": "bls-inject",
+     "title": "Annual antibiotic trunk injection",
+     "applicationType": "macroInjection",
+     "months": [
+      5,
+      6
+     ],
+     "purpose": "Suppresses symptoms and slows decline. Does not eliminate the bacteria.",
+     "suppressiveOnly": true,
+     "notes": [
+      "Oxytetracycline (micro or macro injection systems)"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Late spring (May–Jun), before symptoms appear"
+     },
+     "preferred": true
+    },
+    {
+     "id": "bls-vigor",
+     "title": "Vigor program: irrigation, soil care, fertilization",
+     "applicationType": "soilCare",
+     "purpose": "Reduces stress so the tree tolerates infection longer."
+    },
+    {
+     "id": "bls-remove",
+     "title": "Removal of severely affected trees",
+     "applicationType": "replacement",
+     "purpose": "When decline is advanced, removal and replanting is the long-term solution."
+    }
+   ]
+  },
+  {
+   "id": "wetwood",
+   "name": "Wetwood / Slime Flux",
+   "scientificName": "Bacterial complex",
+   "category": "bacterial",
+   "hostIds": [
+    "elm",
+    "oak",
+    "poplar",
+    "mulberry",
+    "willow",
+    "maple"
+   ],
+   "symptoms": [
+    "Foul-smelling, foamy or slimy seepage from wounds or cracks",
+    "Vertical gray-brown streaks on bark",
+    "Internal wood discoloration"
+   ],
+   "curable": false,
+   "treatments": [
+    {
+     "id": "ww-vigor",
+     "title": "Stress reduction and wound avoidance",
+     "applicationType": "cultural",
+     "purpose": "A healthy tree contains the condition."
+    },
+    {
+     "id": "ww-drainage",
+     "title": "Improve drainage on saturated soils",
+     "applicationType": "soilCare",
+     "purpose": "Corrects a common contributing factor."
+    },
+    {
+     "id": "ww-monitor",
+     "title": "Structural monitoring",
+     "applicationType": "diagnostic",
+     "purpose": "Removal is only needed if structural integrity is compromised."
+    }
+   ],
+   "warnings": [
+    "Drain tubes are no longer recommended by most authorities."
+   ]
+  },
+  {
+   "id": "ash-yellows",
+   "name": "Ash Yellows",
+   "scientificName": "Phytoplasma",
+   "category": "viral",
+   "hostIds": [
+    "ash"
+   ],
+   "symptoms": [
+    "Witches' brooms (clusters of stunted shoots)",
+    "Small, yellowish leaves",
+    "Early fall color and leaf drop",
+    "Slow, progressive decline"
+   ],
+   "lookalikeIds": [
+    "emerald-ash-borer"
+   ],
+   "curable": false,
+   "labConfirmation": true,
+   "treatments": [
+    {
+     "id": "ay-lab",
+     "title": "Confirm diagnosis (rule out EAB)",
+     "applicationType": "diagnostic",
+     "purpose": "Ash yellows is often confused with emerald ash borer."
+    },
+    {
+     "id": "ay-inject",
+     "title": "Suppressive antibiotic injection",
+     "applicationType": "microInjection",
+     "purpose": "May temporarily suppress symptoms.",
+     "suppressiveOnly": true,
+     "notes": [
+      "Oxytetracycline"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Spring after leaf-out"
+     },
+     "preferred": true,
+     "months": [
+      5,
+      6
+     ]
+    },
+    {
+     "id": "ay-replace",
+     "title": "Removal and replacement with non-ash species",
+     "applicationType": "replacement",
+     "purpose": "The long-term solution given EAB pressure."
+    }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): ay-inject."
+   ]
+  },
+  {
+   "id": "tobacco-rattle-virus",
+   "name": "Tobacco Rattle Virus",
+   "scientificName": "Tobravirus",
+   "category": "viral",
+   "hostIds": [
+    "perennials"
+   ],
+   "symptoms": [
+    "Mosaic, ring spot, or line patterns on leaves",
+    "Stunting and distorted growth"
+   ],
+   "curable": false,
+   "treatments": [
+    {
+     "id": "trv-remove",
+     "title": "Remove infected plants",
+     "applicationType": "replacement",
+     "purpose": "Eliminates the infection source."
+    }
+   ],
+   "warnings": [
+    "The virus is spread by soil nematodes (Trichodorus). Soil fumigation is generally impractical and highly regulated in landscapes."
+   ],
+   "reviewFlags": [
+    "Source KB suggested soil fumigants for vector control. Removed as a treatment option."
+   ]
+  },
+  {
+   "id": "drought",
+   "name": "Drought Stress",
+   "category": "abiotic",
+   "hostIds": [],
+   "generalist": true,
+   "symptoms": [
+    "Leaf margin and tip scorch",
+    "Wilting, leaf curl",
+    "Early fall color",
+    "Uniform pattern across the canopy that tracks the weather"
+   ],
+   "lookalikeIds": [
+    "bacterial-leaf-scorch"
+   ],
+   "treatments": [
+    {
+     "id": "dr-water",
+     "title": "Deep, infrequent watering plan",
+     "applicationType": "cultural",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "purpose": "About 1 in. of water per week during drought, applied deeply."
+    },
+    {
+     "id": "dr-mulch",
+     "title": "Root zone mulching and decompaction",
+     "applicationType": "soilCare",
+     "purpose": "3–4 in. of mulch over the root zone conserves moisture."
+    }
+   ]
+  },
+  {
+   "id": "winter-injury",
+   "name": "Winter Injury / Freeze Damage",
+   "category": "abiotic",
+   "hostIds": [],
+   "generalist": true,
+   "symptoms": [
+    "Branch dieback",
+    "Frost cracks in bark",
+    "Bud death",
+    "Browning of evergreen foliage (desiccation)"
+   ],
+   "treatments": [
+    {
+     "id": "wi-water",
+     "title": "Late-season deep watering",
+     "applicationType": "cultural",
+     "months": [
+      10,
+      11
+     ],
+     "purpose": "Hydrated plants resist winter desiccation."
+    },
+    {
+     "id": "wi-antidesiccant",
+     "title": "Anti-desiccant spray on evergreens",
+     "applicationType": "foliar",
+     "months": [
+      11,
+      12
+     ],
+     "purpose": "Reduces winter moisture loss from foliage.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Late fall; repeat mid-winter if mild",
+      "repeat": "Annually",
+      "window": "Late Nov–Dec, above 40°F"
+     },
+     "preferred": true
+    },
+    {
+     "id": "wi-fert",
+     "title": "Fertility timing adjustment",
+     "applicationType": "cultural",
+     "purpose": "Avoiding late-season fertilization prevents tender growth going into winter."
+    }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): wi-antidesiccant."
+   ]
+  },
+  {
+   "id": "nutrient-deficiency",
+   "name": "Nutrient Deficiency (Iron / Manganese / Nitrogen)",
+   "category": "abiotic",
+   "hostIds": [
+    "oak",
+    "sweetgum"
+   ],
+   "generalist": true,
+   "hostNote": "Iron chlorosis common on pin oak and sweetgum in high-pH soils.",
+   "symptoms": [
+    "Yellowing between veins on new growth (iron / manganese)",
+    "Overall pale green or yellow foliage, slow growth (nitrogen)"
+   ],
+   "treatments": [
+    {
+     "id": "nd-test",
+     "title": "Soil test",
+     "applicationType": "diagnostic",
+     "purpose": "Identifies pH and the actual deficiency (iron vs. manganese need testing to tell apart)."
+    },
+    {
+     "id": "nd-soil",
+     "title": "Soil acidification and nutrient program",
+     "applicationType": "fertilization",
+     "months": [
+      3,
+      4,
+      5,
+      9,
+      10,
+      11
+     ],
+     "purpose": "Corrects pH and supplies nutrients per soil test."
+    },
+    {
+     "id": "nd-inject",
+     "title": "Micronutrient trunk injection",
+     "applicationType": "microInjection",
+     "months": [
+      4,
+      5,
+      6
+     ],
+     "purpose": "Fast greening for trees that cannot take up iron or manganese from high-pH soil.",
+     "notes": [
+      "Chelated iron / manganese injection or drench"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 1–3 years, based on greening response",
+      "window": "Apr–Jun, after leaf-out"
+     },
+     "preferred": true
+    }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): nd-inject."
+   ]
+  },
+  {
+   "id": "soil-compaction",
+   "name": "Soil Compaction",
+   "category": "abiotic",
+   "hostIds": [],
+   "generalist": true,
+   "symptoms": [
+    "Poor growth, stunting",
+    "Leaf scorch and dieback",
+    "Waterlogging after rain"
+   ],
+   "treatments": [
+    {
+     "id": "sc-air",
+     "title": "Air-spade root zone decompaction",
+     "applicationType": "soilCare",
+     "purpose": "Breaks up compacted soil without damaging roots."
+    },
+    {
+     "id": "sc-vert",
+     "title": "Vertical mulching / radial aeration",
+     "applicationType": "soilCare",
+     "purpose": "Opens channels for air, water, and roots."
+    },
+    {
+     "id": "sc-organic",
+     "title": "Organic matter amendment",
+     "applicationType": "soilCare",
+     "purpose": "Improves soil structure over time."
+    }
+   ]
+  },
+  {
+   "id": "girdling-roots",
+   "name": "Girdling Roots",
+   "category": "abiotic",
+   "hostIds": [],
+   "generalist": true,
+   "symptoms": [
+    "Gradual crown thinning from the top down",
+    "No visible root flare; flat-sided trunk"
+   ],
+   "treatments": [
+    {
+     "id": "gr-rce",
+     "title": "Root collar excavation",
+     "applicationType": "soilCare",
+     "purpose": "Exposes the root flare to find girdling roots."
+    },
+    {
+     "id": "gr-remove",
+     "title": "Girdling root removal",
+     "applicationType": "soilCare",
+     "purpose": "Removes roots crossing the trunk before they cause serious damage."
+    }
+   ]
+  },
+  {
+   "id": "salt-damage",
+   "name": "Road Salt Damage",
+   "category": "abiotic",
+   "hostIds": [],
+   "generalist": true,
+   "symptoms": [
+    "Spring leaf margin scorch",
+    "Browning of roadside evergreens",
+    "Dieback on the road-facing side"
+   ],
+   "treatments": [
+    {
+     "id": "sa-flush",
+     "title": "Spring soil flushing",
+     "applicationType": "cultural",
+     "months": [
+      3,
+      4,
+      5
+     ],
+     "purpose": "Deep irrigation leaches salt from the root zone."
+    },
+    {
+     "id": "sa-deicer",
+     "title": "De-icer practice changes",
+     "applicationType": "cultural",
+     "purpose": "Reducing sodium chloride use near plantings limits future injury."
+    },
+    {
+     "id": "sa-replace",
+     "title": "Salt-tolerant species for roadside plantings",
+     "applicationType": "replacement",
+     "purpose": "Long-term fix for exposed sites."
+    }
+   ],
+   "reviewFlags": [
+    "Source KB says 'use calcium chloride alternatives'. Ambiguous wording; rephrased."
+   ]
+  },
+  {
+   "id": "irrigation",
+   "name": "Over / Under Irrigation",
+   "category": "abiotic",
+   "hostIds": [],
+   "generalist": true,
+   "symptoms": [
+    "Overwatering: yellowing, root rot, symptoms similar to Phytophthora",
+    "Underwatering: scorch, early leaf drop, decline"
+   ],
+   "lookalikeIds": [
+    "phytophthora"
+   ],
+   "treatments": [
+    {
+     "id": "ir-plan",
+     "title": "Irrigation audit and adjustment",
+     "applicationType": "cultural",
+     "purpose": "Check soil moisture before watering; adjust schedules to plant needs."
+    }
+   ]
+  },
+  {
+   "id": "emerald-ash-borer",
+   "name": "Emerald Ash Borer (EAB)",
+   "scientificName": "Agrilus planipennis",
+   "category": "borer",
+   "hostIds": [
+    "ash"
+   ],
+   "symptoms": [
+    "D-shaped exit holes 3–4 mm (diagnostic)",
+    "S-shaped larval galleries under bark",
+    "Crown dieback from the top down",
+    "Sprouting from trunk and limbs",
+    "Woodpecker damage and bark flaking"
+   ],
+   "biology": [
+    "Small trees can die within 1–2 years; large trees within 3–4 years"
+   ],
+   "lookalikeIds": [
+    "ash-yellows"
+   ],
+   "activeMonths": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "maxCrownLossPercent": 50,
+   "cautionCrownLossPercent": 30,
+   "treatments": [
+    {
+     "id": "eab-inject",
+     "title": "Systemic trunk injection (2–3 year protection)",
+     "applicationType": "macroInjection",
+     "months": [
+      4,
+      5,
+      6
+     ],
+     "protection": "2–4 years",
+     "purpose": "The most effective EAB protection, delivered directly into the tree after leaf-out.",
+     "requiresLicense": true,
+     "notes": [
+      "Emamectin benzoate (e.g., TREE-äge); check RUP status of formulation"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 2–3 years",
+      "window": "After leaf-out (Apr–Jun), soil moist"
+     },
+     "preferred": true
+    },
+    {
+     "id": "eab-drench",
+     "title": "Systemic soil drench (annual)",
+     "applicationType": "soilDrench",
+     "months": [
+      3,
+      4,
+      5
+     ],
+     "protection": "1 year",
+     "purpose": "Annual protection option, best on smaller trees.",
+     "notes": [
+      "Imidacloprid; less effective on large trees"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Mid-Mar to mid-May"
+     }
+    },
+    {
+     "id": "eab-basal",
+     "title": "Systemic basal bark spray (annual)",
+     "applicationType": "basalBark",
+     "months": [
+      3,
+      4,
+      5,
+      6
+     ],
+     "protection": "1 year",
+     "purpose": "Fast-acting, no-drill annual protection.",
+     "notes": [
+      "Dinotefuran (soil drench also an option)"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Mid-Mar to early Jun"
+     }
+    },
+    {
+     "id": "eab-remove",
+     "title": "Removal and replacement",
+     "applicationType": "replacement",
+     "purpose": "Recommended for trees with more than 50% crown loss."
+    }
+   ],
+   "costShare": [
+    {
+     "jurisdiction": "VA",
+     "text": "Virginia DOF EAB Treatment Cost-Share: up to 70% cost offset for eligible trees.",
+     "minDBH": 12
+    },
+    {
+     "jurisdiction": "MD",
+     "text": "Maryland 50/50 cost-share for treatments on public land.",
+     "publicOnly": true
+    }
+   ],
+   "regulatory": [
+    {
+     "jurisdictions": [
+      "VA",
+      "MD",
+      "DC"
+     ],
+     "text": "Treatment threshold per KB: under 30% crown loss (VA guidance), under 50–60% (MD guidance). Do not treat above 50% loss."
+    }
+   ],
+   "sources": [
+    "USDA FS",
+    "VCE 3006-1451",
+    "Virginia DOF EAB Program",
+    "MDA EAB"
+   ],
+   "reviewFlags": [
+    "KB cites a federal interstate EAB quarantine; USDA-APHIS ended the federal domestic EAB quarantine in Jan 2021. Verify current VA/MD quarantine status.",
+    "Cost-share percentages and DBH minimums need current-year verification."
+   ]
+  },
+  {
+   "id": "bronze-birch-borer",
+   "name": "Bronze Birch Borer",
+   "scientificName": "Agrilus anxius",
+   "category": "borer",
+   "hostIds": [
+    "birch"
+   ],
+   "hostNote": "White/paper birch most susceptible; river birch most tolerant.",
+   "symptoms": [
+    "D-shaped exit holes (smaller than EAB)",
+    "Serpentine galleries under bark",
+    "Dieback from the crown down",
+    "Yellow, sparse foliage"
+   ],
+   "treatments": [
+    {
+     "id": "bbb-drench",
+     "title": "Preventive systemic soil drench",
+     "applicationType": "soilDrench",
+     "months": [
+      4,
+      5
+     ],
+     "purpose": "Protects against new borer attack.",
+     "notes": [
+      "Imidacloprid"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Apr–May"
+     },
+     "preferred": true
+    },
+    {
+     "id": "bbb-vigor",
+     "title": "Watering and mulching for vigor",
+     "applicationType": "cultural",
+     "purpose": "Stressed birch attract borers; healthy birch resist them."
+    },
+    {
+     "id": "bbb-replace",
+     "title": "Plant resistant species",
+     "applicationType": "replacement",
+     "purpose": "River birch is the most borer-tolerant option."
+    }
+   ]
+  },
+  {
+   "id": "two-lined-chestnut-borer",
+   "name": "Two-Lined Chestnut Borer",
+   "scientificName": "Agrilus bilineatus",
+   "category": "borer",
+   "hostIds": [
+    "oak"
+   ],
+   "hostNote": "Oaks stressed by drought or defoliation.",
+   "symptoms": [
+    "Dieback from branch tips",
+    "Small metallic green beetles with two lines",
+    "S-shaped galleries under bark of dying branches"
+   ],
+   "treatments": [
+    {
+     "id": "tlcb-drench",
+     "title": "Preventive systemic treatment for high-value oaks",
+     "applicationType": "soilDrench",
+     "months": [
+      4,
+      5
+     ],
+     "purpose": "Protects at-risk trees from borer attack.",
+     "notes": [
+      "Imidacloprid"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Apr–May"
+     },
+     "preferred": true
+    },
+    {
+     "id": "tlcb-vigor",
+     "title": "Drought stress relief and vigor care",
+     "applicationType": "soilCare",
+     "purpose": "Addresses the stress that attracts the borer."
+    },
+    {
+     "id": "tlcb-prune",
+     "title": "Remove infested branches",
+     "applicationType": "pruning",
+     "purpose": "Removes developing larvae."
+    }
+   ],
+   "reviewFlags": [
+    "Source KB gives no timing for preventive treatment; spring months added.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): tlcb-drench."
+   ]
+  },
+  {
+   "id": "dogwood-borer",
+   "name": "Dogwood Borer",
+   "scientificName": "Synanthedon scitula",
+   "category": "borer",
+   "hostIds": [
+    "dogwood",
+    "oak",
+    "birch",
+    "cherry",
+    "apple"
+   ],
+   "symptoms": [
+    "Frass and gumming at trunk base and scaffold limbs",
+    "Rough, swollen callus at entry sites",
+    "Tunneling under bark"
+   ],
+   "activeMonths": [
+    5,
+    6,
+    7,
+    8
+   ],
+   "treatments": [
+    {
+     "id": "db-bark",
+     "title": "Protective trunk spray program",
+     "applicationType": "barkSpray",
+     "months": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "purpose": "Protects bark during adult egg-laying.",
+     "notes": [
+      "Permethrin or bifenthrin"
+     ],
+     "schedule": {
+      "visitsMin": 4,
+      "visitsMax": 4,
+      "interval": "About 30 days",
+      "repeat": "Annually",
+      "window": "Mid-May through August (adult flight)"
+     },
+     "preferred": true
+    },
+    {
+     "id": "db-wound",
+     "title": "Trunk flare protection (mulch ring)",
+     "applicationType": "cultural",
+     "purpose": "Prevents mower and trimmer wounds, the main entry point."
+    }
+   ]
+  },
+  {
+   "id": "hemlock-woolly-adelgid",
+   "name": "Hemlock Woolly Adelgid (HWA)",
+   "scientificName": "Adelges tsugae",
+   "category": "sucking",
+   "hostIds": [
+    "hemlock"
+   ],
+   "symptoms": [
+    "White, cottony egg sacs at needle bases on twig undersides (diagnostic)",
+    "Needles turn gray-green and drop",
+    "Twig death progressing from the bottom up"
+   ],
+   "biology": [
+    "Two generations per year; dormant (not feeding) July–September",
+    "Untreated trees can die in 4–6 years"
+   ],
+   "noTreatmentMonths": [
+    7,
+    8,
+    9
+   ],
+   "noTreatmentReason": "Adelgids are dormant and not feeding July–September.",
+   "treatments": [
+    {
+     "id": "hwa-drench",
+     "title": "Long-term systemic soil treatment (4–7 years)",
+     "applicationType": "soilDrench",
+     "months": [
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11
+     ],
+     "protection": "4–7 years",
+     "purpose": "Long-lasting protection. Large trees take about 3 months to take it up.",
+     "notes": [
+      "Imidacloprid soil drench or soil injection"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 4–7 years; monitor annually",
+      "window": "Mar–Jun or Sep–Nov (allow ~3 months uptake on large trees)"
+     },
+     "preferred": true
+    },
+    {
+     "id": "hwa-fast",
+     "title": "Fast-acting systemic basal bark spray",
+     "applicationType": "basalBark",
+     "months": [
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11
+     ],
+     "protection": "1–2 years",
+     "purpose": "Knocks down heavy infestations within days. Often paired with the long-term treatment.",
+     "notes": [
+      "Dinotefuran (also drench or injection)"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 1–2 years, for heavy infestations",
+      "window": "Mar–Jun or Sep–Nov"
+     }
+    },
+    {
+     "id": "hwa-inject",
+     "title": "Direct systemic trunk injection",
+     "applicationType": "microInjection",
+     "months": [
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11
+     ],
+     "purpose": "Treatment directly into the tree where soil or bark treatment is not practical.",
+     "notes": [
+      "Imidacloprid or dinotefuran injection"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Every 1–2 years",
+      "window": "Mar–Jun or Sep–Nov"
+     }
+    },
+    {
+     "id": "hwa-oil",
+     "title": "Horticultural oil spray (small trees)",
+     "applicationType": "dormantOil",
+     "months": [
+      3,
+      4,
+      5,
+      6,
+      10,
+      11
+     ],
+     "purpose": "Contact control for small trees where complete coverage is possible.",
+     "notes": [
+      "1% summer rate / 2% winter rate per KB; follow label"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Spring and/or fall",
+      "repeat": "Annually",
+      "window": "Mar–Jun or Oct–Nov; not Jul–Sep"
+     }
+    }
+   ],
+   "costShare": [
+    {
+     "jurisdiction": "VA",
+     "text": "Virginia DOF Hemlock Woolly Adelgid Treatment Cost-Share Program."
+    }
+   ],
+   "sources": [
+    "VCE 3006-1451",
+    "Virginia DOF HWA Program",
+    "MDA HWA"
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): hwa-inject, hwa-oil."
+   ]
+  },
+  {
+   "id": "elongate-hemlock-scale",
+   "name": "Elongate Hemlock Scale",
+   "scientificName": "Fiorinia externa",
+   "category": "sucking",
+   "hostIds": [
+    "hemlock",
+    "pine",
+    "spruce",
+    "fir"
+   ],
+   "symptoms": [
+    "Flat, elongate brown/tan scales on needle undersides",
+    "Yellow stippling and needle drop",
+    "Often found together with HWA"
+   ],
+   "treatments": [
+    {
+     "id": "ehs-oil",
+     "title": "Horticultural oil spray",
+     "applicationType": "dormantOil",
+     "months": [
+      3,
+      4,
+      6,
+      7,
+      10,
+      11
+     ],
+     "purpose": "Contact control of scale and crawlers.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Dormant season and/or summer",
+      "repeat": "Annually",
+      "window": "Mar–Apr dormant rate; Jun–Jul summer rate"
+     }
+    },
+    {
+     "id": "ehs-systemic",
+     "title": "Systemic soil drench or basal bark spray",
+     "applicationType": "basalBark",
+     "months": [
+      4,
+      5,
+      6,
+      9,
+      10
+     ],
+     "purpose": "Systemic control inside the needles.",
+     "notes": [
+      "Dinotefuran preferred; imidacloprid listed in KB but generally weak on armored scale"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Apr–Jun or Sep–Oct"
+     },
+     "preferred": true
+    },
+    {
+     "id": "ehs-igr",
+     "title": "Crawler-stage growth-regulator spray",
+     "applicationType": "foliar",
+     "months": [
+      6,
+      7
+     ],
+     "purpose": "Targets crawlers as they emerge.",
+     "notes": [
+      "Pyriproxyfen (IGR)"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "10–14 days at crawler peak",
+      "repeat": "Annually",
+      "window": "Crawler emergence (Jun–Jul)"
+     }
+    }
+   ],
+   "reviewFlags": [
+    "Imidacloprid efficacy on armored scales is limited; KB lists it as an option.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): ehs-oil, ehs-systemic, ehs-igr."
+   ]
+  },
+  {
+   "id": "crapemyrtle-bark-scale",
+   "name": "Crapemyrtle Bark Scale (CMBS)",
+   "scientificName": "Acanthococcus lagerstroemiae",
+   "category": "sucking",
+   "hostIds": [
+    "crapemyrtle"
+   ],
+   "symptoms": [
+    "White/gray waxy crust on trunk and limbs (diagnostic)",
+    "Heavy black sooty mold on bark",
+    "Pink fluid when scale is crushed",
+    "Reduced flowering"
+   ],
+   "biology": [
+    "Arrived in the DMV around 2020"
+   ],
+   "bloomSensitive": true,
+   "treatments": [
+    {
+     "id": "cmbs-drench",
+     "title": "Spring systemic soil drench",
+     "applicationType": "soilDrench",
+     "months": [
+      4,
+      5
+     ],
+     "purpose": "The most effective approach. Systemic protection through the season.",
+     "notes": [
+      "Imidacloprid, dinotefuran, clothianidin, or thiamethoxam"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually; often 2+ seasons",
+      "window": "Late Apr–May as leaves emerge"
+     },
+     "preferred": true
+    },
+    {
+     "id": "cmbs-oil",
+     "title": "Dormant oil bark spray",
+     "applicationType": "dormantOil",
+     "months": [
+      11,
+      12,
+      1,
+      2,
+      3
+     ],
+     "purpose": "Smothers overwintering scale; needs thorough bark coverage.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Late fall or early spring before bud break"
+     }
+    },
+    {
+     "id": "cmbs-igr",
+     "title": "Crawler-stage growth-regulator spray",
+     "applicationType": "foliar",
+     "months": [
+      5,
+      6
+     ],
+     "purpose": "Targets crawlers. Not applied during bloom.",
+     "notes": [
+      "Pyriproxyfen (IGR)"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "10–14 days at crawler peak",
+      "repeat": "Annually",
+      "window": "Crawler emergence (May–Jun); not in bloom"
+     }
+    },
+    {
+     "id": "cmbs-scrub",
+     "title": "Bark scrubbing",
+     "applicationType": "mechanical",
+     "purpose": "Soft brush and dilute soap for small infestations; also removes sooty mold."
+    }
+   ],
+   "warnings": [
+    "Control often takes 2+ seasons."
+   ],
+   "sources": [
+    "VCE ENTO-465",
+    "Casey Trees"
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): cmbs-igr."
+   ]
+  },
+  {
+   "id": "beech-scale",
+   "name": "Beech Scale / Beech Bark Disease",
+   "scientificName": "Cryptococcus fagisuga + Neonectria",
+   "category": "sucking",
+   "hostIds": [
+    "beech"
+   ],
+   "symptoms": [
+    "White woolly material on trunk and limbs",
+    "Cankers, oozing, tarry spots on bark",
+    "Crown dieback"
+   ],
+   "treatments": [
+    {
+     "id": "bs-scrub",
+     "title": "Trunk scrubbing",
+     "applicationType": "mechanical",
+     "purpose": "Removes scale on small infestations."
+    },
+    {
+     "id": "bs-oil",
+     "title": "Horticultural oil or soap bark spray",
+     "applicationType": "dormantOil",
+     "purpose": "Controls scale on accessible bark.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Dormant season and/or summer",
+      "repeat": "Annually",
+      "window": "Dormant season or summer crawler period"
+     },
+     "preferred": true,
+     "months": [
+      3,
+      4,
+      6,
+      7
+     ]
+    },
+    {
+     "id": "bs-vigor",
+     "title": "Vigor support",
+     "applicationType": "soilCare",
+     "purpose": "Healthy trees resist infection longer."
+    }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): bs-oil."
+   ]
+  },
+  {
+   "id": "aphids",
+   "name": "Aphids",
+   "scientificName": "Multiple species",
+   "category": "sucking",
+   "hostIds": [
+    "apple",
+    "crapemyrtle"
+   ],
+   "generalist": true,
+   "symptoms": [
+    "Soft-bodied insects in colonies on new growth or bark",
+    "Sticky honeydew and black sooty mold below",
+    "Curled, distorted leaves"
+   ],
+   "treatments": [
+    {
+     "id": "ap-soft",
+     "title": "Horticultural oil or insecticidal soap",
+     "applicationType": "foliar",
+     "purpose": "Contact control that spares most beneficial insects.",
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 days",
+      "repeat": "As needed",
+      "window": "When colonies appear, typically Apr–Jun"
+     },
+     "preferred": true,
+     "months": [
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "id": "ap-systemic",
+     "title": "Systemic treatment for persistent infestations",
+     "applicationType": "soilDrench",
+     "purpose": "Season-long control on heavily affected plants.",
+     "notes": [
+      "Imidacloprid or dinotefuran"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Spring, before populations build"
+     },
+     "months": [
+      3,
+      4
+     ]
+    },
+    {
+     "id": "ap-bio",
+     "title": "Beneficial insect conservation and water spray",
+     "applicationType": "mechanical",
+     "purpose": "Lady beetles and lacewings plus water sprays knock colonies down."
+    }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): ap-soft, ap-systemic."
+   ]
+  },
+  {
+   "id": "spotted-lanternfly",
+   "name": "Spotted Lanternfly (SLF)",
+   "scientificName": "Lycorma delicatula",
+   "category": "sucking",
+   "hostIds": [
+    "treeofheaven",
+    "maple",
+    "oak",
+    "walnut",
+    "poplar",
+    "apple"
+   ],
+   "generalist": true,
+   "symptoms": [
+    "Adults: gray wings with black spots, red hindwings",
+    "Nymphs: black with white spots, later red",
+    "Gray, mud-like egg masses on bark and outdoor objects",
+    "Honeydew and sooty mold below feeding sites"
+   ],
+   "activeMonths": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "treatments": [
+    {
+     "id": "slf-eggs",
+     "title": "Egg mass scraping",
+     "applicationType": "mechanical",
+     "months": [
+      11,
+      12,
+      1,
+      2,
+      3,
+      4
+     ],
+     "purpose": "Each egg mass destroyed removes 30–50 future insects."
+    },
+    {
+     "id": "slf-traps",
+     "title": "Circle traps on trunks",
+     "applicationType": "mechanical",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "purpose": "Chemical-free capture of nymphs and adults climbing the trunk."
+    },
+    {
+     "id": "slf-toh",
+     "title": "Tree of heaven removal",
+     "applicationType": "replacement",
+     "purpose": "Removes the preferred breeding host."
+    },
+    {
+     "id": "slf-systemic",
+     "title": "Systemic protection for high-value trees",
+     "applicationType": "soilDrench",
+     "months": [
+      5,
+      6,
+      7
+     ],
+     "purpose": "Protects valued trees during peak feeding.",
+     "notes": [
+      "Dinotefuran or imidacloprid"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "May–Jul (nymph to early adult feeding)"
+     },
+     "preferred": true
+    },
+    {
+     "id": "slf-contact",
+     "title": "Knockdown spray",
+     "applicationType": "foliar",
+     "months": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+     ],
+     "purpose": "Contact control of heavy populations.",
+     "notes": [
+      "Bifenthrin or spinosad"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 3,
+      "interval": "14–21 days as needed",
+      "repeat": "As needed",
+      "window": "Jul–Oct for adults; May–Jun for nymphs"
+     }
+    }
+   ],
+   "regulatory": [
+    {
+     "jurisdictions": [
+      "DC"
+     ],
+     "text": "DC DOEE discourages broad pesticide use for SLF. Lead with mechanical control, reporting, and tree of heaven removal."
+    },
+    {
+     "jurisdictions": [
+      "MD"
+     ],
+     "text": "SLF quarantine covers 20+ counties; businesses moving regulated articles need a compliance agreement/permit. Report to dontbug.md@maryland.gov."
+    },
+    {
+     "jurisdictions": [
+      "VA"
+     ],
+     "text": "Intrastate quarantine reported repealed March 2025; interstate movement rules remain. Reporting encouraged in new counties."
+    }
+   ],
+   "reviewFlags": [
+    "Verify VA quarantine repeal and current MD quarantine county list.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): slf-systemic, slf-contact."
+   ]
+  },
+  {
+   "id": "japanese-beetle",
+   "name": "Japanese Beetle",
+   "scientificName": "Popillia japonica",
+   "category": "defoliator",
+   "hostIds": [
+    "linden",
+    "rose",
+    "apple"
+   ],
+   "generalist": true,
+   "symptoms": [
+    "Metallic green/copper beetles about 1/2 in. long",
+    "Leaves skeletonized from the top of the plant down",
+    "Adults feed in groups June–August"
+   ],
+   "activeMonths": [
+    6,
+    7,
+    8
+   ],
+   "bloomSensitive": true,
+   "treatments": [
+    {
+     "id": "jb-systemic",
+     "title": "Preventive systemic treatment",
+     "applicationType": "soilDrench",
+     "months": [
+      4,
+      5
+     ],
+     "purpose": "In place before adults emerge.",
+     "notes": [
+      "Imidacloprid or dinotefuran; NOT on linden or other bee-attractive hosts before or during bloom"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Apr–May, before adult emergence; not on bee-attractive hosts pre-bloom"
+     },
+     "preferred": true
+    },
+    {
+     "id": "jb-contact",
+     "title": "Contact spray during feeding",
+     "applicationType": "foliar",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "purpose": "Knocks down active feeding adults.",
+     "notes": [
+      "Bifenthrin, carbaryl, or other pyrethroids"
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–14 days during adult feeding",
+      "repeat": "Annually",
+      "window": "Jun–Aug"
+     }
+    }
+   ],
+   "reviewFlags": [
+    "KB listed halofenozide for grubs. It is discontinued and has been removed.",
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): jb-systemic, jb-contact."
+   ]
+  },
+  {
+   "id": "bagworm",
+   "name": "Bagworm",
+   "scientificName": "Thyridopteryx ephemeraeformis",
+   "category": "defoliator",
+   "hostIds": [
+    "arborvitae",
+    "juniper",
+    "leyland",
+    "oak",
+    "maple"
+   ],
+   "symptoms": [
+    "Cone-shaped silk bags (1–1.5 in.) covered in plant material",
+    "Severe defoliation of evergreens",
+    "200–1,000 eggs overwinter in each bag"
+   ],
+   "activeMonths": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "treatments": [
+    {
+     "id": "bw-hand",
+     "title": "Bag removal before hatch",
+     "applicationType": "mechanical",
+     "months": [
+      11,
+      12,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "purpose": "Removes overwintering eggs before they hatch."
+    },
+    {
+     "id": "bw-foliar",
+     "title": "Early-season caterpillar spray",
+     "applicationType": "foliar",
+     "months": [
+      6,
+      7
+     ],
+     "purpose": "Targets small caterpillars, including low-impact biological options.",
+     "notes": [
+      "Bt kurstaki, spinosad, or pyrethroids; ineffective once bags exceed 1/2 in."
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "10–14 days",
+      "repeat": "Annually",
+      "window": "Early June hatch through early July (bags under 1/2 in.)"
+     },
+     "preferred": true
+    }
+   ]
+  },
+  {
+   "id": "fall-webworm",
+   "name": "Fall Webworm",
+   "scientificName": "Hyphantria cunea",
+   "category": "defoliator",
+   "hostIds": [
+    "cherry",
+    "apple",
+    "hickory",
+    "persimmon"
+   ],
+   "generalist": true,
+   "symptoms": [
+    "Large silk webs enclosing branch-tip foliage in late summer–fall",
+    "Hairy caterpillars feeding inside webs"
+   ],
+   "activeMonths": [
+    7,
+    8,
+    9,
+    10
+   ],
+   "treatments": [
+    {
+     "id": "fw-remove",
+     "title": "Web and branch removal",
+     "applicationType": "mechanical",
+     "months": [
+      7,
+      8,
+      9,
+      10
+     ],
+     "purpose": "Removes caterpillars and webs."
+    },
+    {
+     "id": "fw-foliar",
+     "title": "Early-stage caterpillar spray",
+     "applicationType": "foliar",
+     "months": [
+      7,
+      8
+     ],
+     "purpose": "Biological or low-impact control before webs get large.",
+     "notes": [
+      "Bt or spinosad"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "As needed",
+      "window": "Jul–Aug, early caterpillar stage before large webs"
+     },
+     "preferred": true
+    }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): fw-foliar."
+   ]
+  },
+  {
+   "id": "spongy-moth",
+   "name": "Spongy Moth (formerly Gypsy Moth)",
+   "scientificName": "Lymantria dispar",
+   "category": "defoliator",
+   "hostIds": [
+    "oak"
+   ],
+   "generalist": true,
+   "symptoms": [
+    "Hairy caterpillars 2–3 in. with blue and red spots",
+    "Tan egg masses on bark and structures",
+    "Complete defoliation of large oaks"
+   ],
+   "activeMonths": [
+    4,
+    5,
+    6
+   ],
+   "treatments": [
+    {
+     "id": "sm-foliar",
+     "title": "Early-instar caterpillar spray",
+     "applicationType": "foliar",
+     "months": [
+      4,
+      5
+     ],
+     "purpose": "Targets young caterpillars with biological or low-impact products.",
+     "notes": [
+      "Bt kurstaki (most recommended), spinosad; diflubenzuron is broad-spectrum, so use caution near water"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "7–10 days",
+      "repeat": "As needed (outbreak years)",
+      "window": "Late Apr–May, early instars"
+     },
+     "preferred": true
+    },
+    {
+     "id": "sm-eggs",
+     "title": "Egg mass removal",
+     "applicationType": "mechanical",
+     "months": [
+      11,
+      12,
+      1,
+      2,
+      3
+     ],
+     "purpose": "Scrape egg masses into soapy water before spring hatch."
+    },
+    {
+     "id": "sm-burlap",
+     "title": "Burlap trunk bands",
+     "applicationType": "mechanical",
+     "months": [
+      5,
+      6
+     ],
+     "purpose": "Traps caterpillars that hide during the day; checked and cleared regularly."
+    }
+   ]
+  },
+  {
+   "id": "two-spotted-spider-mite",
+   "name": "Two-Spotted Spider Mite",
+   "scientificName": "Tetranychus urticae",
+   "category": "mite",
+   "hostIds": [
+    "rose",
+    "euonymus"
+   ],
+   "generalist": true,
+   "symptoms": [
+    "Fine yellow/white stippling on leaves",
+    "Fine webbing on leaf undersides",
+    "Tiny mites visible with a hand lens",
+    "Outbreaks in hot, dry weather"
+   ],
+   "activeMonths": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "treatments": [
+    {
+     "id": "tsm-oil",
+     "title": "Horticultural oil or soap spray",
+     "applicationType": "foliar",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "purpose": "Contact control with thorough leaf-underside coverage.",
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 days",
+      "repeat": "As needed",
+      "window": "Jun–Sep during hot, dry weather"
+     }
+    },
+    {
+     "id": "tsm-miticide",
+     "title": "Targeted miticide program",
+     "applicationType": "foliar",
+     "months": [
+      6,
+      7,
+      8,
+      9
+     ],
+     "purpose": "Rotated miticides for heavy populations.",
+     "notes": [
+      "Bifenazate, abamectin, spiromesifen; rotate modes of action; avoid pyrethroids (mite flare)"
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Per label; rotate mode of action",
+      "repeat": "As needed",
+      "window": "Jun–Sep at first stippling"
+     },
+     "preferred": true
+    },
+    {
+     "id": "tsm-water",
+     "title": "Moisture management",
+     "applicationType": "cultural",
+     "purpose": "Drought-stressed plants suffer worse outbreaks."
+    }
+   ],
+   "reviewFlags": [
+    "Visit counts / intervals / windows partly added from general extension practice (not in source KB): tsm-oil, tsm-miticide."
+   ]
+  },
+  {
+   "id": "spruce-spider-mite",
+   "name": "Spruce Spider Mite",
+   "scientificName": "Oligonychus ununguis",
+   "category": "mite",
+   "hostIds": [
+    "spruce",
+    "fir",
+    "hemlock",
+    "arborvitae",
+    "juniper"
+   ],
+   "symptoms": [
+    "Stippling and bronzing of needles",
+    "Green mites and eggs on needles in cool seasons",
+    "Webbing in heavy infestations"
+   ],
+   "activeMonths": [
+    3,
+    4,
+    5,
+    9,
+    10,
+    11
+   ],
+   "noTreatmentMonths": [
+    7,
+    8
+   ],
+   "noTreatmentReason": "Spruce spider mite is a cool-season mite and is inactive in summer heat.",
+   "treatments": [
+    {
+     "id": "ssm-oil",
+     "title": "Dormant oil before bud break",
+     "applicationType": "dormantOil",
+     "months": [
+      2,
+      3,
+      4
+     ],
+     "purpose": "Smothers overwintering eggs.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Before bud break (Feb–Apr)"
+     },
+     "preferred": true
+    },
+    {
+     "id": "ssm-miticide",
+     "title": "Spring / fall miticide",
+     "applicationType": "foliar",
+     "months": [
+      4,
+      5,
+      9,
+      10
+     ],
+     "purpose": "Controls active populations during cool seasons.",
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 2,
+      "interval": "Spring and fall",
+      "repeat": "As needed",
+      "window": "Apr–May and Sep–Oct; not summer"
+     }
+    }
+   ]
+  }
+ ],
+ "jurisdictions": [
+  {
+   "id": "VA",
+   "name": "Virginia",
+   "authority": "VDACS Office of Pesticide Services",
+   "phone": "(804) 371-6000",
+   "website": "https://www.vdacs.virginia.gov/pesticides.shtml",
+   "notes": [
+    "Commercial applications require a Virginia Pesticide Business License (or employment by a licensed firm).",
+    "Records retained 2 years minimum."
+   ],
+   "nearWater": "Chesapeake Bay Preservation Act: Resource Protection Areas include a 100-ft buffer from tidal wetlands and shorelines. Limit applications and follow label setbacks.",
+   "sensitiveSite": "Follow label and local ordinance notification requirements."
+  },
+  {
+   "id": "MD",
+   "name": "Maryland",
+   "authority": "MDA Pesticide Regulation Section",
+   "phone": "(410) 841-5710",
+   "website": "https://mda.maryland.gov/plants-pests/pages/pesticide-information-for-professionals.aspx",
+   "notes": [
+    "Records retained 2 years minimum."
+   ],
+   "nearWater": "Chesapeake Bay Critical Area (1,000 ft from tidal waters) carries enhanced restrictions and BMPs; Clean Streams Law prohibits applications that cause water quality violations.",
+   "sensitiveSite": "Schools and childcare facilities must follow IPM programs: 24-hour advance notification to parents and post-application notification within 24 hours.",
+   "neonicotinoid": "Maryland restricts neonicotinoids (imidacloprid, dinotefuran, clothianidin, thiamethoxam). Applications must be made by a certified applicator. Verify current product status."
+  },
+  {
+   "id": "DC",
+   "name": "District of Columbia",
+   "authority": "DOEE Toxic Substances Division",
+   "phone": "(202) 535-2600",
+   "website": "https://doee.dc.gov/service/pesticide-licensing",
+   "notes": [
+    "Requires DOEE Certified Applicator status, a DC Basic Business License, and a DOEE photo ID carried during all applications.",
+    "IPM-first approach expected on public spaces.",
+    "Records retained 2 years minimum."
+   ],
+   "nearWater": "Strict buffers near the Anacostia River, Rock Creek, and Potomac tributaries. DC municipal buffers may exceed label requirements.",
+   "sensitiveSite": "Enhanced restrictions and pre-notification for schools, daycares, and parks."
+  }
+ ]
+}

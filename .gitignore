@@ -2,3 +2,6 @@
 *.xcodeproj/
 xcuserdata/
 .swiftpm/
+
+# Manual transcription stays local (source manual is proprietary)
+reference/pest-management-reference.md
