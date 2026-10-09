@@ -6,6 +6,8 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 
 **Rule-based additions (applied by the build, listed here for review):**
 - **Btk for caterpillars:** a Bacillus thuringiensis kurstaki (Btk) foliar row is added to the defoliating caterpillar entries listed in `BTK_FOR` in `scripts/build-kb.mjs`, timed like the entry's main caterpillar spray. Btk is the standard selective option for young larvae and spares natural enemies, but the manual omits it. Sources: Ohio State BYGL (bagworm); UGA and University of Maryland Extension (box tree moth).
+- **Currency review rules (`CURRENCY_RULES`):** mite rotation partners, afidopyropen, cyantraniliprole, spirotetramat, chlorantraniliprole bark sprays for clearwing borers, chlorothalonil for conifer needle diseases, and beneficial nematodes for root weevils. Sources are listed in the review section below.
+- **Demoted manual rows:** a chemical row marked ✗ in this file removes the manual's preferred and default marks from the matching row and adds the reason (its Timing column) as a note.
 - **Product status notes:** mancozeb (pending EPA decision on residential ornamental uses), acephate (EPA proposed keeping only tree injection) and emamectin benzoate (TREE-äge formulations are restricted use) are noted on every option that uses them.
 
 # Insects and mites
@@ -357,6 +359,20 @@ In this file ★ means the best-supported current option, not a manual bold. Las
 | | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
 |---|---|---|---|---|---|---|---|---|
 | | Foliar spray | Chlorothalonil or thiophanate-methyl | Apr–Aug | 2–4 | 14 d | Annually | From budbreak in wet springs | Rotate FRAC groups |
+
+## Vascular and wilt diseases
+
+### Rose rosette
+- **Hosts:** rose
+- **About:** Current extension guidance (UGA 2025, Colorado State 2025, UT 2024) is to remove symptomatic plants early, roots included, bagged and not composted. Miticides are not recommended or have shown limited effect. In the 2018 Texas A&M / Tennessee field trial, roses sprayed every 14 days with fenpyroximate, spiromesifen, spirotetramat or bifenthrin stayed symptom-free, while **abamectin + oil was ineffective**. If a miticide program is sold to protect nearby high-value roses, use those products and present it as unproven.
+- **Sources:** UGA Extension Circular 1176 (2025); Colorado State Extension, Rose rosette disease (2025); University of Tennessee W1284 (2024); Windham et al. 2018 ASHS abstract (Texas A&M / UT)
+
+**Chemical**
+
+| | Method | Active ingredient | Months | Apps | Interval | Repeat | Timing | Notes |
+|---|---|---|---|---|---|---|---|---|
+| ✗ | Foliar spray | Abamectin + horticultural oil | Apr–Sep | 6 | 14 d | Annually | Ineffective against the rose rosette mite vector in the 2018 field trial | — |
+| | Foliar spray | Fenpyroximate | Apr–Sep | 6 | 14 d | Annually | Every 14 d on adjacent healthy roses, alternating with spiromesifen | Effective in 2018 trial. Efficacy against disease spread is still unproven |
 
 ## Blights
 

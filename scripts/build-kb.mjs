@@ -187,6 +187,7 @@ for (const raw of body.split("\n")) {
       schedule: { visitsMin, visitsMax, ...(interval !== "—" ? { interval } : {}), repeat, window: timing },
       ...(mark.includes("★") ? { preferred: true } : {}),
       ...(mark.includes("✓") ? { default: true } : {}),
+      ...(mark.includes("✗") ? { demote: true } : {}),
       notes: notes === "—" ? [] : [notes],
     });
   }
@@ -207,7 +208,13 @@ for (const sup of parseConditions(readFileSync(new URL("reference/current-supple
   }
   for (const h of sup.hostIds) if (!target.hostIds.includes(h)) target.hostIds.push(h);
   target.biology.push(...sup.biology.map((b) => `Update (${VERIFIED}): ${b}`));
-  target.treatments.push(...sup.treatments);
+  for (const t of sup.treatments) {
+    if (!t.demote) { target.treatments.push(t); continue; }
+    const hit = target.treatments.find((x) => x.activeIngredient === t.activeIngredient && x.applicationType === t.applicationType);
+    if (!hit) { fail(`${sup.id}: ✗ row has no matching ${t.activeIngredient} (${t.applicationType})`); continue; }
+    delete hit.default; delete hit.preferred;
+    hit.notes.push(`Not recommended (${VERIFIED} review): ${t.schedule.window}`);
+  }
   target.sources.push(...sup.sources.map((x) => `Update: ${x}`));
 }
 
@@ -267,6 +274,19 @@ const CURRENCY_RULES = [
     note: "IRAC 23. Mixed trial results on armored scales (good on crawlers in Purdue trials, poor in a Christmas tree trial). Not effective on soft scales",
   },
   {
+    ids: ["caterpillar-borers-general", "ash-lilac-borer", "dogwood-borer", "lesser-peachtree-borer", "peachtree-borer", "rhododendron-borer", "leopard-moth"],
+    method: "barkSpray", ai: "Chlorantraniliprole", apps: [1, 4], interval: "30 d",
+    window: "Trunk and main scaffolds to runoff before egg hatch and larval entry (time with traps). Dogwood borer: about monthly from mid-May",
+    note: "Reduced-risk, bee-friendly alternative to pyrethroid bark sprays (no mite flare). Contact only: no control once larvae are inside. Not where edible fruit is harvested the same year",
+  },
+  {
+    ids: ["rhizosphaera-needlecast-of-spruce", "diplodia-tip-blight", "red-band-needle-blight", "brown-spot-needle-blight", "needlecasts-of-pine",
+      "needlecasts-of-douglas-fir", "conifer-blights", "sirococcus-shoot-blight"],
+    method: "foliar", ai: "Chlorothalonil", apps: [2, 3], interval: "14–21 d",
+    window: "Same bud-stage timing as the main program (e.g. spruce: needles half elongated and again at full length; pine: budbreak, half candle, full candle)",
+    note: "Extension-standard protectant and the alternative to mancozeb while its EPA status is pending. Rhizosphaera usually needs 2 sprays a year for 2–3 years",
+  },
+  {
     ids: ["black-vine-weevil", "two-banded-japanese-weevil"], method: "bioDrench", ai: "Entomopathogenic nematodes (Heterorhabditis)",
     months: [4, 5, 8, 9, 10], apps: [1, 2], window: "Larvae in the root zone: late summer to mid-October, and spring once soil is at least 60°F",
     note: "Keep soil moist, not soggy, for 2 weeks after. Steinernema kraussei works in cooler soil. Kills larvae, complementing adult sprays",
@@ -275,13 +295,14 @@ const CURRENCY_RULES = [
 for (const r of CURRENCY_RULES) for (const id of r.ids) {
   const c = conditions.find((x) => x.id === id);
   if (!c) { fail(`CURRENCY_RULES: no condition ${id}`); continue; }
-  const main = c.treatments.find((t) => t.schedule && t.default && t.applicationType === "foliar")
+  const same = (t) => t.schedule && t.applicationType === (r.method === "bioDrench" ? "foliar" : r.method);
+  const main = c.treatments.find((t) => same(t) && t.default) || c.treatments.find(same)
     || c.treatments.find((t) => t.schedule && t.applicationType === "foliar") || c.treatments.find((t) => t.schedule);
   const months = r.months || main?.months || c.activeMonths;
   if (!months?.length) { fail(`CURRENCY_RULES: no months for ${id}`); continue; }
   c.treatments.push({
     applicationType: r.method,
-    title: `${r.ai} (${r.method === "bioDrench" ? "biological soil drench" : "foliar spray"})`,
+    title: `${r.ai} (${{ bioDrench: "biological soil drench", barkSpray: "bark spray", foliar: "foliar spray" }[r.method]})`,
     activeIngredient: r.ai,
     months,
     schedule: { visitsMin: r.apps[0], visitsMax: r.apps[1], ...(r.interval ? { interval: r.interval } : {}), repeat: main?.schedule?.repeat || "As needed", window: r.window },

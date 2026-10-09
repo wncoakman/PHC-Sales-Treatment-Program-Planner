@@ -3201,10 +3201,32 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "caterpillar-borers-general--acephate-microInjection"
+    },
+    {
+     "applicationType": "barkSpray",
+     "title": "Chlorantraniliprole (bark spray)",
+     "activeIngredient": "Chlorantraniliprole",
+     "months": [
+      4,
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 4,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "Trunk and main scaffolds to runoff before egg hatch and larval entry (time with traps). Dogwood borer: about monthly from mid-May"
+     },
+     "notes": [
+      "Reduced-risk, bee-friendly alternative to pyrethroid bark sprays (no mite flare). Contact only: no control once larvae are inside. Not where edible fruit is harvested the same year"
+     ],
+     "id": "caterpillar-borers-general--chlorantraniliprole-barkSpray"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "generalist": true,
    "activeMonths": [
@@ -3292,10 +3314,32 @@
       "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "ash-lilac-borer--emamectin-benzoate-microInjection"
+    },
+    {
+     "applicationType": "barkSpray",
+     "title": "Chlorantraniliprole (bark spray)",
+     "activeIngredient": "Chlorantraniliprole",
+     "months": [
+      4,
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 4,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "Trunk and main scaffolds to runoff before egg hatch and larval entry (time with traps). Dogwood borer: about monthly from mid-May"
+     },
+     "notes": [
+      "Reduced-risk, bee-friendly alternative to pyrethroid bark sprays (no mite flare). Contact only: no control once larvae are inside. Not where edible fruit is harvested the same year"
+     ],
+     "id": "ash-lilac-borer--chlorantraniliprole-barkSpray"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -3453,10 +3497,30 @@
      },
      "notes": [],
      "id": "dogwood-borer--permethrin-barkSpray"
+    },
+    {
+     "applicationType": "barkSpray",
+     "title": "Chlorantraniliprole (bark spray)",
+     "activeIngredient": "Chlorantraniliprole",
+     "months": [
+      5
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 4,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "Trunk and main scaffolds to runoff before egg hatch and larval entry (time with traps). Dogwood borer: about monthly from mid-May"
+     },
+     "notes": [
+      "Reduced-risk, bee-friendly alternative to pyrethroid bark sprays (no mite flare). Contact only: no control once larvae are inside. Not where edible fruit is harvested the same year"
+     ],
+     "id": "dogwood-borer--chlorantraniliprole-barkSpray"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -3542,10 +3606,31 @@
       "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "leopard-moth--emamectin-benzoate-microInjection"
+    },
+    {
+     "applicationType": "barkSpray",
+     "title": "Chlorantraniliprole (bark spray)",
+     "activeIngredient": "Chlorantraniliprole",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 4,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "Trunk and main scaffolds to runoff before egg hatch and larval entry (time with traps). Dogwood borer: about monthly from mid-May"
+     },
+     "notes": [
+      "Reduced-risk, bee-friendly alternative to pyrethroid bark sprays (no mite flare). Contact only: no control once larvae are inside. Not where edible fruit is harvested the same year"
+     ],
+     "id": "leopard-moth--chlorantraniliprole-barkSpray"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -3611,10 +3696,32 @@
       "Fruit trees: 14 d PHI, max 3 per yr"
      ],
      "id": "lesser-peachtree-borer--permethrin-barkSpray"
+    },
+    {
+     "applicationType": "barkSpray",
+     "title": "Chlorantraniliprole (bark spray)",
+     "activeIngredient": "Chlorantraniliprole",
+     "months": [
+      4,
+      6,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 4,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "Trunk and main scaffolds to runoff before egg hatch and larval entry (time with traps). Dogwood borer: about monthly from mid-May"
+     },
+     "notes": [
+      "Reduced-risk, bee-friendly alternative to pyrethroid bark sprays (no mite flare). Contact only: no control once larvae are inside. Not where edible fruit is harvested the same year"
+     ],
+     "id": "lesser-peachtree-borer--chlorantraniliprole-barkSpray"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -3744,10 +3851,32 @@
      },
      "notes": [],
      "id": "peachtree-borer--permethrin-barkSpray"
+    },
+    {
+     "applicationType": "barkSpray",
+     "title": "Chlorantraniliprole (bark spray)",
+     "activeIngredient": "Chlorantraniliprole",
+     "months": [
+      5,
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 4,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "Trunk and main scaffolds to runoff before egg hatch and larval entry (time with traps). Dogwood borer: about monthly from mid-May"
+     },
+     "notes": [
+      "Reduced-risk, bee-friendly alternative to pyrethroid bark sprays (no mite flare). Contact only: no control once larvae are inside. Not where edible fruit is harvested the same year"
+     ],
+     "id": "peachtree-borer--chlorantraniliprole-barkSpray"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     6,
@@ -3856,10 +3985,31 @@
       "Permethrin also labeled"
      ],
      "id": "rhododendron-borer--bifenthrin-barkSpray"
+    },
+    {
+     "applicationType": "barkSpray",
+     "title": "Chlorantraniliprole (bark spray)",
+     "activeIngredient": "Chlorantraniliprole",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 4,
+      "interval": "30 d",
+      "repeat": "Annually",
+      "window": "Trunk and main scaffolds to runoff before egg hatch and larval entry (time with traps). Dogwood borer: about monthly from mid-May"
+     },
+     "notes": [
+      "Reduced-risk, bee-friendly alternative to pyrethroid bark sprays (no mite flare). Contact only: no control once larvae are inside. Not where edible fruit is harvested the same year"
+     ],
+     "id": "rhododendron-borer--chlorantraniliprole-barkSpray"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -25523,10 +25673,33 @@
       "Rotate after 2"
      ],
      "id": "conifer-blights--pyraclostrobin-boscalid-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil (foliar spray)",
+     "activeIngredient": "Chlorothalonil",
+     "months": [
+      4,
+      5,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "14–21 d",
+      "repeat": "Annually",
+      "window": "Same bud-stage timing as the main program (e.g. spruce: needles half elongated and again at full length; pine: budbreak, half candle, full candle)"
+     },
+     "notes": [
+      "Extension-standard protectant and the alternative to mancozeb while its EPA status is pending. Rhizosphaera usually needs 2 sprays a year for 2–3 years"
+     ],
+     "id": "conifer-blights--chlorothalonil-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "generalist": true,
    "activeMonths": [
@@ -25603,10 +25776,31 @@
      },
      "notes": [],
      "id": "diplodia-tip-blight--copper-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil (foliar spray)",
+     "activeIngredient": "Chlorothalonil",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "14–21 d",
+      "repeat": "Annually",
+      "window": "Same bud-stage timing as the main program (e.g. spruce: needles half elongated and again at full length; pine: budbreak, half candle, full candle)"
+     },
+     "notes": [
+      "Extension-standard protectant and the alternative to mancozeb while its EPA status is pending. Rhizosphaera usually needs 2 sprays a year for 2–3 years"
+     ],
+     "id": "diplodia-tip-blight--chlorothalonil-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -25998,10 +26192,31 @@
      },
      "notes": [],
      "id": "sirococcus-shoot-blight--copper-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil (foliar spray)",
+     "activeIngredient": "Chlorothalonil",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "14–21 d",
+      "repeat": "Annually",
+      "window": "Same bud-stage timing as the main program (e.g. spruce: needles half elongated and again at full length; pine: budbreak, half candle, full candle)"
+     },
+     "notes": [
+      "Extension-standard protectant and the alternative to mancozeb while its EPA status is pending. Rhizosphaera usually needs 2 sprays a year for 2–3 years"
+     ],
+     "id": "sirococcus-shoot-blight--chlorothalonil-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -28391,10 +28606,31 @@
      },
      "notes": [],
      "id": "brown-spot-needle-blight--copper-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil (foliar spray)",
+     "activeIngredient": "Chlorothalonil",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "14–21 d",
+      "repeat": "Annually",
+      "window": "Same bud-stage timing as the main program (e.g. spruce: needles half elongated and again at full length; pine: budbreak, half candle, full candle)"
+     },
+     "notes": [
+      "Extension-standard protectant and the alternative to mancozeb while its EPA status is pending. Rhizosphaera usually needs 2 sprays a year for 2–3 years"
+     ],
+     "id": "brown-spot-needle-blight--chlorothalonil-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -28472,10 +28708,31 @@
       "EPA proposed (July 2024) ending residential ornamental mancozeb uses; decision still pending in 2026. Confirm current label status."
      ],
      "id": "red-band-needle-blight--mancozeb-propiconazole-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil (foliar spray)",
+     "activeIngredient": "Chlorothalonil",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "14–21 d",
+      "repeat": "Annually",
+      "window": "Same bud-stage timing as the main program (e.g. spruce: needles half elongated and again at full length; pine: budbreak, half candle, full candle)"
+     },
+     "notes": [
+      "Extension-standard protectant and the alternative to mancozeb while its EPA status is pending. Rhizosphaera usually needs 2 sprays a year for 2–3 years"
+     ],
+     "id": "red-band-needle-blight--chlorothalonil-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     5,
@@ -28557,10 +28814,34 @@
      },
      "notes": [],
      "id": "needlecasts-of-pine--copper-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil (foliar spray)",
+     "activeIngredient": "Chlorothalonil",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "14–21 d",
+      "repeat": "Annually",
+      "window": "Same bud-stage timing as the main program (e.g. spruce: needles half elongated and again at full length; pine: budbreak, half candle, full candle)"
+     },
+     "notes": [
+      "Extension-standard protectant and the alternative to mancozeb while its EPA status is pending. Rhizosphaera usually needs 2 sprays a year for 2–3 years"
+     ],
+     "id": "needlecasts-of-pine--chlorothalonil-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -28631,10 +28912,31 @@
      },
      "notes": [],
      "id": "needlecasts-of-douglas-fir--copper-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil (foliar spray)",
+     "activeIngredient": "Chlorothalonil",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "14–21 d",
+      "repeat": "Annually",
+      "window": "Same bud-stage timing as the main program (e.g. spruce: needles half elongated and again at full length; pine: budbreak, half candle, full candle)"
+     },
+     "notes": [
+      "Extension-standard protectant and the alternative to mancozeb while its EPA status is pending. Rhizosphaera usually needs 2 sprays a year for 2–3 years"
+     ],
+     "id": "needlecasts-of-douglas-fir--chlorothalonil-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -28769,10 +29071,32 @@
      },
      "notes": [],
      "id": "rhizosphaera-needlecast-of-spruce--copper-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil (foliar spray)",
+     "activeIngredient": "Chlorothalonil",
+     "months": [
+      5,
+      6,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "14–21 d",
+      "repeat": "Annually",
+      "window": "Same bud-stage timing as the main program (e.g. spruce: needles half elongated and again at full length; pine: budbreak, half candle, full candle)"
+     },
+     "notes": [
+      "Extension-standard protectant and the alternative to mancozeb while its EPA status is pending. Rhizosphaera usually needs 2 sprays a year for 2–3 years"
+     ],
+     "id": "rhizosphaera-needlecast-of-spruce--chlorothalonil-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): currency review additions"
    ],
    "activeMonths": [
     4,
@@ -30375,7 +30699,8 @@
    ],
    "symptoms": [],
    "biology": [
-    "A virus affecting most roses, including Knock Out and multiflora rose. Spread by eriophyid mites and likely through root grafts. Causes stunting and witches' brooms. Affected plants decline and die."
+    "A virus affecting most roses, including Knock Out and multiflora rose. Spread by eriophyid mites and likely through root grafts. Causes stunting and witches' brooms. Affected plants decline and die.",
+    "Update (Oct 2026): Current extension guidance (UGA 2025, Colorado State 2025, UT 2024) is to remove symptomatic plants early, roots included, bagged and not composted. Miticides are not recommended or have shown limited effect. In the 2018 Texas A&M / Tennessee field trial, roses sprayed every 14 days with fenpyroximate, spiromesifen, spirotetramat or bifenthrin stayed symptom-free, while **abamectin + oil was ineffective**. If a miticide program is sold to protect nearby high-value roses, use those products and present it as unproven."
    ],
    "treatments": [
     {
@@ -30432,13 +30757,42 @@
       "repeat": "Annually",
       "window": "Alternate with spiromesifen"
      },
-     "default": true,
-     "notes": [],
+     "notes": [
+      "Not recommended (Oct 2026 review): Ineffective against the rose rosette mite vector in the 2018 field trial"
+     ],
      "id": "rose-rosette--abamectin-horticultural-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fenpyroximate (foliar spray)",
+     "activeIngredient": "Fenpyroximate",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 6,
+      "visitsMax": 6,
+      "interval": "14 d",
+      "repeat": "Annually",
+      "window": "Every 14 d on adjacent healthy roses, alternating with spiromesifen"
+     },
+     "notes": [
+      "Effective in 2018 trial. Efficacy against disease spread is still unproven"
+     ],
+     "id": "rose-rosette--fenpyroximate-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: UGA Extension Circular 1176 (2025)",
+    "Update: Colorado State Extension, Rose rosette disease (2025)",
+    "Update: University of Tennessee W1284 (2024)",
+    "Update: Windham et al. 2018 ASHS abstract (Texas A&M / UT)"
    ],
    "activeMonths": [
     4,

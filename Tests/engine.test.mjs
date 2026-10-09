@@ -272,3 +272,12 @@ test("currency review: category-wide current options present, not defaults", () 
   const p = problem("black-vine-weevil");
   assert.ok(!defaultSelection(p).some((id) => id.includes("nematodes")));
 });
+
+test("currency review: demoted rows and borer/needlecast additions", () => {
+  const rr = kb.conditionById["rose-rosette"].treatments;
+  const aba = rr.find((t) => t.activeIngredient === "Abamectin + horticultural oil");
+  assert.ok(!aba.default && !aba.preferred && aba.notes.some((n) => n.startsWith("Not recommended")));
+  assert.equal(rr.filter((t) => t.activeIngredient === "Abamectin + horticultural oil").length, 1);
+  assert.ok(kb.conditionById["dogwood-borer"].treatments.some((t) => t.activeIngredient === "Chlorantraniliprole" && t.applicationType === "barkSpray"));
+  assert.ok(kb.conditionById["rhizosphaera-needlecast-of-spruce"].treatments.some((t) => t.activeIngredient === "Chlorothalonil"));
+});
