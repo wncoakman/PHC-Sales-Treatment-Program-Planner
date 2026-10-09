@@ -221,3 +221,18 @@ test("host contraindications: no neonicotinoids on linden", () => {
   const onRose = problem("japanese-beetle", {}, { hostId: "rose" });
   assert.deepEqual(defaultSelection(onRose), ["japanese-beetle--imidacloprid-soilDrench"]);
 });
+
+test("whole-property programs: soil care 2 visits (spring, fall), resilience 1 (summer)", async () => {
+  const { siteProgramEntry, visitPlan } = await import("../web/engine.js");
+  assert.equal(siteProgramEntry(kb, {}), null);
+  const pe = siteProgramEntry(kb, { soilCare: true, resilience: true });
+  assert.equal(pe.problems.length, 2);
+  const selected = new Set(pe.problems.flatMap((p) => defaultSelection(p).map((id) => selKey(pe.plant.uid, id))));
+  assert.equal(selected.size, 2);
+  const vp = visitPlan([pe], selected);
+  const months = vp.visits.map((v) => Math.floor(v.slot / 2) + 1);
+  assert.equal(vp.applications, 3);
+  assert.ok(months.some((m) => m === 3 || m === 4) && months.some((m) => m === 9 || m === 10) && months.some((m) => m === 7 || m === 8));
+  const text = exportText(kb, site(), [pe], selected, "X");
+  assert.ok(text.includes("WHOLE PROPERTY") && text.includes("Standard Soil Care") && text.includes("Phosphite salts"));
+});
