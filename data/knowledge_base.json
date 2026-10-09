@@ -2341,7 +2341,8 @@
       "window": "When detected or spring preventive"
      },
      "notes": [
-      "Bark-beetle-labeled formulation only"
+      "Bark-beetle-labeled formulation only",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "fruit-tree-bark-beetle--emamectin-benzoate-microInjection"
     }
@@ -2419,7 +2420,8 @@
       "window": "Winter (reduced sap flow), when populations are high or in prolonged drought"
      },
      "notes": [
-      "Feature trees only. Bark-beetle-labeled formulation"
+      "Feature trees only. Bark-beetle-labeled formulation",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "ips-engraver-beetles--emamectin-benzoate-microInjection"
     }
@@ -2562,7 +2564,8 @@
       "window": "Winter, when populations are high or in drought"
      },
      "notes": [
-      "Follow immediately with propiconazole injection to suppress blue stain fungus"
+      "Follow immediately with propiconazole injection to suppress blue stain fungus",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "southern-pine-beetle--emamectin-benzoate-microInjection"
     }
@@ -2857,7 +2860,8 @@
       "window": "High-value trees, at full leaf expansion or on detection"
      },
      "notes": [
-      "Not all species labeled. Add fungicide injection for vectored fungi"
+      "Not all species labeled. Add fungicide injection for vectored fungi",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "ambrosia-beetles-general--emamectin-benzoate-microInjection"
     }
@@ -2930,7 +2934,8 @@
       "window": "High-value trees"
      },
      "notes": [
-      "Pair with propiconazole injection for laurel wilt"
+      "Pair with propiconazole injection for laurel wilt",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "redbay-ambrosia-beetle--emamectin-benzoate-microInjection"
     }
@@ -3000,7 +3005,9 @@
       "repeat": "Every 2 yrs",
       "window": "Before emergence or at detection"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "caterpillar-borers-general--emamectin-benzoate-microInjection"
     },
     {
@@ -3108,7 +3115,9 @@
       "repeat": "Every 2 yrs",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "ash-lilac-borer--emamectin-benzoate-microInjection"
     }
    ],
@@ -3174,7 +3183,9 @@
       "repeat": "Every 2 yrs",
       "window": "At detection or budbreak (or late summer/fall for next spring)"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "carpenterworm--emamectin-benzoate-microInjection"
     },
     {
@@ -3354,7 +3365,9 @@
       "repeat": "Every 2 yrs",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "leopard-moth--emamectin-benzoate-microInjection"
     }
    ],
@@ -3605,7 +3618,9 @@
      },
      "preferred": true,
      "default": true,
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "pitch-mass-borer--emamectin-benzoate-microInjection"
     },
     {
@@ -3747,7 +3762,9 @@
       "repeat": "Every 2 yrs",
       "window": "Spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "zimmerman-pine-moth--emamectin-benzoate-microInjection"
     }
    ],
@@ -3833,7 +3850,9 @@
       "repeat": "Every 2 yrs",
       "window": "Spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "flatheaded-borers-general--emamectin-benzoate-microInjection"
     },
     {
@@ -3978,7 +3997,9 @@
       "repeat": "Every 2 yrs",
       "window": "Spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "bronze-birch-borer--emamectin-benzoate-microInjection"
     },
     {
@@ -4070,7 +4091,8 @@
      "preferred": true,
      "default": true,
      "notes": [
-      "2-yr protection"
+      "2-yr protection",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "emerald-ash-borer--emamectin-benzoate-microInjection"
     },
@@ -4359,7 +4381,9 @@
       "repeat": "Every 2 yrs",
       "window": "Spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "twolined-chestnut-borer--emamectin-benzoate-microInjection"
     },
     {
@@ -4494,7 +4518,9 @@
       "repeat": "Every 2 yrs",
       "window": "Spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "roundheaded-borers-general--emamectin-benzoate-microInjection"
     },
     {
@@ -4672,7 +4698,9 @@
       "repeat": "Every 2 yrs",
       "window": "Spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "japanese-cedar-longhorned-beetle--emamectin-benzoate-microInjection"
     },
     {
@@ -4784,7 +4812,9 @@
       "repeat": "Every 2 yrs",
       "window": "Spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "locust-borer--emamectin-benzoate-microInjection"
     },
     {
@@ -4954,7 +4984,9 @@
       "repeat": "Every 2 yrs",
       "window": "Spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "twig-pruners--emamectin-benzoate-microInjection"
     },
     {
@@ -5435,7 +5467,8 @@
     "Honeydew and sooty mold below feeding sites"
    ],
    "biology": [
-    "Eggs hatch in mid-May. Nymphs feed on many plants. Adults gather late Aug–Nov, favoring tree of heaven and maples (also walnut, sycamore and willow), and produce heavy honeydew. Report first detections in a new area to extension."
+    "Eggs hatch in mid-May. Nymphs feed on many plants. Adults gather late Aug–Nov, favoring tree of heaven and maples (also walnut, sycamore and willow), and produce heavy honeydew. Report first detections in a new area to extension.",
+    "Update (Oct 2026): Current extension practice: use circle traps on trunks rather than bare sticky bands, which catch birds and other wildlife (if bands are used, cage them with wire mesh). Removing every tree of heaven can push lanternflies onto desirable plants. Keep a few male (non-seeding) trees as trap trees treated with a systemic insecticide, and remove the rest."
    ],
    "treatments": [
     {
@@ -5509,10 +5542,47 @@
       "Not on fruiting trees"
      ],
      "id": "spotted-lanternfly--imidacloprid-soilDrench"
+    },
+    {
+     "applicationType": "mechanical",
+     "title": "Put circle traps on infested trunks. Avoid bare sticky bands (wildlife bycatch).",
+     "id": "spotted-lanternfly--put-circle-traps-on-infested-trunks-avoi-mechanical"
+    },
+    {
+     "applicationType": "mechanical",
+     "title": "Scrape egg masses Oct–Apr into alcohol or hand sanitizer.",
+     "id": "spotted-lanternfly--scrape-egg-masses-oct-apr-into-alcohol-o-mechanical"
+    },
+    {
+     "applicationType": "replacement",
+     "title": "Remove female (seeding) tree of heaven after treating it with herbicide. Keep about 15% of male trees as systemic-treated trap trees.",
+     "id": "spotted-lanternfly--remove-female-tree-of-heaven-after-treat-replacement"
+    },
+    {
+     "applicationType": "microInjection",
+     "title": "Imidacloprid (micro-injection)",
+     "activeIngredient": "Imidacloprid",
+     "months": [
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 1,
+      "visitsMax": 1,
+      "repeat": "Annually",
+      "window": "Trap trees and infested ornamentals, early summer"
+     },
+     "notes": [
+      "Not on linden or fruiting trees"
+     ],
+     "id": "spotted-lanternfly--imidacloprid-microInjection"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: Penn State Extension Spotted Lanternfly Management Guide",
+    "Update: Rutgers Extension SLF trapping",
+    "Update: Michigan State University SLF update (2020)"
    ],
    "activeMonths": [
     5,
@@ -5670,7 +5740,8 @@
       "window": "Before emergence"
      },
      "notes": [
-      "A spring injection may not last the season. Use fall injection only for early-spring feeders"
+      "A spring injection may not last the season. Use fall injection only for early-spring feeders",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "caterpillar-defoliators-general--emamectin-benzoate-microInjection"
     },
@@ -5695,10 +5766,35 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "caterpillar-defoliators-general--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "As needed",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "caterpillar-defoliators-general--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "generalist": true,
    "activeMonths": [
@@ -5787,10 +5883,33 @@
      },
      "notes": [],
      "id": "apple-and-thorn-skeletonizer--pyrethrins-bifenthrin-or-neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Per generation",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "apple-and-thorn-skeletonizer--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     5,
@@ -5897,7 +6016,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "bagworms--emamectin-benzoate-microInjection"
     },
     {
@@ -5918,10 +6039,31 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "bagworms--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "bagworms--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     5,
@@ -6024,12 +6166,38 @@
      },
      "notes": [],
      "id": "box-tree-moth--bifenthrin-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Per generation",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "box-tree-moth--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
     "2024 Southeast Pest Management Recommendations",
     "Update: VDACS press release, July 24, 2025",
-    "Update: University of Maryland Extension, Invasive Insects"
+    "Update: University of Maryland Extension, Invasive Insects",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     4,
@@ -6129,7 +6297,9 @@
       "repeat": "Annually",
       "window": "Fall or early spring for early-spring feeders"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "cankerworms--emamectin-benzoate-microInjection"
     },
     {
@@ -6149,10 +6319,30 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "cankerworms--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      4
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "cankerworms--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     4,
@@ -6370,12 +6560,34 @@
       "repeat": "Annually",
       "window": "Fall, for next spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "eastern-tent-caterpillar--emamectin-benzoate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      4
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "eastern-tent-caterpillar--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     3,
@@ -6466,7 +6678,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "elm-spanworm--emamectin-benzoate-microInjection"
     },
     {
@@ -6486,10 +6700,30 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "elm-spanworm--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      5
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "elm-spanworm--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     5,
@@ -6585,7 +6819,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "fall-webworm--emamectin-benzoate-microInjection"
     },
     {
@@ -6606,10 +6842,32 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "fall-webworm--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      7,
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "fall-webworm--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "generalist": true,
    "activeMonths": [
@@ -6704,7 +6962,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "forest-tent-caterpillar--emamectin-benzoate-microInjection"
     },
     {
@@ -6724,10 +6984,31 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "forest-tent-caterpillar--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      4,
+      5
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "forest-tent-caterpillar--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     4,
@@ -6817,12 +7098,34 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "hemlock-looper--emamectin-benzoate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      6
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "hemlock-looper--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     6,
@@ -6915,10 +7218,31 @@
      },
      "notes": [],
      "id": "juniper-webworm--neem-oil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      4,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "As needed",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "juniper-webworm--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     4,
@@ -7014,7 +7338,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "leafroller-caterpillars--emamectin-benzoate-microInjection"
     },
     {
@@ -7035,10 +7361,33 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "leafroller-caterpillars--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      4,
+      5,
+      6,
+      7
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Per generation",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "leafroller-caterpillars--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     4,
@@ -7103,10 +7452,30 @@
      "preferred": true,
      "notes": [],
      "id": "linden-looper--spinosad-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      4
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "linden-looper--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     4,
@@ -7196,7 +7565,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "mimosa-webworm--emamectin-benzoate-microInjection"
     },
     {
@@ -7217,10 +7588,32 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "mimosa-webworm--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Per generation",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "mimosa-webworm--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     6,
@@ -7310,7 +7703,9 @@
       "repeat": "Annually",
       "window": "Fall or early spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "oak-leaftier--emamectin-benzoate-microInjection"
     },
     {
@@ -7330,10 +7725,30 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "oak-leaftier--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      4
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "oak-leaftier--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     4,
@@ -7422,12 +7837,36 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "oak-skeletonizer--emamectin-benzoate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      5,
+      6,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Per generation",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "oak-skeletonizer--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     5,
@@ -7522,7 +7961,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "orange-striped-oakworm--emamectin-benzoate-microInjection"
     },
     {
@@ -7543,10 +7984,31 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "orange-striped-oakworm--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      8,
+      9
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "orange-striped-oakworm--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     8,
@@ -7730,7 +8192,9 @@
       "repeat": "Annually",
       "window": "Winter (reduced resin flow)"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "pine-tube-moth--emamectin-benzoate-microInjection"
     }
    ],
@@ -7826,7 +8290,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "satin-moth--emamectin-benzoate-microInjection"
     },
     {
@@ -7847,10 +8313,31 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "satin-moth--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "satin-moth--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     4,
@@ -7932,7 +8419,9 @@
       "window": "Fall or spring. Early feeder, so fall treatment is effective"
      },
      "preferred": true,
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "spongy-moth--emamectin-benzoate-microInjection"
     },
     {
@@ -8020,10 +8509,30 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "spongy-moth--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      5
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "spongy-moth--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     4,
@@ -8119,7 +8628,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "tussock-moths--emamectin-benzoate-microInjection"
     },
     {
@@ -8140,10 +8651,31 @@
       "EPA proposed (2024) cancelling acephate uses except tree injection. Use injection products only."
      ],
      "id": "tussock-moths--acephate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      5,
+      6
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "tussock-moths--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     5,
@@ -8258,12 +8790,35 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "walnut-caterpillar--emamectin-benzoate-microInjection"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Bacillus thuringiensis kurstaki (Btk) (foliar spray)",
+     "activeIngredient": "Bacillus thuringiensis kurstaki (Btk)",
+     "months": [
+      7,
+      8
+     ],
+     "schedule": {
+      "visitsMin": 2,
+      "visitsMax": 3,
+      "interval": "7–10 d",
+      "repeat": "Annually",
+      "window": "Young larvae (early instars), thorough coverage"
+     },
+     "notes": [
+      "Selective biological insecticide: spares predators and parasitoids. Must be eaten. Weak on large larvae (e.g. bagworm bags over 3/4 in.). Not for sawflies"
+     ],
+     "id": "walnut-caterpillar--bacillus-thuringiensis-kurstaki-foliar"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Current supplement (verified Oct 2026): Btk for early instars (Ohio State BYGL; UGA; Univ. of Maryland Extension)"
    ],
    "activeMonths": [
     6,
@@ -8819,7 +9374,8 @@
      "preferred": true,
      "default": true,
      "notes": [
-      "Mixed results. Do not overpromise"
+      "Mixed results. Do not overpromise",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "gouty-and-horned-oak-gall-wasps--emamectin-benzoate-microInjection"
     },
@@ -10181,7 +10737,8 @@
       "window": "Before emergence"
      },
      "notes": [
-      "Season-long for foliage feeders"
+      "Season-long for foliage feeders",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "japanese-beetle--emamectin-benzoate-microInjection"
     },
@@ -12408,7 +12965,9 @@
       "repeat": "Annually",
       "window": "Spring"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "hemlock-needleminers--emamectin-benzoate-microInjection"
     }
    ],
@@ -12917,7 +13476,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "oak-leafminers--emamectin-benzoate-microInjection"
     },
     {
@@ -13049,7 +13610,9 @@
       "repeat": "Annually",
       "window": "Before emergence"
      },
-     "notes": [],
+     "notes": [
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
+     ],
      "id": "tupelo-leafminer--emamectin-benzoate-microInjection"
     }
    ],
@@ -22819,7 +23382,8 @@
     "White spore masses on undersides of fresh lesions (hand lens)"
    ],
    "biology": [
-    "Usually appears in warm, humid weather in mid to late summer, often soon after shearing. Leaf spots lead to rapid defoliation. Twigs and branches show black, elongate lesions. Dense sheared hedges are highly susceptible. **Successfully treated if detected early.**"
+    "Usually appears in warm, humid weather in mid to late summer, often soon after shearing. Leaf spots lead to rapid defoliation. Twigs and branches show black, elongate lesions. Dense sheared hedges are highly susceptible. **Successfully treated if detected early.**",
+    "Update (Oct 2026): Current Virginia guidance (SPES-557) puts prevention and sanitation first. Once boxwood blight is in a landscape it is hard and costly to control with fungicides, which protect but do not cure. After diagnosis, double-bag diseased plants, leaf litter and surface soil for the landfill, then spray nearby healthy boxwood every 7–14 days per label. Chlorothalonil and fludioxonil are established protectants. Rotate and mix chemistries, and get thorough coverage inside dense canopies."
    ],
    "treatments": [
     {
@@ -22895,10 +23459,71 @@
       "Rotate after 2 consecutive applications"
      ],
      "id": "boxwood-blight--pyraclostrobin-boscalid-foliar"
+    },
+    {
+     "applicationType": "mechanical",
+     "title": "After diagnosis, double-bag diseased plants, leaf litter and surface soil for the landfill, or bury them 2 ft deep away from boxwood.",
+     "id": "boxwood-blight--after-diagnosis-double-bag-diseased-plan-mechanical"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Chlorothalonil (foliar spray)",
+     "activeIngredient": "Chlorothalonil",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 6,
+      "visitsMax": 12,
+      "interval": "7–14 d",
+      "repeat": "Annually",
+      "window": "Protectant program on healthy boxwood near infections, warm wet weather (above 60°F with rain expected)"
+     },
+     "preferred": true,
+     "notes": [
+      "Rotate. Some labels restrict use near playgrounds, schools and daycare"
+     ],
+     "id": "boxwood-blight--chlorothalonil-foliar"
+    },
+    {
+     "applicationType": "foliar",
+     "title": "Fludioxonil + chlorothalonil (foliar spray)",
+     "activeIngredient": "Fludioxonil + chlorothalonil",
+     "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+     ],
+     "schedule": {
+      "visitsMin": 6,
+      "visitsMax": 12,
+      "interval": "7–14 d",
+      "repeat": "Annually",
+      "window": "Tank mix, same timing"
+     },
+     "preferred": true,
+     "notes": [
+      "Rotate with other chemistries"
+     ],
+     "id": "boxwood-blight--fludioxonil-chlorothalonil-foliar"
     }
    ],
    "sources": [
     "2024 Southeast Pest Management Recommendations",
+    "Update: Virginia Tech SPES-557 boxwood blight BMPs (2023)",
+    "Update: University of Delaware Extension boxwood blight fact sheet",
+    "Update: NC State fungicide trials (Ivors)",
+    "Update: Purdue BP-203-W",
     "Blake KB: VCE PPWS-49",
     "Blake KB: MDA Boxwood Blight BMP",
     "Blake KB: VDACS Boxwood Blight Program"
@@ -27707,7 +28332,8 @@
    ],
    "symptoms": [],
    "biology": [
-    "Wilting and browning of leaves, rapid defoliation and branch dieback. Live oaks may show yellowing along leaf veins. The red oak group is highly susceptible, and diseased red oaks will not recover. White oaks are resistant and may recover with treatment. Red and white oaks do not root-graft with each other."
+    "Wilting and browning of leaves, rapid defoliation and branch dieback. Live oaks may show yellowing along leaf veins. The red oak group is highly susceptible, and diseased red oaks will not recover. White oaks are resistant and may recover with treatment. Red and white oaks do not root-graft with each other.",
+    "Update (Oct 2026): Sap beetles find fresh wounds within minutes, and wounds stay attractive for about 3 days. If an oak must be pruned or wounded during the growing season, seal the wound immediately. This is the one case where wound paint is recommended. Do not move unseasoned firewood from diseased red oaks. Repeat preventive propiconazole about every 2 years."
    ],
    "treatments": [
     {
@@ -27745,10 +28371,23 @@
       "Do not treat red oaks with symptoms"
      ],
      "id": "oak-wilt--propiconazole-macroInjection"
+    },
+    {
+     "applicationType": "pruning",
+     "title": "If pruning or wounding oaks Apr–Jul cannot be avoided, seal the wound immediately with pruning sealer or latex paint.",
+     "id": "oak-wilt--if-pruning-or-wounding-oaks-apr-jul-cann-pruning"
+    },
+    {
+     "applicationType": "mechanical",
+     "title": "Do not move unseasoned firewood from diseased oaks. Season it for at least a year or debark it.",
+     "id": "oak-wilt--do-not-move-unseasoned-firewood-from-dis-mechanical"
     }
    ],
    "sources": [
-    "2024 Southeast Pest Management Recommendations"
+    "2024 Southeast Pest Management Recommendations",
+    "Update: Texas A&M Plant Disease Handbook, Eight Step Program to Oak Wilt Management",
+    "Update: Michigan State University Extension",
+    "Update: NY DEC oak wilt booklet"
    ],
    "activeMonths": [
     4,
@@ -27795,7 +28434,8 @@
      },
      "default": true,
      "notes": [
-      "Preventive. 2 years of residual"
+      "Preventive. 2 years of residual",
+      "TREE-äge formulations are restricted-use pesticides: certified applicators only."
      ],
      "id": "pinewood-nematode--emamectin-benzoate-microInjection"
     }
