@@ -214,31 +214,48 @@ export function planLandscape(kb, site, plants) {
 export const selKey = (plantUid, treatmentId) => `${plantUid}:${treatmentId}`;
 
 /**
- * Whole-property programs switched on from the first page under Soil Care (fixed backstage definitions).
+ * Soil Care programs switched on as the last step of the landscape page (fixed backstage definitions).
+ * scoped: applied to the plants chosen in choices.scope[key] (SOIL_SCOPES; "specific" uses choices.targets[key]).
  * oneOff: a single unscheduled item (no window, calendar or visit), counted by the quantity in choices[quantityKey].
  */
 export const PROGRAM_UID = "property";
+export const SOIL_SCOPES = [
+  ["ornamentals", "Ornamentals"],
+  ["trees", "Mature trees"],
+  ["both", "Ornamentals and mature trees"],
+  ["specific", "Select specific trees on the treatment plan"],
+];
+export const DEFAULT_SCOPE = "both";
 export const SITE_PROGRAMS = [
   {
-    key: "soilCare", label: "Include Standard Soil Care", name: "Standard Soil Care",
+    key: "soilCare", label: "Standard Soil Care Program", name: "Standard Soil Care Program", scoped: true,
     treatment: {
       id: "standard-soil-care", title: "Liquid fertilizer / bio-stimulant humates (soil drench)", applicationType: "soilDrench",
       months: [3, 4, 9, 10], default: true, preferred: true,
       schedule: { visitsMin: 2, visitsMax: 2, repeat: "Annually", window: "Spring (Mar–Apr) and fall (Sep–Oct)" },
-      notes: ["Whole-property soil care: root-zone drench of trees and shrubs"],
+      notes: ["Soil care: root-zone drench of the selected trees and shrubs"],
     },
   },
   {
-    key: "resilience", label: "Add Resilience Support", name: "Resilience Support",
+    key: "resilience", label: "Resilience Support Summer Drench", name: "Resilience Support Summer Drench", scoped: true,
     treatment: {
       id: "resilience-support", title: "Phosphite salts (soil drench)", applicationType: "soilDrench",
       months: [7, 8], default: true, preferred: true,
       schedule: { visitsMin: 1, visitsMax: 1, repeat: "Annually", window: "Mid to late summer (Jul–Aug)" },
-      notes: ["Whole-property resilience support: root-zone drench of trees and shrubs"],
+      notes: ["Resilience support: root-zone drench of the selected trees and shrubs"],
     },
   },
   {
-    key: "soilAnalysis", label: "Soil sample analysis", name: "Soil Sample Analysis", oneOff: true, quantityKey: "soilSamples",
+    key: "correction", label: "Prescriptive Soil Correction Program", name: "Prescriptive Soil Correction Program", scoped: true,
+    treatment: {
+      id: "prescriptive-soil-correction", title: "Soil amendments prescribed from soil analysis (soil drench)", applicationType: "soilDrench",
+      months: [3, 4, 5, 9, 10, 11], default: true, preferred: true, anyProduct: true,
+      schedule: { visitsMin: 1, visitsMax: 2, repeat: "Annually until soil test targets are met", window: "Spring (Mar–May) and/or fall (Sep–Nov)" },
+      notes: ["Corrects pH, nutrient or organic-matter deficits; products and rates set from the soil lab report"],
+    },
+  },
+  {
+    key: "soilAnalysis", label: "Soil sample analysis", name: "Soil Sample Analysis", oneOff: true, quantityKey: "soilSamples", areasKey: "soilAreas",
     typeName: "Soil sampling / lab analysis visit",
     treatment: {
       id: "soil-sample-analysis", title: "Soil sample analysis", applicationType: "diagnostic", oneOff: true,
@@ -247,27 +264,54 @@ export const SITE_PROGRAMS = [
   },
 ];
 
-/** "Soil sample analysis (3 samples)". */
-export const anytimeLabel = (o) => `${o.treatment.title}${o.treatment.quantity ? ` (${o.treatment.quantity} sample${o.treatment.quantity === 1 ? "" : "s"})` : ""}`;
+/** "Soil sample analysis (3 samples: front beds, oak root zone)". */
+export const anytimeLabel = (o) => {
+  const { title, quantity, areas } = o.treatment;
+  if (!quantity) return title;
+  return `${title} (${quantity} sample${quantity === 1 ? "" : "s"}${areas ? `: ${areas}` : ""})`;
+};
 
 /** Sample count for a one-off program (whole number, at least 1). */
 export const programQuantity = (choices, p) => Math.max(1, parseInt(choices[p.quantityKey]) || 1);
 
-/** The selected whole-property programs as a plan entry ("Whole property"), or null when none are on. */
-export function siteProgramEntry(kb, choices = {}) {
+/** A scoped program's coverage: "Mature trees", or the chosen plants' names for "specific" (empty when none chosen). */
+export function programScope(choices, p, plants = []) {
+  const scope = choices.scope?.[p.key] || DEFAULT_SCOPE;
+  if (scope !== "specific") return { scope, label: SOIL_SCOPES.find(([k]) => k === scope)?.[1] || "", plantUids: [] };
+  const chosen = new Set(choices.targets?.[p.key] || []);
+  const picked = plants.filter((pl) => chosen.has(pl.plant.uid));
+  return { scope, label: picked.map(plantName).join(", "), plantUids: picked.map((pl) => pl.plant.uid) };
+}
+
+/**
+ * The selected Soil Care programs as a plan entry ("Soil Care"), or null when none are on.
+ * plants: plan entries ({ plant, host }) that "specific" scopes choose from.
+ */
+export function siteProgramEntry(kb, choices = {}, plants = []) {
   const on = SITE_PROGRAMS.filter((p) => choices[p.key]);
   if (!on.length) return null;
   return {
     plant: { uid: PROGRAM_UID, hostId: "site", qty: 1, label: "", conditionIds: [] },
-    host: { id: "site", name: "Whole property" },
-    problems: on.map((p) => ({
-      condition: { id: p.treatment.id, name: p.name },
-      flags: [],
-      crownStop: false,
-      options: [p.oneOff
-        ? { treatment: { ...p.treatment, quantity: programQuantity(choices, p) }, type: { ...kb.typeById[p.treatment.applicationType], name: p.typeName }, mitigation: "diagnostic", chemical: false, preferred: false, notAdvised: false, flags: [] }
-        : { treatment: p.treatment, type: kb.typeById[p.treatment.applicationType], mitigation: "chemical", chemical: true, preferred: true, notAdvised: false, flags: [] }],
-    })),
+    host: { id: "site", name: "Soil Care" },
+    problems: on.map((p) => {
+      const flags = [];
+      let name = p.name;
+      if (p.scoped) {
+        const sc = programScope(choices, p, plants);
+        if (sc.label) name += `: ${sc.label}`;
+        else flags.push(flag("caution", "No trees selected: choose at least one tree on the landscape page."));
+      }
+      if (p.key === "correction" && !choices.soilAnalysis) flags.push(flag("info", "Prescribed from soil test results: add Soil sample analysis if the property has no recent lab report."));
+      const areas = p.areasKey ? String(choices[p.areasKey] || "").trim() : "";
+      return {
+        condition: { id: p.treatment.id, name },
+        flags,
+        crownStop: false,
+        options: [p.oneOff
+          ? { treatment: { ...p.treatment, quantity: programQuantity(choices, p), ...(areas && { areas }) }, type: { ...kb.typeById[p.treatment.applicationType], name: p.typeName }, mitigation: "diagnostic", chemical: false, preferred: false, notAdvised: false, flags: [] }
+          : { treatment: p.treatment, type: kb.typeById[p.treatment.applicationType], mitigation: "chemical", chemical: true, preferred: true, notAdvised: false, flags: [] }],
+      };
+    }),
   };
 }
 
@@ -398,14 +442,12 @@ export function visitPlan(entries, selected, counts = {}) {
     };
     const slot = Math.min(...pending.map(deadline));
     const items = [];
-    let from = 0, to = SLOTS - 1;
     for (const g of pending) {
-      const urgent = deadline(g) === slot;
-      if (!(urgent || (g.earliest <= slot && g.allowed.has(slot)))) continue;
+      const due = deadline(g);
+      if (!(due === slot || (g.earliest <= slot && g.allowed.has(slot)))) continue;
       if (g.latest[g.done] == null || g.latest[g.done] < g.earliest) compressed.add(g);
-      from = Math.max(from, Math.min(g.earliest, slot));
-      to = Math.min(to, Math.max(deadline(g), slot));
-      items.push({ plant: g.plant, problem: g.problem, option: g.option, n: g.done + 1, of: g.of });
+      items.push({ plant: g.plant, problem: g.problem, option: g.option, n: g.done + 1, of: g.of,
+        lo: Math.min(g.earliest, slot), hi: Math.max(due, slot), allowed: g.allowed });
       g.done++;
       applications++;
       if (g.done < g.of) {
@@ -413,9 +455,10 @@ export function visitPlan(entries, selected, counts = {}) {
         if (g.step != null) g.cap = slot + g.step + 1; // no more than ~2 weeks past the interval
       }
     }
-    visits.push({ slot, from, to, items });
+    visits.push({ slot, items });
   }
   visits.sort((a, b) => a.slot - b.slot);
+  balanceVisits(visits);
   // One-off items (soil sampling): a visit each with no window, booked in SingleOps at the arborist's discretion.
   const anytime = [];
   for (const e of entries) for (const p of e.problems) for (const o of p.options) {
@@ -428,6 +471,57 @@ export function visitPlan(entries, selected, counts = {}) {
     compressed: [...compressed].map((g) => ({ plant: g.plant, problem: g.problem, option: g.option })),
   };
 }
+
+/** Stable coin flip for a tie (the same plan always lands the same way). */
+function coin(text) {
+  let h = 0;
+  for (const c of text) h = (h * 31 + c.charCodeAt(0)) | 0;
+  return Math.abs(h);
+}
+
+/**
+ * Single-application programs whose window covers more than one visit move to the visit with the fewest
+ * applications (coin flip on a tie); each such item lists the other visits it fits in alsoFits (visit numbers).
+ * Then sets each visit's flexible range: the dates that still work for every application on it.
+ */
+function balanceVisits(visits) {
+  const runAround = (allowed, s) => {
+    let lo = s, hi = s;
+    while (allowed.has(lo - 1)) lo--;
+    while (allowed.has(hi + 1)) hi++;
+    return [lo, hi];
+  };
+  const movable = [];
+  for (const v of visits) for (const it of v.items) {
+    if (it.of !== 1 || !it.allowed.has(v.slot)) continue;
+    const fits = visits.filter((w) => it.allowed.has(w.slot));
+    if (fits.length > 1) movable.push({ it, fits });
+  }
+  for (const m of movable) for (const v of m.fits) v.items = v.items.filter((x) => x !== m.it);
+  movable.sort((a, b) => a.fits.length - b.fits.length);
+  for (const m of movable) {
+    const fewest = Math.min(...m.fits.map((w) => w.items.length));
+    const ties = m.fits.filter((w) => w.items.length === fewest);
+    const pick = ties[coin(`${m.it.plant}|${m.it.option.treatment.id}`) % ties.length];
+    pick.items.push(m.it);
+    m.it.fitsVisits = m.fits;
+  }
+  for (let i = visits.length - 1; i >= 0; i--) if (!visits[i].items.length) visits.splice(i, 1);
+  for (const v of visits) {
+    v.from = 0; v.to = SLOTS - 1;
+    for (const it of v.items) {
+      if (it.of === 1 && it.allowed.has(v.slot)) [it.lo, it.hi] = runAround(it.allowed, v.slot);
+      v.from = Math.max(v.from, it.lo);
+      v.to = Math.min(v.to, it.hi);
+      it.alsoFits = (it.fitsVisits || []).filter((w) => w !== v && visits.includes(w)).map((w) => visits.indexOf(w) + 1);
+      delete it.fitsVisits; delete it.allowed; delete it.lo; delete it.hi;
+    }
+  }
+}
+
+/** "⇄ also fits Visit 2, 4 · window Mar–Jun" for an item that could go on another visit; "" otherwise. */
+export const alsoFitsText = (it) => it.alsoFits?.length
+  ? `⇄ also fits Visit ${it.alsoFits.join(", ")} · window ${describeMonths(it.option.treatment.months)}` : "";
 
 export function describeVisitWindow(v) {
   return v.from === v.to ? slotName(v.slot) : `${slotName(v.from)} – ${slotName(v.to)}`;
@@ -483,7 +577,7 @@ export function exportText(kb, site, entries, selected, siteLabel = "", counts =
     out.push("", `######## VISIT FRAMEWORK: ${vp.visits.length} SITE VISIT${vp.visits.length === 1 ? "" : "S"} (${vp.applications} APPLICATIONS)${vp.anytime.length ? ` + ${vp.anytime.length} ONE-TIME` : ""} ########`);
     vp.visits.forEach((v, i) => {
       out.push(`Visit ${i + 1}: ${slotName(v.slot)}${v.from !== v.to ? ` (flexible ${describeVisitWindow(v)})` : ""}`);
-      for (const it of v.items) out.push(`  - ${it.plant}: ${it.option.treatment.title} (${it.problem})${it.of > 1 ? ` [${it.n} of ${it.of}]` : ""}`);
+      for (const it of v.items) out.push(`  - ${it.plant}: ${it.option.treatment.title} (${it.problem})${it.of > 1 ? ` [${it.n} of ${it.of}]` : ""}${it.alsoFits.length ? ` [${alsoFitsText(it)}; see annual calendar]` : ""}`);
     });
     vp.anytime.forEach((a, i) => {
       out.push(`Visit ${vp.visits.length + i + 1}: One-time, no set timing (schedule at the arborist's discretion)`);

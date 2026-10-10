@@ -24,6 +24,9 @@
            padding: calc(10px + env(safe-area-inset-top)) 16px 10px; display:flex; gap:8px; align-items:center; }
   header h1 { font-size:18px; margin:0; flex:1; }
   header a { color:var(--accent); font-weight:600; text-decoration:none; }
+  header button#update { font:inherit; font-size:14px; font-weight:600; color:var(--accent); background:none;
+         border:1px solid var(--accent); border-radius:14px; padding:3px 10px; white-space:nowrap; }
+  header button#update:disabled { opacity:.6; }
   main { padding: 8px 16px 24px; max-width: 760px; margin: 0 auto; }
   nav.tabs { position:fixed; bottom:0; left:0; right:0; display:flex; background:var(--alt); border-top:1px solid var(--line);
              padding-bottom: env(safe-area-inset-bottom); z-index:2; }
@@ -64,6 +67,9 @@
   .banner { background:var(--alt); padding:10px 12px; border-radius:8px; font-size:13px; margin:10px 0; }
   h3.plant { font-size:19px; margin:26px 0 4px; padding-top:10px; border-top:3px solid var(--accent); }
   .group { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:10px 0 0; }
+  .sub { margin-left:6px; padding-left:12px; border-left:3px solid var(--line); }
+  .fits { color:var(--info); font-weight:600; }
+  a[data-jump] { cursor:pointer; text-decoration:underline; color:inherit; }
   .chip.pref { color:var(--ok); border-color:var(--ok); }
   details summary { cursor:pointer; margin-top:20px; }
   details.alts summary { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:10px 0 4px; }
@@ -73,7 +79,7 @@
 </style>
 </head>
 <body>
-<header><h1 id="title">PHC Planner</h1><span id="actions"></span></header>
+<header><h1 id="title">PHC Planner</h1><span id="actions"></span><button id="update" aria-label="Update app to the latest version">↻ Update</button></header>
 <main id="view"><p>Loading…</p></main>
 <nav class="tabs">
   <a href="#plan" data-tab="plan">Landscape</a>
