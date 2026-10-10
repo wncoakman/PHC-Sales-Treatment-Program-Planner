@@ -316,17 +316,20 @@ test("soil sample analysis: one-off with sample count, never scheduled", async (
 test("visit framework: a window spanning several visits goes on the less-loaded one", async () => {
   const { siteProgramEntry, visitPlan, alsoFitsText } = await import("../web/engine.js");
   const pe = siteProgramEntry(kb, { soilCare: true, resilience: true, correction: true });
-  const selected = new Set(pe.problems.flatMap((p) => defaultSelection(p).map((id) => selKey(pe.plant.uid, id))));
-  const vp = visitPlan([pe], selected);
-  assert.equal(vp.visits.length, 3);
-  const at = vp.visits.findIndex((v) => v.items.some((it) => it.option.treatment.id === "prescriptive-soil-correction"));
-  const item = vp.visits[at].items.find((it) => it.option.treatment.id === "prescriptive-soil-correction");
-  assert.equal(item.alsoFits.length, 1); // spring or fall soil care visit, never the summer one
-  assert.ok(item.option.treatment.months.includes(Math.floor(vp.visits[at].slot / 2) + 1));
-  assert.ok(alsoFitsText(item).startsWith(`⇄ also fits Visit ${item.alsoFits[0]}`));
-  assert.ok(vp.visits.every((v) => v.items.length && v.from <= v.slot && v.slot <= v.to));
-  // Stable: the same plan always lands the same way.
-  assert.equal(visitPlan([pe], selected).visits.findIndex((v) => v.items.some((it) => it.option.treatment.id === "prescriptive-soil-correction")), at);
+  const [box] = planLandscape(kb, site(), [{ uid: "b", hostId: "boxwood", conditionIds: ["box-tree-moth"] }]);
+  const moth = "box-tree-moth--chlorantraniliprole-foliar"; // one application, Apr–Oct
+  const selected = new Set([...pe.problems.flatMap((p) => defaultSelection(p).map((id) => selKey(pe.plant.uid, id))), selKey("b", moth)]);
+  const vp = visitPlan([box, pe], selected);
+  // Spring: soil care + correction; summer: resilience; fall: soil care + correction. The moth spray joins summer.
+  assert.deepEqual(vp.visits.map((v) => v.items.length), [2, 2, 2]);
+  const at = vp.visits.findIndex((v) => v.items.some((it) => it.option.treatment.id === moth));
+  const item = vp.visits[at].items.find((it) => it.option.treatment.id === moth);
+  assert.ok(vp.visits[at].items.some((it) => it.option.treatment.id === "resilience-support"));
+  assert.deepEqual(item.alsoFits, [1, 3]);
+  assert.equal(alsoFitsText(item), "⇄ also fits Visit 1, 3 · window Apr–Oct");
+  assert.ok(vp.visits.every((v) => v.from <= v.slot && v.slot <= v.to));
+  const corr = vp.visits.flatMap((v) => v.items.filter((it) => it.option.treatment.id === "prescriptive-soil-correction").map(() => Math.floor(v.slot / 2) + 1));
+  assert.ok(corr.length === 2 && corr[0] <= 5 && corr[1] >= 9, `correction months ${corr}`); // spring and fall
 });
 
 test("soil care scopes: ornamentals, mature trees, both, or chosen trees", async () => {
@@ -345,7 +348,7 @@ test("prescriptive soil correction and sample areas", async () => {
   const { siteProgramEntry, anytimeLabel } = await import("../web/engine.js");
   const pe = siteProgramEntry(kb, { correction: true, soilAnalysis: true, soilSamples: 2, soilAreas: "front beds, oak root zone" });
   const corr = pe.problems.find((p) => p.condition.id === "prescriptive-soil-correction");
-  assert.ok(corr.options[0].chemical && corr.options[0].treatment.schedule.visitsMax === 2);
+  assert.ok(corr.options[0].chemical && corr.options[0].treatment.schedule.visitsMin === 2);
   assert.ok(!corr.flags.length);
   assert.ok(siteProgramEntry(kb, { correction: true }).problems[0].flags.some((f) => f.text.includes("Soil sample analysis")));
   const sample = pe.problems.find((p) => p.condition.id === "soil-sample-analysis").options[0];
