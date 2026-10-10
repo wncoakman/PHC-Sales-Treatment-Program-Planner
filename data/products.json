@@ -1,0 +1,308 @@
+{
+ "products": [
+  {
+   "name": "AquaLock",
+   "activeIngredient": "anti-desiccant"
+  },
+  {
+   "name": "Ultra-Pure Oil-Dormant App",
+   "activeIngredient": "paraffinic (mineral) oil"
+  },
+  {
+   "name": "Actosol",
+   "activeIngredient": "humic acids"
+  },
+  {
+   "name": "Concert II",
+   "activeIngredient": "chlorothalonil + propiconazole"
+  },
+  {
+   "name": "TickKillz_Standard",
+   "activeIngredient": "cedar oil + peppermint oil (25(b) minimum-risk botanical)"
+  },
+  {
+   "name": "Summit Mosquito Dunk",
+   "activeIngredient": "Bacillus thuringiensis subsp. israelensis (Bti)"
+  },
+  {
+   "name": "Transtect",
+   "activeIngredient": "dinotefuran"
+  },
+  {
+   "name": "Xytect 2F",
+   "activeIngredient": "imidacloprid"
+  },
+  {
+   "name": "Cambistat_soil app TGR",
+   "activeIngredient": "paclobutrazol"
+  },
+  {
+   "name": "Casoron 4G_PreEmergent",
+   "activeIngredient": "dichlobenil"
+  },
+  {
+   "name": "Triclopyr 4_Spring app",
+   "activeIngredient": "triclopyr (butoxyethyl ester)"
+  },
+  {
+   "name": "Cide-Kick II",
+   "activeIngredient": "d-limonene surfactant (adjuvant)"
+  },
+  {
+   "name": "Tengard SFR & Ultra Pure Oil",
+   "activeIngredient": "permethrin + paraffinic oil"
+  },
+  {
+   "name": "Tengard SFR",
+   "activeIngredient": "permethrin"
+  },
+  {
+   "name": "Transtect_",
+   "activeIngredient": "dinotefuran"
+  },
+  {
+   "name": "Actosol & Urea Fert 46-0-0",
+   "activeIngredient": "humic acids + urea nitrogen"
+  },
+  {
+   "name": "Mectinite_EAB 15mL",
+   "activeIngredient": "emamectin benzoate"
+  },
+  {
+   "name": "Mectinite_10 mL",
+   "activeIngredient": "emamectin benzoate"
+  },
+  {
+   "name": "AgriFos",
+   "activeIngredient": "mono- and di-potassium salts of phosphorous acid (phosphite)"
+  },
+  {
+   "name": "Scrimmage",
+   "activeIngredient": "nonionic/organosilicone surfactant blend (adjuvant)"
+  },
+  {
+   "name": "Xytect 2F_Scale HIGH",
+   "activeIngredient": "imidacloprid"
+  },
+  {
+   "name": "Subdue Maxx",
+   "activeIngredient": "mefenoxam"
+  },
+  {
+   "name": "Concert II & Tengard",
+   "activeIngredient": "chlorothalonil + propiconazole + permethrin"
+  },
+  {
+   "name": "Actosol & Roots 1-Step",
+   "activeIngredient": "humic acids + Roots 1-Step biostimulant (ingredients unconfirmed; check label)"
+  },
+  {
+   "name": "Orthene",
+   "activeIngredient": "acephate"
+  },
+  {
+   "name": "Mectinite_EAB 5mL",
+   "activeIngredient": "emamectin benzoate"
+  },
+  {
+   "name": "Mectinite_EAB 3mL",
+   "activeIngredient": "emamectin benzoate"
+  },
+  {
+   "name": "Mectinite_EAB 4mL",
+   "activeIngredient": "emamectin benzoate"
+  },
+  {
+   "name": "Mectinite_EAB 8mL",
+   "activeIngredient": "emamectin benzoate"
+  },
+  {
+   "name": "Trimtect",
+   "activeIngredient": "paclobutrazol"
+  },
+  {
+   "name": "Bacastat",
+   "activeIngredient": "oxytetracycline"
+  },
+  {
+   "name": "Arbotect 20-S_Sycamore",
+   "activeIngredient": "thiabendazole"
+  },
+  {
+   "name": "Arbotect 20-S_DED Elm",
+   "activeIngredient": "thiabendazole"
+  },
+  {
+   "name": "Alamo Fungicide",
+   "activeIngredient": "propiconazole"
+  },
+  {
+   "name": "Imitator& Clethodim2E& CideKick",
+   "activeIngredient": "glyphosate + clethodim + d-limonene surfactant"
+  },
+  {
+   "name": "Garlon 3A & CideKick II",
+   "activeIngredient": "triclopyr (triethylamine salt) + d-limonene surfactant"
+  },
+  {
+   "name": "Reliant & Scrimmage",
+   "activeIngredient": "mono- and di-potassium salts of phosphorous acid (phosphite) + surfactant"
+  },
+  {
+   "name": "Cambistat_foliar SGR default",
+   "activeIngredient": "paclobutrazol"
+  },
+  {
+   "name": "Standard overseeding blend",
+   "activeIngredient": "none (grass seed)"
+  },
+  {
+   "name": "LESCO Horticultural Oil",
+   "activeIngredient": "mineral oil"
+  },
+  {
+   "name": "Tengard SFR_Pest",
+   "activeIngredient": "permethrin"
+  },
+  {
+   "name": "Cambistat_foliar SGR lite",
+   "activeIngredient": "paclobutrazol"
+  },
+  {
+   "name": "Xytect 2F_Scale MODIFIED",
+   "activeIngredient": "imidacloprid"
+  },
+  {
+   "name": "Lawn Tank Mix_PRE Standard",
+   "activeIngredient": "custom tank mix (see mix recipe)"
+  },
+  {
+   "name": "Escalade 2",
+   "activeIngredient": "2,4-D + fluroxypyr + dicamba"
+  },
+  {
+   "name": "SedgeMaster",
+   "activeIngredient": "halosulfuron-methyl"
+  },
+  {
+   "name": "Lawn Tank Mix_PRE Heavy Mod",
+   "activeIngredient": "custom tank mix (see mix recipe)"
+  },
+  {
+   "name": "Lawn Recovery Mix",
+   "activeIngredient": "custom mix (see mix recipe)"
+  },
+  {
+   "name": "Abamectin 0.15 EC AND Hort Oil",
+   "activeIngredient": "abamectin + mineral oil"
+  },
+  {
+   "name": "Imitator & CideKick & Triclopyr",
+   "activeIngredient": "glyphosate + d-limonene surfactant + triclopyr"
+  },
+  {
+   "name": "Actosol_LAWN",
+   "activeIngredient": "humic acids"
+  },
+  {
+   "name": "Lepitect Infusible (74779-5)",
+   "activeIngredient": "acephate"
+  },
+  {
+   "name": "Glyphosate 41%_CideKick_HerbMix",
+   "activeIngredient": "glyphosate (isopropylamine salt) + d-limonene surfactant"
+  },
+  {
+   "name": "UFLEXX 46-0-0_LAWN FERT",
+   "activeIngredient": "urea nitrogen with NBPT + DCD stabilizers"
+  },
+  {
+   "name": "Lawn Tank Mix_POST Heavy Mod",
+   "activeIngredient": "custom tank mix (see mix recipe)"
+  },
+  {
+   "name": "TickKillz_Heavy",
+   "activeIngredient": "cedar oil + peppermint oil (25(b) minimum-risk botanical)"
+  },
+  {
+   "name": "Hydra Fe 12-0-0",
+   "activeIngredient": "nitrogen + iron (exact iron source unconfirmed; check label)"
+  },
+  {
+   "name": "Triclopyr 3",
+   "activeIngredient": "triclopyr (triethylamine salt)"
+  },
+  {
+   "name": "EcoGuard Plus",
+   "activeIngredient": "cedarwood oil + 2-phenylethyl propionate (25(b) minimum-risk botanical)"
+  },
+  {
+   "name": "Ultra-Pure Oil-SUMMER App",
+   "activeIngredient": "paraffinic (mineral) oil"
+  },
+  {
+   "name": "Xytect 2F_Scale STANDARD",
+   "activeIngredient": "imidacloprid"
+  },
+  {
+   "name": "Tengard SFR Tank",
+   "activeIngredient": "permethrin"
+  },
+  {
+   "name": "Glyphosate 41%",
+   "activeIngredient": "glyphosate (isopropylamine salt)"
+  },
+  {
+   "name": "Reliant",
+   "activeIngredient": "mono- and di-potassium salts of phosphorous acid (phosphite)"
+  },
+  {
+   "name": "Acclaim Extra",
+   "activeIngredient": "fenoxaprop-p-ethyl"
+  },
+  {
+   "name": "Abamectin 0.15 EC",
+   "activeIngredient": "abamectin"
+  },
+  {
+   "name": "Triclopyr 3 & Cide-Kick II",
+   "activeIngredient": "triclopyr (triethylamine salt) + d-limonene surfactant"
+  },
+  {
+   "name": "Mectinite_EAB 2mL",
+   "activeIngredient": "emamectin benzoate"
+  },
+  {
+   "name": "Arbortect",
+   "activeIngredient": "thiabendazole"
+  },
+  {
+   "name": "Audible 90 Nonionic Surfactant",
+   "activeIngredient": "nonionic surfactant (alkylphenol ethoxylate; adjuvant)"
+  },
+  {
+   "name": "Daconil Weather stik",
+   "activeIngredient": "chlorothalonil"
+  },
+  {
+   "name": "Propiconazole 1.3 me T&O",
+   "activeIngredient": "propiconazole"
+  },
+  {
+   "name": "scrimmage surfactant",
+   "activeIngredient": "nonionic/organosilicone surfactant blend (adjuvant)"
+  },
+  {
+   "name": "Garlon 3A",
+   "activeIngredient": "triclopyr (triethylamine salt)"
+  },
+  {
+   "name": "Prodiamine",
+   "activeIngredient": "prodiamine"
+  },
+  {
+   "name": "arbortect Fungicide",
+   "activeIngredient": "thiabendazole"
+  }
+ ]
+}

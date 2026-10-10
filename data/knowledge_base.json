@@ -4389,7 +4389,7 @@
     "Woodpecker damage and bark flaking"
    ],
    "biology": [
-    "Metallic green borer that kills untreated ash. Start soil imidacloprid when EAB is first reported in the region, since it takes 2 or more years to reach full protection. About 5 years after first detection the \"crest\" stage arrives with dying trees, and emamectin injection becomes the standard.",
+    "Metallic green borer that kills untreated ash. Start soil imidacloprid when EAB is first reported in the region. About 5 years after first detection the \"crest\" stage arrives with dying trees, and emamectin injection becomes the standard.",
     "Update (Oct 2026): Current guidance (Purdue, cited by Ohio State Extension in 2026) says emamectin benzoate injections protect for up to 3 years. Re-treat every 2 years under heavy pressure, and every 3 where EAB has passed its peak. Inject mid-May to mid-June. Azadirachtin (TreeAzin) injection is the organic option, also used by municipalities. Some areas release parasitoid wasps (state and USDA programs) alongside protection of high-value trees."
    ],
    "treatments": [
@@ -4439,7 +4439,7 @@
      },
      "preferred": true,
      "notes": [
-      "Higher rate on trees over 15 in. DBH under heavy pressure"
+      "Preferred only as a preventive, on uninfested trees. Use emamectin injection on trees already infested. Higher rate on trees over 15 in. DBH under heavy pressure"
      ],
      "id": "emerald-ash-borer--imidacloprid-soilDrench"
     },
@@ -33251,7 +33251,7 @@
      },
      "preferred": true,
      "notes": [
-      "Peer-reviewed suppression (Bartlett/USDA-ARS 2025). Best on isolated trees. Very toxic to aquatic life: no use near water or storm drains. Professional use. Rotate modes of action"
+      "Peer-reviewed suppression (USDA-ARS 2025). Best on isolated trees. Very toxic to aquatic life: no use near water or storm drains. Professional use. Rotate modes of action"
      ],
      "id": "beech-leaf-disease--fluopyram-foliar"
     },
@@ -33302,7 +33302,7 @@
     "EPA label MA240001 (Arbotect 20-S, 2024)",
     "Penn State Extension BLD",
     "Maine DACF BLD",
-    "Bartlett Tree Research Labs / USDA-ARS fluopyram study (2025, PMC12497451)",
+    "USDA-ARS fluopyram study (2025, PMC12497451)",
     "Connecticut Agricultural Experiment Station BLD management options (2025)",
     "URI Cooperative Extension BLD updates (2023–2024)",
     "Maryland Department of Agriculture press release, June 9, 2025",

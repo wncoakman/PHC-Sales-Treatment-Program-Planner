@@ -169,13 +169,27 @@ function costShareFlag(cs, site, plant) {
 export const SYSTEMIC_TYPES = new Set(["soilDrench", "basalBark", "microInjection", "macroInjection"]);
 export const isSystemic = (o) => SYSTEMIC_TYPES.has(o.type.id);
 
+/** Systemic imidacloprid or dinotefuran: always listed first among the recommended options. */
+export const isPriorityTreatment = (t) => SYSTEMIC_TYPES.has(t.applicationType) && /imidacloprid|dinotefuran/i.test(t.title);
+
+/**
+ * Splits treatments into recommended (systemic imidacloprid/dinotefuran, then the reference's ✓ and ★ options)
+ * and alternatives (everything else, plus anything not advised). `advised(t)` defaults to always true.
+ */
+export function rankTreatments(treatments, advised = () => true) {
+  const rank = (t) => (isPriorityTreatment(t) ? 0 : t.default ? 1 : 2);
+  const recommended = treatments.filter((t) => advised(t) && (isPriorityTreatment(t) || t.default || t.preferred))
+    .sort((a, b) => rank(a) - rank(b) || SYSTEMIC_TYPES.has(b.applicationType) - SYSTEMIC_TYPES.has(a.applicationType));
+  return { recommended, alternatives: treatments.filter((t) => !recommended.includes(t)) };
+}
+
 /**
  * Options checked by default. Chemical: the recommended (★ or ✓) systemic option when the reference has one
  * (✓ first), otherwise the reference's ✓ program. Cultural practices are listed but left unchecked.
  * Removal is checked only when chemical protection is ruled out.
  */
 export function defaultSelection(problem) {
-  const chem = problem.options.filter((o) => o.chemical && !o.notAdvised);
+  const chem = problem.options.filter((o) => o.chemical && !o.notAdvised && !o.unavailable);
   const systemic = chem.filter((o) => isSystemic(o) && (o.treatment.default || o.preferred));
   const pick = systemic.length
     ? [systemic.find((o) => o.treatment.default) || systemic.find((o) => o.preferred)]

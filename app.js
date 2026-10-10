@@ -1,16 +1,41 @@
 import {
   MITIGATIONS, describeMonths, describeVisits, indexKb, problemsForHost, matchesQuery, mitigationOf,
-  planLandscape, defaultSelection, landscapeCalendar, applicationTotals, exportText, selKey, plantName, monthName,
+  planLandscape, defaultSelection, rankTreatments, landscapeCalendar, applicationTotals, exportText, selKey, plantName, monthName,
   visitPlan, slotName, describeVisitWindow, chosenCount, SITE_PROGRAMS, siteProgramEntry, PROGRAM_UID,
 } from "./engine.js";
 import { assessAddress, BANDS } from "./logistics.js";
+import { availableKeys, treatmentAvailable, productsFor } from "./products.js";
 
 const $view = document.getElementById("view");
 const $title = document.getElementById("title");
 const $actions = document.getElementById("actions");
 const STORE_KEY = "phc-landscape-v1";
 const OPS_LOG_KEY = "phc-ops-log";
+/** Company-wide product availability (kept apart from the landscape so "Start new landscape" keeps it). */
+const PRODUCTS_KEY = "phc-products-v1";
 let bases = { trafficFactor: 1, bases: [] };
+/** Stocked products from data/products.json (source: reference/phc-product-list.md). */
+let products = [];
+/** Names of products switched off on the treatment plan page. */
+let unavailableProducts = loadUnavailableProducts();
+let productsPanelOpen = false;
+
+function loadUnavailableProducts() {
+  try { return new Set(JSON.parse(localStorage.getItem(PRODUCTS_KEY))?.unavailable || []); } catch { return new Set(); }
+}
+
+function saveUnavailableProducts() {
+  try { localStorage.setItem(PRODUCTS_KEY, JSON.stringify({ unavailable: [...unavailableProducts] })); } catch {}
+}
+
+/** Marks chemical options no switched-on product can supply (skipped if the product list did not load). */
+function applyProductAvailability(entries) {
+  if (!products.length) return;
+  const keys = availableKeys(products, unavailableProducts);
+  for (const e of entries) for (const p of e.problems) for (const o of p.options) {
+    if (o.chemical) o.unavailable = !treatmentAvailable(o.treatment, keys);
+  }
+}
 
 let kb;
 let state = loadState();
@@ -69,6 +94,7 @@ function selectionFor(entries) {
     const defaults = new Set(defaultSelection(p));
     for (const o of p.options) {
       const key = selKey(e.plant.uid, o.treatment.id);
+      if (o.unavailable) continue;
       if (key in state.overrides ? state.overrides[key] : defaults.has(o.treatment.id)) sel.add(key);
     }
   }
@@ -200,14 +226,18 @@ function renderPlant(id) {
 function optionHtml(plantUid, o, selected) {
   const t = o.treatment, s = t.schedule;
   const key = selKey(plantUid, t.id);
+  const stocked = o.chemical && !o.unavailable && products.length && plantUid !== PROGRAM_UID
+    ? [...new Set(productsFor(t, products, unavailableProducts).map((p) => p.name.split("_")[0].trim()))] : [];
   return `
-    <label class="opt ${o.notAdvised ? "notAdvised" : ""}">
-      <input type="checkbox" data-k="${key}" ${selected.has(key) ? "checked" : ""}>
+    <label class="opt ${o.notAdvised ? "notAdvised" : ""} ${o.unavailable ? "unavailable" : ""}">
+      <input type="checkbox" data-k="${key}" ${selected.has(key) ? "checked" : ""} ${o.unavailable ? "disabled" : ""}>
       <div>
         <div class="title">${esc(t.title)}</div>
         <div class="small"><span class="chip">${esc(o.type.name)}</span>
-          ${o.chemical ? (o.preferred ? ` <span class="chip pref">Preferred</span>` : ` <span class="chip">Alternative</span>`) : ""}</div>
+          ${o.chemical && o.preferred ? ` <span class="chip pref">Preferred</span>` : ""}</div>
         ${o.notAdvised ? `<div class="small status-notAdvised">Not advised under current conditions</div>` : ""}
+        ${o.unavailable ? `<div class="small status-outOfWindow">No available product (see Edit Available Products)</div>` : ""}
+        ${stocked.length ? `<div class="small"><b>Products:</b> ${esc(stocked.join(", "))}</div>` : ""}
         ${s ? `
           <div class="small"><b>Applications:</b> ${s.visitsMin === s.visitsMax ? describeVisits(s)
             : `<select data-n="${key}">${Array.from({ length: s.visitsMax - s.visitsMin + 1 }, (_, i) => s.visitsMin + i)
@@ -233,6 +263,7 @@ function renderResult() {
   const entries = planLandscape(kb, state.site, plants);
   const programEntry = siteProgramEntry(kb, state.programs);
   if (programEntry) entries.push(programEntry);
+  applyProductAvailability(entries);
   const selected = selectionFor(entries);
   const cal = landscapeCalendar(entries, selected);
   const tot = applicationTotals(entries, selected);
@@ -248,12 +279,17 @@ function renderResult() {
     ${entries.map((e) => `
       <h3 class="plant">${esc(plantName(e))}</h3>
       ${e.problems.map((p) => {
-        const chem = p.options.filter((o) => o.chemical).sort((a, b) => !!b.treatment.default - !!a.treatment.default || b.preferred - a.preferred);
+        const chem = p.options.filter((o) => o.chemical);
+        const byT = new Map(chem.map((o) => [o.treatment, o]));
+        const ranked = rankTreatments(chem.map((o) => o.treatment), (t) => !byT.get(t).notAdvised && !byT.get(t).unavailable);
+        const [rec, alt] = [ranked.recommended, ranked.alternatives].map((ts) => ts.map((t) => byT.get(t)));
         const cult = p.options.filter((o) => !o.chemical);
+        const altOpen = alt.some((o) => selected.has(selKey(e.plant.uid, o.treatment.id)));
         return `
           <h4>${esc(p.condition.name)}</h4>
           ${flagsHtml(p.flags)}
-          ${chem.length ? `<div class="group">${e.plant.uid === PROGRAM_UID ? "Program" : "Chemical"}</div>${chem.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}
+          ${chem.length ? `<div class="group">${e.plant.uid === PROGRAM_UID ? "Program" : "Chemical"}</div>${rec.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}
+          ${alt.length ? `<details class="alts" ${altOpen ? "open" : ""}><summary>Alternatives (${alt.length})</summary>${alt.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}</details>` : ""}
           ${cult.length ? `<div class="group">Cultural</div>${cult.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}`;
       }).join("")}`).join("")}
     ${vp.visits.length ? `<h2 id="visits">Visit framework: minimum site visits</h2>
@@ -267,7 +303,9 @@ function renderResult() {
       ${cal.map((c) => `<div class="row" style="align-items:flex-start"><b style="width:42px;flex:none">${monthName(c.month)}</b>
         <div class="small">${c.items.map((i) => `${esc(i.plant)}: ${esc(i.option.treatment.title)} <span class="muted">(${esc(i.problem)})</span>`).join("<br>")}</div></div>`).join("")}` : ""}
     <button class="primary" id="share">Share / copy plan text</button>
-    <div class="banner">${esc(kb.meta.disclaimer)}</div>`;
+    <div class="banner">${esc(kb.meta.disclaimer)}</div>
+    ${products.length ? `<button class="primary" id="editProducts" aria-expanded="${productsPanelOpen}">Edit Available Products</button>
+      ${productsPanelOpen ? productsPanelHtml() : ""}` : ""}`;
 
   $view.querySelectorAll("[data-k]").forEach((cb) => cb.onchange = () => {
     state.overrides[cb.dataset.k] = cb.checked;
@@ -283,8 +321,41 @@ function renderResult() {
     renderResult();
     window.scrollTo(0, y);
   });
+  $view.querySelector("#editProducts")?.addEventListener("click", () => {
+    productsPanelOpen = !productsPanelOpen;
+    rerender();
+    if (productsPanelOpen) $view.querySelector("#products").scrollIntoView({ behavior: "smooth" });
+  });
+  $view.querySelectorAll("[data-product]").forEach((cb) => cb.onchange = () => {
+    if (cb.checked) unavailableProducts.delete(cb.dataset.product); else unavailableProducts.add(cb.dataset.product);
+    saveUnavailableProducts();
+    rerender();
+  });
+  $view.querySelectorAll("[data-products-all]").forEach((b) => b.onclick = () => {
+    unavailableProducts = b.dataset.productsAll === "on" ? new Set() : new Set(products.map((p) => p.name));
+    saveUnavailableProducts();
+    rerender();
+  });
   $view.querySelector("#jump")?.addEventListener("click", () => $view.querySelector("#visits").scrollIntoView({ behavior: "smooth" }));
   $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel, state.counts, { inspectionDate: state.inspectionDate, leadNumber: state.leadNumber }));
+}
+
+function rerender() {
+  const y = window.scrollY;
+  renderResult();
+  window.scrollTo(0, y);
+}
+
+function productsPanelHtml() {
+  const on = products.filter((p) => !unavailableProducts.has(p.name)).length;
+  return `<section id="products">
+    <h2>Available products (${on} of ${products.length})</h2>
+    <p class="small muted">Unchecked products are out of stock: treatments no checked product supplies cannot be selected above.</p>
+    <div class="seg"><button data-products-all="on">Check all</button><button data-products-all="off">Uncheck all</button></div>
+    ${[...products].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" })).map((p) => `
+      <label class="row"><input type="checkbox" data-product="${esc(p.name)}" ${unavailableProducts.has(p.name) ? "" : "checked"}>
+        <span><b>${esc(p.name)}</b><br><span class="small muted">${esc(p.activeIngredient)}</span></span></label>`).join("")}
+  </section>`;
 }
 
 async function sharePlan(text) {
@@ -332,7 +403,8 @@ function renderCondition(id) {
     ${list("Biology", c.biology)}
     ${MITIGATIONS.map(([key, label]) => {
       const ts = c.treatments.filter((t) => mitigationOf(t.applicationType) === key);
-      return ts.length ? `<h2>${label}</h2>` + ts.map((t) => {
+      const { recommended, alternatives } = key === "chemical" ? rankTreatments(ts) : { recommended: ts, alternatives: [] };
+      const card = (t) => {
         const s = t.schedule;
         return `<div class="row" style="display:block">
           <div class="title">${esc(t.title)}</div>
@@ -342,7 +414,9 @@ function renderCondition(id) {
           <div class="small muted">${esc(t.purpose)}</div>
           ${(t.notes || []).length ? `<ul class="small">${t.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
         </div>`;
-      }).join("") : "";
+      };
+      return ts.length ? `<h2>${label}</h2>` + recommended.map(card).join("")
+        + (alternatives.length ? `<details class="alts"><summary>Alternatives (${alternatives.length})</summary>${alternatives.map(card).join("")}</details>` : "") : "";
     }).join("")}
     ${c.lookalikeIds?.length ? `<h2>Look-alikes</h2>` + c.lookalikeIds.map((l) => `<a class="item" href="#condition/${l}">${esc(kb.conditionById[l].name)}</a>`).join("") : ""}
     ${list("Regulatory", (c.regulatory || []).map((r) => `${r.jurisdictions.join("/")}: ${r.text}`))}
@@ -458,6 +532,7 @@ async function start() {
   state.plants = state.plants.filter((p) => kb.hostById[p.hostId]);
   for (const p of state.plants) p.conditionIds = p.conditionIds.map((id) => RENAMED[id] || id).filter((id) => kb.conditionById[id]);
   try { bases = await (await fetch("data/bases.json")).json(); } catch {}
+  try { products = (await (await fetch("data/products.json")).json()).products || []; } catch {}
   window.addEventListener("online", runLogistics);
   runLogistics();
   window.addEventListener("hashchange", route);
