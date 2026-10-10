@@ -195,7 +195,8 @@ export function defaultSelection(problem) {
     ? [systemic.find((o) => o.treatment.default) || systemic.find((o) => o.preferred)]
     : chem.filter((o) => o.treatment.default);
   const removal = problem.crownStop ? problem.options.filter((o) => o.mitigation === "removal") : [];
-  return [...pick, ...removal].map((o) => o.treatment.id);
+  const oneOff = problem.options.filter((o) => o.treatment.oneOff);
+  return [...pick, ...removal, ...oneOff].map((o) => o.treatment.id);
 }
 
 /**
@@ -212,7 +213,10 @@ export function planLandscape(kb, site, plants) {
 
 export const selKey = (plantUid, treatmentId) => `${plantUid}:${treatmentId}`;
 
-/** Whole-property programs switched on from the first page (fixed backstage definitions). */
+/**
+ * Whole-property programs switched on from the first page under Soil Care (fixed backstage definitions).
+ * oneOff: a single unscheduled item (no window, calendar or visit), counted by the quantity in choices[quantityKey].
+ */
 export const PROGRAM_UID = "property";
 export const SITE_PROGRAMS = [
   {
@@ -233,7 +237,21 @@ export const SITE_PROGRAMS = [
       notes: ["Whole-property resilience support: root-zone drench of trees and shrubs"],
     },
   },
+  {
+    key: "soilAnalysis", label: "Soil sample analysis", name: "Soil Sample Analysis", oneOff: true, quantityKey: "soilSamples",
+    typeName: "Soil sampling / lab analysis visit",
+    treatment: {
+      id: "soil-sample-analysis", title: "Soil sample analysis", applicationType: "diagnostic", oneOff: true,
+      notes: ["Lab analysis of soil samples from the property; results guide soil care"],
+    },
+  },
 ];
+
+/** "Soil sample analysis (3 samples)". */
+export const anytimeLabel = (o) => `${o.treatment.title}${o.treatment.quantity ? ` (${o.treatment.quantity} sample${o.treatment.quantity === 1 ? "" : "s"})` : ""}`;
+
+/** Sample count for a one-off program (whole number, at least 1). */
+export const programQuantity = (choices, p) => Math.max(1, parseInt(choices[p.quantityKey]) || 1);
 
 /** The selected whole-property programs as a plan entry ("Whole property"), or null when none are on. */
 export function siteProgramEntry(kb, choices = {}) {
@@ -246,7 +264,9 @@ export function siteProgramEntry(kb, choices = {}) {
       condition: { id: p.treatment.id, name: p.name },
       flags: [],
       crownStop: false,
-      options: [{ treatment: p.treatment, type: kb.typeById[p.treatment.applicationType], mitigation: "chemical", chemical: true, preferred: true, notAdvised: false, flags: [] }],
+      options: [p.oneOff
+        ? { treatment: { ...p.treatment, quantity: programQuantity(choices, p) }, type: { ...kb.typeById[p.treatment.applicationType], name: p.typeName }, mitigation: "diagnostic", chemical: false, preferred: false, notAdvised: false, flags: [] }
+        : { treatment: p.treatment, type: kb.typeById[p.treatment.applicationType], mitigation: "chemical", chemical: true, preferred: true, notAdvised: false, flags: [] }],
     })),
   };
 }
@@ -396,8 +416,14 @@ export function visitPlan(entries, selected, counts = {}) {
     visits.push({ slot, from, to, items });
   }
   visits.sort((a, b) => a.slot - b.slot);
+  // One-off items (soil sampling): a visit each with no window, booked in SingleOps at the arborist's discretion.
+  const anytime = [];
+  for (const e of entries) for (const p of e.problems) for (const o of p.options) {
+    if (o.treatment.oneOff && !o.notAdvised && selected.has(selKey(e.plant.uid, o.treatment.id))) anytime.push({ plant: plantName(e), problem: p.condition.name, option: o });
+  }
   return {
     visits,
+    anytime,
     applications,
     compressed: [...compressed].map((g) => ({ plant: g.plant, problem: g.problem, option: g.option })),
   };
@@ -417,6 +443,8 @@ function optionLines(o, pick) {
     const range = s.visitsMin === s.visitsMax ? "" : ` (reference ${s.visitsMin}–${s.visitsMax})`;
     out.push(`    Applications: ${n}${range}${s.interval ? `, ${s.interval}` : ""} · Repeat: ${s.repeat}`);
     out.push(`    Window: ${s.window}`);
+  } else if (t.oneOff) {
+    out.push(`    One-time visit, no set timing · Samples: ${t.quantity ?? 1}`);
   } else if (t.months?.length) {
     out.push(`    When: ${describeMonths(t.months)}`);
   }
@@ -443,17 +471,23 @@ export function exportText(kb, site, entries, selected, siteLabel = "", counts =
       out.push("", `== ${p.condition.name} ==`);
       for (const f of p.flags) out.push(`${MARK[f.level]} ${f.text}`);
       const chosen = p.options.filter((o) => selected.has(selKey(e.plant.uid, o.treatment.id)));
-      const chem = chosen.filter((o) => o.chemical), cult = chosen.filter((o) => !o.chemical);
+      const chem = chosen.filter((o) => o.chemical), cult = chosen.filter((o) => !o.chemical && !o.treatment.oneOff);
+      const once = chosen.filter((o) => o.treatment.oneOff);
+      if (once.length) { out.push("One-time:"); once.forEach((o) => out.push(...optionLines(o))); }
       if (chem.length) { out.push(e.plant.uid === PROGRAM_UID ? "Program:" : "Chemical:"); chem.forEach((o) => out.push(...optionLines(o, counts[selKey(e.plant.uid, o.treatment.id)]))); }
       if (cult.length) { out.push("Cultural:"); cult.forEach((o) => out.push(...optionLines(o))); }
     }
   }
   const vp = visitPlan(entries, selected, counts);
-  if (vp.visits.length) {
-    out.push("", `######## VISIT FRAMEWORK: ${vp.visits.length} SITE VISIT${vp.visits.length === 1 ? "" : "S"} (${vp.applications} APPLICATIONS) ########`);
+  if (vp.visits.length || vp.anytime.length) {
+    out.push("", `######## VISIT FRAMEWORK: ${vp.visits.length} SITE VISIT${vp.visits.length === 1 ? "" : "S"} (${vp.applications} APPLICATIONS)${vp.anytime.length ? ` + ${vp.anytime.length} ONE-TIME` : ""} ########`);
     vp.visits.forEach((v, i) => {
       out.push(`Visit ${i + 1}: ${slotName(v.slot)}${v.from !== v.to ? ` (flexible ${describeVisitWindow(v)})` : ""}`);
       for (const it of v.items) out.push(`  - ${it.plant}: ${it.option.treatment.title} (${it.problem})${it.of > 1 ? ` [${it.n} of ${it.of}]` : ""}`);
+    });
+    vp.anytime.forEach((a, i) => {
+      out.push(`Visit ${vp.visits.length + i + 1}: One-time, no set timing (schedule at the arborist's discretion)`);
+      out.push(`  - ${a.plant}: ${anytimeLabel(a.option)} (${a.problem})`);
     });
     for (const c of vp.compressed) out.push(`[!] ${c.plant}: ${c.option.treatment.title} does not fit its window at the stated spacing; scheduled as early as possible.`);
   }

@@ -295,3 +295,20 @@ test("recommended options: systemic imidacloprid/dinotefuran first, the rest und
   const linden = rankTreatments(ts, (t) => !byT.get(t).notAdvised);
   assert.ok(!linden.recommended.some(isPriorityTreatment));
 });
+
+test("soil sample analysis: one-off with sample count, never scheduled", async () => {
+  const { siteProgramEntry, visitPlan } = await import("../web/engine.js");
+  const pe = siteProgramEntry(kb, { soilCare: true, soilAnalysis: true, soilSamples: 3 });
+  const selected = new Set(pe.problems.flatMap((p) => defaultSelection(p).map((id) => selKey(pe.plant.uid, id))));
+  assert.ok(selected.has(selKey(pe.plant.uid, "soil-sample-analysis")));
+  const vp = visitPlan([pe], selected);
+  assert.equal(vp.applications, 2); // soil care only
+  assert.equal(vp.visits.length, 2);
+  assert.deepEqual(vp.anytime.map((a) => a.option.treatment.id), ["soil-sample-analysis"]);
+  assert.ok(!landscapeCalendar([pe], selected).some((c) => c.items.some((i) => i.option.treatment.oneOff)));
+  assert.deepEqual(applicationTotals([pe], selected), { programs: 1, min: 2, max: 2 });
+  const text = exportText(kb, site(), [pe], selected, "X");
+  assert.ok(text.includes("One-time:") && text.includes("Samples: 3") && text.includes("[Soil sampling / lab analysis visit]"));
+  assert.ok(text.includes("Visit 3: One-time, no set timing") && text.includes("Soil sample analysis (3 samples)"));
+  assert.equal(siteProgramEntry(kb, { soilAnalysis: true, soilSamples: "" }).problems[0].options[0].treatment.quantity, 1);
+});
