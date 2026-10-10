@@ -222,7 +222,7 @@ test("host contraindications: no neonicotinoids on linden", () => {
   assert.deepEqual(defaultSelection(onRose), ["japanese-beetle--imidacloprid-soilDrench"]);
 });
 
-test("whole-property programs: soil care 2 visits (spring, fall), resilience 1 (summer)", async () => {
+test("soil care programs: soil care 2 visits (spring, fall), resilience 1 (summer)", async () => {
   const { siteProgramEntry, visitPlan } = await import("../web/engine.js");
   assert.equal(siteProgramEntry(kb, {}), null);
   const pe = siteProgramEntry(kb, { soilCare: true, resilience: true });
@@ -234,7 +234,7 @@ test("whole-property programs: soil care 2 visits (spring, fall), resilience 1 (
   assert.equal(vp.applications, 3);
   assert.ok(months.some((m) => m === 3 || m === 4) && months.some((m) => m === 9 || m === 10) && months.some((m) => m === 7 || m === 8));
   const text = exportText(kb, site(), [pe], selected, "X");
-  assert.ok(text.includes("WHOLE PROPERTY") && text.includes("Standard Soil Care") && text.includes("Phosphite salts"));
+  assert.ok(text.includes("SOIL CARE") && text.includes("Standard Soil Care Program: Ornamentals and mature trees") && text.includes("Phosphite salts"));
 });
 
 test("thin hosts filled from the supplement", () => {
@@ -311,4 +311,43 @@ test("soil sample analysis: one-off with sample count, never scheduled", async (
   assert.ok(text.includes("One-time:") && text.includes("Samples: 3") && text.includes("[Soil sampling / lab analysis visit]"));
   assert.ok(text.includes("Visit 3: One-time, no set timing") && text.includes("Soil sample analysis (3 samples)"));
   assert.equal(siteProgramEntry(kb, { soilAnalysis: true, soilSamples: "" }).problems[0].options[0].treatment.quantity, 1);
+});
+
+test("visit framework: a window spanning several visits goes on the less-loaded one", async () => {
+  const { siteProgramEntry, visitPlan, alsoFitsText } = await import("../web/engine.js");
+  const pe = siteProgramEntry(kb, { soilCare: true, resilience: true, correction: true });
+  const selected = new Set(pe.problems.flatMap((p) => defaultSelection(p).map((id) => selKey(pe.plant.uid, id))));
+  const vp = visitPlan([pe], selected);
+  assert.equal(vp.visits.length, 3);
+  const at = vp.visits.findIndex((v) => v.items.some((it) => it.option.treatment.id === "prescriptive-soil-correction"));
+  const item = vp.visits[at].items.find((it) => it.option.treatment.id === "prescriptive-soil-correction");
+  assert.equal(item.alsoFits.length, 1); // spring or fall soil care visit, never the summer one
+  assert.ok(item.option.treatment.months.includes(Math.floor(vp.visits[at].slot / 2) + 1));
+  assert.ok(alsoFitsText(item).startsWith(`⇄ also fits Visit ${item.alsoFits[0]}`));
+  assert.ok(vp.visits.every((v) => v.items.length && v.from <= v.slot && v.slot <= v.to));
+  // Stable: the same plan always lands the same way.
+  assert.equal(visitPlan([pe], selected).visits.findIndex((v) => v.items.some((it) => it.option.treatment.id === "prescriptive-soil-correction")), at);
+});
+
+test("soil care scopes: ornamentals, mature trees, both, or chosen trees", async () => {
+  const { siteProgramEntry } = await import("../web/engine.js");
+  const name = (choices, plants) => siteProgramEntry(kb, { soilCare: true, ...choices }, plants).problems[0];
+  assert.equal(name({}).condition.name, "Standard Soil Care Program: Ornamentals and mature trees");
+  assert.equal(name({ scope: { soilCare: "trees" } }).condition.name, "Standard Soil Care Program: Mature trees");
+  const plants = planLandscape(kb, site(), [{ uid: "o", hostId: "oak", qty: 2, label: "back", conditionIds: [] }, { uid: "m", hostId: "maple", conditionIds: [] }]);
+  const picked = name({ scope: { soilCare: "specific" }, targets: { soilCare: ["o", "gone"] } }, plants);
+  assert.equal(picked.condition.name, "Standard Soil Care Program: Oak ×2 (back)"); // removed plants are ignored
+  const none = name({ scope: { soilCare: "specific" } }, plants);
+  assert.ok(none.flags.some((f) => f.level === "caution" && f.text.startsWith("No trees selected")));
+});
+
+test("prescriptive soil correction and sample areas", async () => {
+  const { siteProgramEntry, anytimeLabel } = await import("../web/engine.js");
+  const pe = siteProgramEntry(kb, { correction: true, soilAnalysis: true, soilSamples: 2, soilAreas: "front beds, oak root zone" });
+  const corr = pe.problems.find((p) => p.condition.id === "prescriptive-soil-correction");
+  assert.ok(corr.options[0].chemical && corr.options[0].treatment.schedule.visitsMax === 2);
+  assert.ok(!corr.flags.length);
+  assert.ok(siteProgramEntry(kb, { correction: true }).problems[0].flags.some((f) => f.text.includes("Soil sample analysis")));
+  const sample = pe.problems.find((p) => p.condition.id === "soil-sample-analysis").options[0];
+  assert.equal(anytimeLabel(sample), "Soil sample analysis (2 samples: front beds, oak root zone)");
 });

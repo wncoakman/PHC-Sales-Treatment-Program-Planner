@@ -2,6 +2,7 @@ import {
   MITIGATIONS, describeMonths, describeVisits, indexKb, problemsForHost, matchesQuery, mitigationOf,
   planLandscape, defaultSelection, rankTreatments, landscapeCalendar, applicationTotals, exportText, selKey, plantName, monthName,
   visitPlan, slotName, describeVisitWindow, chosenCount, SITE_PROGRAMS, siteProgramEntry, PROGRAM_UID, programQuantity, anytimeLabel,
+  SOIL_SCOPES, DEFAULT_SCOPE, alsoFitsText,
 } from "./engine.js";
 import { assessAddress, BANDS } from "./logistics.js";
 import { availableKeys, treatmentAvailable, productsFor, treatmentNeeds, productKeys } from "./products.js";
@@ -49,7 +50,7 @@ function applyProductAvailability(entries) {
   if (!products.length) return;
   const keys = availableKeys(products, unavailableProducts);
   for (const e of entries) for (const p of e.problems) for (const o of p.options) {
-    if (o.chemical) o.unavailable = !treatmentAvailable(o.treatment, keys);
+    if (o.chemical && !o.treatment.anyProduct) o.unavailable = !treatmentAvailable(o.treatment, keys);
   }
 }
 
@@ -60,8 +61,11 @@ function defaultState() {
   return {
     siteLabel: "",
     inspectionDate: new Date().toLocaleDateString("en-CA"), // YYYY-MM-DD, local time
-    /** Soil Care programs: { soilCare, resilience, soilAnalysis, soilSamples } (definitions in engine SITE_PROGRAMS). */
-    programs: { soilCare: false, resilience: false, soilAnalysis: false, soilSamples: 1 },
+    /**
+     * Soil Care programs (definitions in engine SITE_PROGRAMS): on/off by key, sample count and areas,
+     * scope: key -> SOIL_SCOPES id, targets: key -> plant uids when the scope is "specific".
+     */
+    programs: { soilCare: false, resilience: false, correction: false, soilAnalysis: false, soilSamples: 1, soilAreas: "", scope: {}, targets: {} },
     leadNumber: "",
     site: { address: "", jurisdiction: "VA", nearWater: false, sensitiveSite: false, publicProperty: false },
     /** Backstage job logistics for the work address (closest base, drive-time band). Not shown in the plan. */
@@ -129,11 +133,6 @@ function renderLandscape() {
     <div class="row"><input type="text" id="siteLabel" placeholder="Prospect / client name" value="${esc(state.siteLabel)}" style="flex:1"></div>
     <div class="row"><input type="text" id="address" autocomplete="street-address" placeholder="Work address: street, city, state ZIP" value="${esc(s.address)}" style="flex:1"></div>
 
-    <h2>Soil Care</h2>
-    ${SITE_PROGRAMS.map((p) => `<label class="row"><span>${esc(p.label)}</span><input type="checkbox" data-program="${p.key}" ${state.programs[p.key] ? "checked" : ""}></label>
-      ${p.quantityKey ? `<label class="row" id="qty-${p.key}" ${state.programs[p.key] ? "" : `style="display:none"`}><span class="small">Number of samples</span>
-        <input type="number" min="1" step="1" inputmode="numeric" data-program-qty="${p.quantityKey}" value="${esc(programQuantity(state.programs, p))}"></label>` : ""}`).join("")}
-
     <h2>Plants (${state.plants.length})</h2>
     ${state.plants.map((p) => `
       <a class="item" href="#plant/${p.uid}">
@@ -143,6 +142,9 @@ function renderLandscape() {
           : "No problems selected"}</span>
       </a>`).join("") || `<p class="small muted">Add each tree or ornamental in the landscape, then choose its problems.</p>`}
     <a class="primary" href="#add">+ Add plant</a>
+
+    <h2>Soil Care · last step</h2>
+    ${soilCareHtml()}
 
     <button class="primary" id="build" ${hasPlan() ? "" : "disabled"}>Build treatment plan</button>
     <button class="link" id="clear">Start new landscape</button>`;
@@ -154,15 +156,26 @@ function renderLandscape() {
     save();
     runLogistics();
   };
+  const redraw = () => { const y = window.scrollY; renderLandscape(); window.scrollTo(0, y); };
   $view.querySelectorAll("[data-program]").forEach((c) => c.onchange = () => {
     state.programs[c.dataset.program] = c.checked;
+    save(); redraw();
+  });
+  $view.querySelectorAll("[data-scope]").forEach((sel) => sel.onchange = () => {
+    state.programs.scope = { ...state.programs.scope, [sel.dataset.scope]: sel.value };
+    save(); redraw();
+  });
+  $view.querySelectorAll("[data-target]").forEach((c) => c.onchange = () => {
+    const key = c.dataset.target, now = state.programs.targets?.[key] || [];
+    state.programs.targets = { ...state.programs.targets, [key]: c.checked ? [...now, c.value] : now.filter((u) => u !== c.value) };
     save();
-    const $qty = $view.querySelector(`#qty-${c.dataset.program}`);
-    if ($qty) $qty.style.display = c.checked ? "" : "none";
-    $view.querySelector("#build").disabled = !hasPlan();
   });
   $view.querySelectorAll("[data-program-qty]").forEach((i) => i.oninput = () => {
     state.programs[i.dataset.programQty] = Math.max(1, parseInt(i.value) || 1);
+    save();
+  });
+  $view.querySelectorAll("[data-program-areas]").forEach((i) => i.oninput = () => {
+    state.programs[i.dataset.programAreas] = i.value;
     save();
   });
   $view.querySelector("#inspectionDate").onchange = (e) => { state.inspectionDate = e.target.value; save(); };
@@ -177,6 +190,25 @@ function renderLandscape() {
     state = defaultState();
     save(); renderLandscape();
   };
+}
+
+/** Soil Care programs, each with where it applies (or sample count and areas) once switched on. */
+function soilCareHtml() {
+  const pr = state.programs;
+  const scopeHtml = (p) => {
+    const scope = pr.scope?.[p.key] || DEFAULT_SCOPE;
+    const chosen = new Set(pr.targets?.[p.key] || []);
+    return `<label class="row"><span class="small">Apply to</span><select data-scope="${p.key}">
+        ${SOIL_SCOPES.map(([k, label]) => `<option value="${k}" ${k === scope ? "selected" : ""}>${esc(label)}</option>`).join("")}</select></label>
+      ${scope !== "specific" ? "" : state.plants.map((pl) => `<label class="row"><span class="small">${esc(plantName({ plant: pl, host: kb.hostById[pl.hostId] }))}</span>
+          <input type="checkbox" data-target="${p.key}" value="${pl.uid}" ${chosen.has(pl.uid) ? "checked" : ""}></label>`).join("")
+        || `<p class="small status-outOfWindow">Add trees above, then choose them here.</p>`}`;
+  };
+  const samplesHtml = (p) => `<label class="row"><span class="small">Number of samples</span>
+      <input type="number" min="1" step="1" inputmode="numeric" data-program-qty="${p.quantityKey}" value="${esc(programQuantity(pr, p))}"></label>
+    <label class="row"><span class="small" style="flex:none">Sample areas</span><input type="text" data-program-areas="${p.areasKey}" placeholder="e.g. front beds, oak root zone" value="${esc(pr[p.areasKey])}" style="flex:1"></label>`;
+  return SITE_PROGRAMS.map((p) => `<label class="row"><span>${esc(p.label)}</span><input type="checkbox" data-program="${p.key}" ${pr[p.key] ? "checked" : ""}></label>
+    ${pr[p.key] ? `<div class="sub">${p.scoped ? scopeHtml(p) : ""}${p.quantityKey ? samplesHtml(p) : ""}</div>` : ""}`).join("");
 }
 
 function renderAddPlant() {
@@ -242,6 +274,7 @@ function renderPlant(id) {
   $view.querySelector("#remove").onclick = () => {
     state.plants = state.plants.filter((x) => x.uid !== id);
     for (const m of [state.overrides, state.counts]) for (const k of Object.keys(m)) if (k.startsWith(`${id}:`)) delete m[k];
+    for (const k of Object.keys(state.programs.targets || {})) state.programs.targets[k] = state.programs.targets[k].filter((u) => u !== id);
     save();
     location.hash = "#plan";
   };
@@ -288,7 +321,7 @@ function renderResult() {
   if (!hasPlan()) { location.hash = "#plan"; return; }
   setHeader("Treatment Plan", `<a href="#plan">Edit</a>`);
   const entries = planLandscape(kb, state.site, plants);
-  const programEntry = siteProgramEntry(kb, state.programs);
+  const programEntry = siteProgramEntry(kb, state.programs, state.plants.map((p) => ({ plant: p, host: kb.hostById[p.hostId] })));
   if (programEntry) entries.push(programEntry);
   applyProductAvailability(entries);
   const selected = selectionFor(entries);
@@ -303,7 +336,7 @@ function renderResult() {
       covering <b>${vp.applications}</b> applications from ${tot.programs} treatment program${tot.programs === 1 ? "" : "s"}
       (${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`} applications across the reference ranges)` : ""}${tot.programs && vp.anytime.length ? " + " : ""}${vp.anytime.length
         ? `<b>${vp.anytime.length}</b> one-time visit${vp.anytime.length === 1 ? "" : "s"} (no set timing)` : ""} ·
-      <a id="jump" style="cursor:pointer;text-decoration:underline">see visit framework</a></div>` : ""}
+      <a data-jump="visits">see visit framework</a></div>` : ""}
     ${entries.map((e) => `
       <h3 class="plant">${esc(plantName(e))}</h3>
       ${e.problems.map((p) => {
@@ -323,10 +356,15 @@ function renderResult() {
           ${cult.length ? `<div class="group">Cultural</div>${cult.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}`;
       }).join("")}`).join("")}
     ${vp.visits.length || vp.anytime.length ? `<h2 id="visits">Visit framework: minimum site visits</h2>
-      <p class="small muted">Checked chemical programs at their chosen number of applications (pick within the reference range on each program above; default is the minimum), combined into the fewest visits that respect each window and interval. Flexible range = dates that still work for every application on the visit.</p>
+      <ul class="small muted">
+        <li>Checked chemical programs at their chosen number of applications (set on each program above; default is the minimum), combined into the fewest visits that respect each window and spacing.</li>
+        <li><b>Flexible</b> = dates that still work for every application on that visit.</li>
+        <li><span class="fits">⇄</span> = the application's window covers more than one visit. It is placed on the visit with fewer applications (coin flip on a tie). To move it, check its window in the <a data-jump="calendar">annual calendar</a>.</li>
+      </ul>
       ${vp.visits.map((v, i) => `<div class="row" style="display:block">
         <div class="title">Visit ${i + 1}: ${slotName(v.slot)} <span class="small muted">${v.from !== v.to ? `flexible ${esc(describeVisitWindow(v))}` : ""}</span></div>
-        <div class="small">${v.items.map((it) => `${esc(it.plant)}: ${esc(it.option.treatment.title)} <span class="muted">(${esc(it.problem)}${it.of > 1 ? `, ${it.n} of ${it.of}` : ""})</span>`).join("<br>")}</div>
+        <div class="small">${v.items.map((it) => `${esc(it.plant)}: ${esc(it.option.treatment.title)} <span class="muted">(${esc(it.problem)}${it.of > 1 ? `, ${it.n} of ${it.of}` : ""})</span>${it.alsoFits.length
+          ? `<br><span class="fits">${esc(alsoFitsText(it))} · <a data-jump="calendar">annual calendar ↓</a></span>` : ""}`).join("<br>")}</div>
       </div>`).join("")}
       ${vp.anytime.map((a, i) => `<div class="row" style="display:block">
         <div class="title">Visit ${vp.visits.length + i + 1}: One-time <span class="small muted">no set timing</span></div>
@@ -334,7 +372,7 @@ function renderResult() {
         <div class="small muted">Schedule in SingleOps at the arborist's discretion.</div>
       </div>`).join("")}
       ${vp.compressed.map((c) => `<div class="flag caution">${esc(c.plant)}: ${esc(c.option.treatment.title)} does not fit its window at the stated spacing; scheduled as early as possible.</div>`).join("")}` : ""}
-    ${cal.length ? `<h2>Annual calendar: application windows (checked items)</h2>
+    ${cal.length ? `<h2 id="calendar">Annual calendar: application windows (checked items)</h2>
       ${cal.map((c) => `<div class="row" style="align-items:flex-start"><b style="width:42px;flex:none">${monthName(c.month)}</b>
         <div class="small">${c.items.map((i) => `${esc(i.plant)}: ${esc(i.option.treatment.title)} <span class="muted">(${esc(i.problem)})</span>`).join("<br>")}</div></div>`).join("")}` : ""}
     <button class="primary" id="share">Share / copy plan text</button>
@@ -392,7 +430,7 @@ function renderResult() {
     saveUnavailableProducts();
     rerender();
   });
-  $view.querySelector("#jump")?.addEventListener("click", () => $view.querySelector("#visits").scrollIntoView({ behavior: "smooth" }));
+  $view.querySelectorAll("[data-jump]").forEach((a) => a.onclick = () => $view.querySelector(`#${a.dataset.jump}`)?.scrollIntoView({ behavior: "smooth" }));
   $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel, state.counts, { inspectionDate: state.inspectionDate, leadNumber: state.leadNumber }));
 }
 
@@ -432,6 +470,38 @@ async function sharePlan(text) {
   }
   try { await navigator.clipboard.writeText(text); toast("Copied to clipboard"); }
   catch { $view.insertAdjacentHTML("beforeend", `<pre>${esc(text)}</pre>`); }
+}
+
+/** Installed version, from the offline cache name ("phc-planner-v19" -> "v19"); "" before install. */
+async function appVersion() {
+  try { return (await caches.keys()).find((k) => k.startsWith("phc-planner-"))?.replace("phc-planner-", "") || ""; } catch { return ""; }
+}
+
+let updateRequested = false;
+
+/**
+ * Header "Update" button: asks the server for a newer version. A newer one installs, takes over and the page
+ * reloads into it (plans are saved on the device, so nothing is lost); otherwise reports the current version.
+ */
+async function updateApp() {
+  const $b = document.getElementById("update");
+  const reset = () => { $b.disabled = false; $b.textContent = "↻ Update"; };
+  if (!navigator.onLine) { toast("Offline: connect to the internet to update"); return; }
+  const reg = "serviceWorker" in navigator ? await navigator.serviceWorker.getRegistration() : null;
+  if (!reg) { location.reload(); return; }
+  $b.disabled = true; $b.textContent = "Checking…";
+  try {
+    await reg.update();
+  } catch {
+    toast("Could not reach the server. Try again.");
+    reset();
+    return;
+  }
+  const next = reg.installing || reg.waiting;
+  if (!next) { const v = await appVersion(); toast(`Up to date${v ? ` (${v})` : ""}`); reset(); return; }
+  updateRequested = true;
+  $b.textContent = "Updating…";
+  next.addEventListener("statechange", () => { if (next.state === "redundant") { toast("Update failed. Try again."); updateRequested = false; reset(); } });
 }
 
 function toast(msg) {
@@ -517,8 +587,9 @@ function renderReference() {
     <p class="small muted" id="offline-status"></p>`;
   const $st = $view.querySelector("#offline-status");
   if (!("serviceWorker" in navigator)) $st.textContent = "Offline mode not supported in this browser.";
-  else navigator.serviceWorker.getRegistration().then((r) => {
-    $st.textContent = r?.active ? "Offline copy installed. Add to Home Screen to keep it available without a connection." : "Offline copy not installed yet. Reload once while online.";
+  else Promise.all([navigator.serviceWorker.getRegistration(), appVersion()]).then(([r, v]) => {
+    $st.textContent = (r?.active ? "Offline copy installed. Add to Home Screen to keep it available without a connection." : "Offline copy not installed yet. Reload once while online.")
+      + (v ? ` App version ${v}: tap ↻ Update at the top to get the latest.` : "");
   });
 }
 
@@ -604,12 +675,13 @@ async function start() {
   products = [...listProducts, ...customProducts];
   window.addEventListener("online", runLogistics);
   runLogistics();
+  document.getElementById("update").onclick = updateApp;
   window.addEventListener("hashchange", route);
   route();
   if ("serviceWorker" in navigator) {
     // When an updated version takes over, reload once so the new files are shown (skipped on first install).
     const hadController = !!navigator.serviceWorker.controller;
-    navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController) location.reload(); });
+    navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadController || updateRequested) location.reload(); });
     navigator.serviceWorker.register("sw.js").catch(() => {});
   }
 }
