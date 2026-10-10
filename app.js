@@ -1,10 +1,10 @@
 import {
   MITIGATIONS, describeMonths, describeVisits, indexKb, problemsForHost, matchesQuery, mitigationOf,
   planLandscape, defaultSelection, rankTreatments, landscapeCalendar, applicationTotals, exportText, selKey, plantName, monthName,
-  visitPlan, slotName, describeVisitWindow, chosenCount, SITE_PROGRAMS, siteProgramEntry, PROGRAM_UID,
+  visitPlan, slotName, describeVisitWindow, chosenCount, SITE_PROGRAMS, siteProgramEntry, PROGRAM_UID, programQuantity, anytimeLabel,
 } from "./engine.js";
 import { assessAddress, BANDS } from "./logistics.js";
-import { availableKeys, treatmentAvailable, productsFor } from "./products.js";
+import { availableKeys, treatmentAvailable, productsFor, treatmentNeeds, productKeys } from "./products.js";
 
 const $view = document.getElementById("view");
 const $title = document.getElementById("title");
@@ -15,17 +15,33 @@ const OPS_LOG_KEY = "phc-ops-log";
 const PRODUCTS_KEY = "phc-products-v1";
 let bases = { trafficFactor: 1, bases: [] };
 /** Stocked products from data/products.json (source: reference/phc-product-list.md). */
-let products = [];
+let listProducts = [];
+const savedProducts = loadSavedProducts();
 /** Names of products switched off on the treatment plan page. */
-let unavailableProducts = loadUnavailableProducts();
+let unavailableProducts = new Set(savedProducts.unavailable || []);
+/** Products added on this device: [{ name, activeIngredient, custom: true }]. */
+let customProducts = (savedProducts.custom || []).map((p) => ({ ...p, custom: true }));
+/** The product list plus products added on this device. */
+let products = [];
 let productsPanelOpen = false;
 
-function loadUnavailableProducts() {
-  try { return new Set(JSON.parse(localStorage.getItem(PRODUCTS_KEY))?.unavailable || []); } catch { return new Set(); }
+function loadSavedProducts() {
+  try { return JSON.parse(localStorage.getItem(PRODUCTS_KEY)) || {}; } catch { return {}; }
 }
 
 function saveUnavailableProducts() {
-  try { localStorage.setItem(PRODUCTS_KEY, JSON.stringify({ unavailable: [...unavailableProducts] })); } catch {}
+  products = [...listProducts, ...customProducts];
+  const custom = customProducts.map(({ name, activeIngredient }) => ({ name, activeIngredient }));
+  try { localStorage.setItem(PRODUCTS_KEY, JSON.stringify({ unavailable: [...unavailableProducts], custom })); } catch {}
+}
+
+/** Ingredient names the treatments use, offered as suggestions when adding a product. */
+let ingredientSuggestions;
+function ingredientNames() {
+  ingredientSuggestions ||= [...new Set(kb.conditions.flatMap((c) => c.treatments)
+    .filter((t) => mitigationOf(t.applicationType) === "chemical")
+    .flatMap((t) => { const n = treatmentNeeds(t.title); return [...n.alternatives.flat(), ...n.also]; }))].sort();
+  return ingredientSuggestions;
 }
 
 /** Marks chemical options no switched-on product can supply (skipped if the product list did not load). */
@@ -44,8 +60,8 @@ function defaultState() {
   return {
     siteLabel: "",
     inspectionDate: new Date().toLocaleDateString("en-CA"), // YYYY-MM-DD, local time
-    /** Whole-property programs: { soilCare, resilience } (definitions in engine SITE_PROGRAMS). */
-    programs: { soilCare: false, resilience: false },
+    /** Soil Care programs: { soilCare, resilience, soilAnalysis, soilSamples } (definitions in engine SITE_PROGRAMS). */
+    programs: { soilCare: false, resilience: false, soilAnalysis: false, soilSamples: 1 },
     leadNumber: "",
     site: { address: "", jurisdiction: "VA", nearWater: false, sensitiveSite: false, publicProperty: false },
     /** Backstage job logistics for the work address (closest base, drive-time band). Not shown in the plan. */
@@ -112,7 +128,11 @@ function renderLandscape() {
     <label class="row"><span>SingleOps lead #</span><input type="text" id="leadNumber" inputmode="numeric" value="${esc(state.leadNumber)}" style="width:140px"></label>
     <div class="row"><input type="text" id="siteLabel" placeholder="Prospect / client name" value="${esc(state.siteLabel)}" style="flex:1"></div>
     <div class="row"><input type="text" id="address" autocomplete="street-address" placeholder="Work address: street, city, state ZIP" value="${esc(s.address)}" style="flex:1"></div>
-    ${SITE_PROGRAMS.map((p) => `<label class="row"><span>${esc(p.label)}</span><input type="checkbox" data-program="${p.key}" ${state.programs[p.key] ? "checked" : ""}></label>`).join("")}
+
+    <h2>Soil Care</h2>
+    ${SITE_PROGRAMS.map((p) => `<label class="row"><span>${esc(p.label)}</span><input type="checkbox" data-program="${p.key}" ${state.programs[p.key] ? "checked" : ""}></label>
+      ${p.quantityKey ? `<label class="row" id="qty-${p.key}" ${state.programs[p.key] ? "" : `style="display:none"`}><span class="small">Number of samples</span>
+        <input type="number" min="1" step="1" inputmode="numeric" data-program-qty="${p.quantityKey}" value="${esc(programQuantity(state.programs, p))}"></label>` : ""}`).join("")}
 
     <h2>Plants (${state.plants.length})</h2>
     ${state.plants.map((p) => `
@@ -137,7 +157,13 @@ function renderLandscape() {
   $view.querySelectorAll("[data-program]").forEach((c) => c.onchange = () => {
     state.programs[c.dataset.program] = c.checked;
     save();
+    const $qty = $view.querySelector(`#qty-${c.dataset.program}`);
+    if ($qty) $qty.style.display = c.checked ? "" : "none";
     $view.querySelector("#build").disabled = !hasPlan();
+  });
+  $view.querySelectorAll("[data-program-qty]").forEach((i) => i.oninput = () => {
+    state.programs[i.dataset.programQty] = Math.max(1, parseInt(i.value) || 1);
+    save();
   });
   $view.querySelector("#inspectionDate").onchange = (e) => { state.inspectionDate = e.target.value; save(); };
   $view.querySelector("#leadNumber").oninput = (e) => { state.leadNumber = e.target.value.trim(); save(); };
@@ -245,6 +271,7 @@ function optionHtml(plantUid, o, selected) {
               per year <span class="muted">(reference ${s.visitsMin}–${s.visitsMax})</span>`}${s.interval ? `, ${esc(s.interval)}` : ""}</div>
           <div class="small"><b>Repeat:</b> ${esc(s.repeat)}</div>
           <div class="small"><b>Window:</b> ${esc(s.window)}</div>`
+        : t.oneOff ? `<div class="small"><b>One-time visit:</b> no set timing · <b>Samples:</b> ${esc(t.quantity ?? 1)}</div>`
         : t.months?.length ? `<div class="small"><b>When:</b> ${describeMonths(t.months)}</div>` : ""}
         ${t.protection ? `<div class="small"><b>Protection:</b> ${esc(t.protection)}</div>` : ""}
         ${(t.notes || []).length ? `<ul class="small">${t.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
@@ -272,9 +299,10 @@ function renderResult() {
   $view.innerHTML = `
     <p class="small muted">${esc(state.siteLabel || "Unnamed prospect")}${state.leadNumber ? ` · Lead #${esc(state.leadNumber)}` : ""}${state.inspectionDate ? ` · Inspected ${esc(state.inspectionDate)}` : ""}<br>
       ${esc(state.site.address || "No work address")} · ${state.site.jurisdiction} · ${plants.length} plant entr${plants.length === 1 ? "y" : "ies"}</p>
-    ${tot.programs ? `<div class="banner"><b>${vp.visits.length}</b> site visit${vp.visits.length === 1 ? "" : "s"}/year
+    ${tot.programs || vp.anytime.length ? `<div class="banner">${tot.programs ? `<b>${vp.visits.length}</b> site visit${vp.visits.length === 1 ? "" : "s"}/year
       covering <b>${vp.applications}</b> applications from ${tot.programs} treatment program${tot.programs === 1 ? "" : "s"}
-      (${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`} applications across the reference ranges) ·
+      (${tot.min === tot.max ? tot.min : `${tot.min}–${tot.max}`} applications across the reference ranges)` : ""}${tot.programs && vp.anytime.length ? " + " : ""}${vp.anytime.length
+        ? `<b>${vp.anytime.length}</b> one-time visit${vp.anytime.length === 1 ? "" : "s"} (no set timing)` : ""} ·
       <a id="jump" style="cursor:pointer;text-decoration:underline">see visit framework</a></div>` : ""}
     ${entries.map((e) => `
       <h3 class="plant">${esc(plantName(e))}</h3>
@@ -283,20 +311,27 @@ function renderResult() {
         const byT = new Map(chem.map((o) => [o.treatment, o]));
         const ranked = rankTreatments(chem.map((o) => o.treatment), (t) => !byT.get(t).notAdvised && !byT.get(t).unavailable);
         const [rec, alt] = [ranked.recommended, ranked.alternatives].map((ts) => ts.map((t) => byT.get(t)));
-        const cult = p.options.filter((o) => !o.chemical);
+        const cult = p.options.filter((o) => !o.chemical && !o.treatment.oneOff);
+        const once = p.options.filter((o) => o.treatment.oneOff);
         const altOpen = alt.some((o) => selected.has(selKey(e.plant.uid, o.treatment.id)));
         return `
           <h4>${esc(p.condition.name)}</h4>
           ${flagsHtml(p.flags)}
           ${chem.length ? `<div class="group">${e.plant.uid === PROGRAM_UID ? "Program" : "Chemical"}</div>${rec.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}
           ${alt.length ? `<details class="alts" ${altOpen ? "open" : ""}><summary>Alternatives (${alt.length})</summary>${alt.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}</details>` : ""}
+          ${once.length ? `<div class="group">One-time</div>${once.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}
           ${cult.length ? `<div class="group">Cultural</div>${cult.map((o) => optionHtml(e.plant.uid, o, selected)).join("")}` : ""}`;
       }).join("")}`).join("")}
-    ${vp.visits.length ? `<h2 id="visits">Visit framework: minimum site visits</h2>
+    ${vp.visits.length || vp.anytime.length ? `<h2 id="visits">Visit framework: minimum site visits</h2>
       <p class="small muted">Checked chemical programs at their chosen number of applications (pick within the reference range on each program above; default is the minimum), combined into the fewest visits that respect each window and interval. Flexible range = dates that still work for every application on the visit.</p>
       ${vp.visits.map((v, i) => `<div class="row" style="display:block">
         <div class="title">Visit ${i + 1}: ${slotName(v.slot)} <span class="small muted">${v.from !== v.to ? `flexible ${esc(describeVisitWindow(v))}` : ""}</span></div>
         <div class="small">${v.items.map((it) => `${esc(it.plant)}: ${esc(it.option.treatment.title)} <span class="muted">(${esc(it.problem)}${it.of > 1 ? `, ${it.n} of ${it.of}` : ""})</span>`).join("<br>")}</div>
+      </div>`).join("")}
+      ${vp.anytime.map((a, i) => `<div class="row" style="display:block">
+        <div class="title">Visit ${vp.visits.length + i + 1}: One-time <span class="small muted">no set timing</span></div>
+        <div class="small">${esc(a.plant)}: ${esc(anytimeLabel(a.option))} <span class="muted">(${esc(a.problem)})</span></div>
+        <div class="small muted">Schedule in SingleOps at the arborist's discretion.</div>
       </div>`).join("")}
       ${vp.compressed.map((c) => `<div class="flag caution">${esc(c.plant)}: ${esc(c.option.treatment.title)} does not fit its window at the stated spacing; scheduled as early as possible.</div>`).join("")}` : ""}
     ${cal.length ? `<h2>Annual calendar: application windows (checked items)</h2>
@@ -331,6 +366,27 @@ function renderResult() {
     saveUnavailableProducts();
     rerender();
   });
+  $view.querySelector("#addProduct")?.addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const name = $view.querySelector("#newProductName").value.trim();
+    const activeIngredient = $view.querySelector("#newProductAi").value.trim();
+    const $err = $view.querySelector("#addProductError");
+    if (!name || !activeIngredient) { $err.textContent = "Enter a product name and its active ingredient."; return; }
+    if (products.some((p) => p.name.toLowerCase() === name.toLowerCase())) { $err.textContent = `${name} is already in the list.`; return; }
+    customProducts.push({ name, activeIngredient, custom: true });
+    unavailableProducts.delete(name);
+    saveUnavailableProducts();
+    rerender();
+    toast(`Added ${name}`);
+  });
+  $view.querySelectorAll("[data-remove-product]").forEach((b) => b.onclick = (ev) => {
+    ev.preventDefault();
+    const name = b.dataset.removeProduct;
+    customProducts = customProducts.filter((p) => p.name !== name);
+    unavailableProducts.delete(name);
+    saveUnavailableProducts();
+    rerender();
+  });
   $view.querySelectorAll("[data-products-all]").forEach((b) => b.onclick = () => {
     unavailableProducts = b.dataset.productsAll === "on" ? new Set() : new Set(products.map((p) => p.name));
     saveUnavailableProducts();
@@ -351,10 +407,22 @@ function productsPanelHtml() {
   return `<section id="products">
     <h2>Available products (${on} of ${products.length})</h2>
     <p class="small muted">Unchecked products are out of stock: treatments no checked product supplies cannot be selected above.</p>
+    <form id="addProduct" class="addProduct">
+      <div class="title">Add a product</div>
+      <input type="text" id="newProductName" placeholder="Product name" autocomplete="off">
+      <input type="text" id="newProductAi" list="ingredientNames" placeholder="Active ingredient (join several with +)" autocomplete="off">
+      <datalist id="ingredientNames">${ingredientNames().map((n) => `<option value="${esc(n)}">`).join("")}</datalist>
+      <div class="small status-outOfWindow" id="addProductError"></div>
+      <button class="primary" type="submit">Add product</button>
+      <div class="small muted">Added products are saved on this device only. Add them to reference/phc-product-list.md to share with everyone.</div>
+    </form>
     <div class="seg"><button data-products-all="on">Check all</button><button data-products-all="off">Uncheck all</button></div>
     ${[...products].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" })).map((p) => `
       <label class="row"><input type="checkbox" data-product="${esc(p.name)}" ${unavailableProducts.has(p.name) ? "" : "checked"}>
-        <span><b>${esc(p.name)}</b><br><span class="small muted">${esc(p.activeIngredient)}</span></span></label>`).join("")}
+        <span><b>${esc(p.name)}</b><br><span class="small muted">${esc(p.activeIngredient)}</span>
+          ${p.custom ? `<br><span class="chip">Added on this device</span>${productKeys(p).some((k) => ingredientNames().includes(k)) ? ""
+            : ` <span class="small status-outOfWindow">Matches no treatment ingredient</span>`}` : ""}</span>
+        ${p.custom ? `<button class="link" data-remove-product="${esc(p.name)}">Remove</button>` : ""}</label>`).join("")}
   </section>`;
 }
 
@@ -532,7 +600,8 @@ async function start() {
   state.plants = state.plants.filter((p) => kb.hostById[p.hostId]);
   for (const p of state.plants) p.conditionIds = p.conditionIds.map((id) => RENAMED[id] || id).filter((id) => kb.conditionById[id]);
   try { bases = await (await fetch("data/bases.json")).json(); } catch {}
-  try { products = (await (await fetch("data/products.json")).json()).products || []; } catch {}
+  try { listProducts = (await (await fetch("data/products.json")).json()).products || []; } catch {}
+  products = [...listProducts, ...customProducts];
   window.addEventListener("online", runLogistics);
   runLogistics();
   window.addEventListener("hashchange", route);
