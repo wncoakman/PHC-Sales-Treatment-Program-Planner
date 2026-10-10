@@ -250,7 +250,7 @@ export const SITE_PROGRAMS = [
     treatment: {
       id: "prescriptive-soil-correction", title: "Soil amendments prescribed from soil analysis (soil drench)", applicationType: "soilDrench",
       months: [3, 4, 5, 9, 10, 11], default: true, preferred: true, anyProduct: true,
-      schedule: { visitsMin: 1, visitsMax: 2, repeat: "Annually until soil test targets are met", window: "Spring (Mar–May) and/or fall (Sep–Nov)" },
+      schedule: { visitsMin: 2, visitsMax: 2, repeat: "Annually until soil test targets are met", window: "Spring (Mar–May) and fall (Sep–Nov)" },
       notes: ["Corrects pH, nutrient or organic-matter deficits; products and rates set from the soil lab report"],
     },
   },
