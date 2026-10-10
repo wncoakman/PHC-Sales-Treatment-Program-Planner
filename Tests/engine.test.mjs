@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   indexKb, problemsForHost, planProblem, planLandscape, defaultSelection, landscapeCalendar,
-  applicationTotals, exportText, describeMonths, selKey, mitigationOf,
+  applicationTotals, exportText, describeMonths, selKey, mitigationOf, rankTreatments, isPriorityTreatment,
 } from "../web/engine.js";
 
 const kb = indexKb(JSON.parse(readFileSync(new URL("../web/data/knowledge_base.json", import.meta.url))));
@@ -280,4 +280,18 @@ test("currency review: demoted rows and borer/needlecast additions", () => {
   assert.equal(rr.filter((t) => t.activeIngredient === "Abamectin + horticultural oil").length, 1);
   assert.ok(kb.conditionById["dogwood-borer"].treatments.some((t) => t.activeIngredient === "Chlorantraniliprole" && t.applicationType === "barkSpray"));
   assert.ok(kb.conditionById["rhizosphaera-needlecast-of-spruce"].treatments.some((t) => t.activeIngredient === "Chlorothalonil"));
+});
+
+test("recommended options: systemic imidacloprid/dinotefuran first, the rest under alternatives", () => {
+  const ts = kb.conditionById["japanese-beetle"].treatments.filter((t) => mitigationOf(t.applicationType) === "chemical");
+  const { recommended, alternatives } = rankTreatments(ts);
+  assert.ok(isPriorityTreatment(recommended[0]));
+  const firstOther = recommended.findIndex((t) => !isPriorityTreatment(t));
+  assert.ok(firstOther === -1 || recommended.slice(firstOther).every((t) => !isPriorityTreatment(t)));
+  assert.ok(alternatives.every((t) => !t.default && !t.preferred && !isPriorityTreatment(t)));
+  assert.equal(recommended.length + alternatives.length, ts.length);
+  const onLinden = problem("japanese-beetle", {}, { hostId: "linden" });
+  const byT = new Map(onLinden.options.map((o) => [o.treatment, o]));
+  const linden = rankTreatments(ts, (t) => !byT.get(t).notAdvised);
+  assert.ok(!linden.recommended.some(isPriorityTreatment));
 });

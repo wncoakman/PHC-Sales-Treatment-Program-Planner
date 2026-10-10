@@ -1,8 +1,8 @@
 // Offline cache. Bump VERSION whenever any file below changes so phones pick up the update.
-const VERSION = "phc-planner-v13";
+const VERSION = "phc-planner-v15";
 const FILES = [
-  "./", "index.html", "app.js", "engine.js", "logistics.js", "manifest.webmanifest",
-  "data/knowledge_base.json", "data/bases.json", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png",
+  "./", "index.html", "app.js", "engine.js", "logistics.js", "products.js", "manifest.webmanifest",
+  "data/knowledge_base.json", "data/bases.json", "data/products.json", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png",
 ];
 
 self.addEventListener("install", (e) => {

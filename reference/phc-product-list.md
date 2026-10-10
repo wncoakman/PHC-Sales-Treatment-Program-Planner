@@ -1,0 +1,78 @@
+# Items - Name
+
+- AquaLock: *anti-desiccant*
+- Ultra-Pure Oil-Dormant App: *paraffinic (mineral) oil*
+- Actosol: *humic acids*
+- Concert II: *chlorothalonil + propiconazole*
+- TickKillz_Standard: *cedar oil + peppermint oil (25(b) minimum-risk botanical)*
+- Summit Mosquito Dunk: *Bacillus thuringiensis subsp. israelensis (Bti)*
+- Transtect: *dinotefuran*
+- Xytect 2F: *imidacloprid*
+- Cambistat_soil app TGR: *paclobutrazol*
+- Casoron 4G_PreEmergent: *dichlobenil*
+- Triclopyr 4_Spring app: *triclopyr (butoxyethyl ester)*
+- Cide-Kick II: *d-limonene surfactant (adjuvant)*
+- Tengard SFR & Ultra Pure Oil: *permethrin + paraffinic oil*
+- Tengard SFR: *permethrin*
+- Transtect_: *dinotefuran*
+- Actosol & Urea Fert 46-0-0: *humic acids + urea nitrogen*
+- Mectinite_EAB 15mL: *emamectin benzoate*
+- Mectinite_10 mL: *emamectin benzoate*
+- AgriFos: *mono- and di-potassium salts of phosphorous acid (phosphite)*
+- Scrimmage: *nonionic/organosilicone surfactant blend (adjuvant)*
+- Xytect 2F_Scale HIGH: *imidacloprid*
+- Subdue Maxx: *mefenoxam*
+- Concert II & Tengard: *chlorothalonil + propiconazole + permethrin*
+- Actosol & Roots 1-Step: *humic acids + Roots 1-Step biostimulant (ingredients unconfirmed; check label)*
+- Orthene: *acephate*
+- Mectinite_EAB 5mL: *emamectin benzoate*
+- Mectinite_EAB 3mL: *emamectin benzoate*
+- Mectinite_EAB 4mL: *emamectin benzoate*
+- Mectinite_EAB 8mL: *emamectin benzoate*
+- Trimtect: *paclobutrazol*
+- Bacastat: *oxytetracycline*
+- Arbotect 20-S_Sycamore: *thiabendazole*
+- Arbotect 20-S_DED Elm: *thiabendazole*
+- Alamo Fungicide: *propiconazole*
+- Imitator& Clethodim2E& CideKick: *glyphosate + clethodim + d-limonene surfactant*
+- Garlon 3A & CideKick II: *triclopyr (triethylamine salt) + d-limonene surfactant*
+- Reliant & Scrimmage: *mono- and di-potassium salts of phosphorous acid (phosphite) + surfactant*
+- Cambistat_foliar SGR default: *paclobutrazol*
+- Standard overseeding blend: *none (grass seed)*
+- LESCO Horticultural Oil: *mineral oil*
+- Tengard SFR_Pest: *permethrin*
+- Cambistat_foliar SGR lite: *paclobutrazol*
+- Xytect 2F_Scale MODIFIED: *imidacloprid*
+- Lawn Tank Mix_PRE Standard: *custom tank mix (see mix recipe)*
+- Escalade 2: *2,4-D + fluroxypyr + dicamba*
+- SedgeMaster: *halosulfuron-methyl*
+- Lawn Tank Mix_PRE Heavy Mod: *custom tank mix (see mix recipe)*
+- Lawn Recovery Mix: *custom mix (see mix recipe)*
+- Abamectin 0.15 EC AND Hort Oil: *abamectin + mineral oil*
+- Imitator & CideKick & Triclopyr: *glyphosate + d-limonene surfactant + triclopyr*
+- Actosol_LAWN: *humic acids*
+- Lepitect Infusible (74779-5): *acephate*
+- Glyphosate 41%_CideKick_HerbMix: *glyphosate (isopropylamine salt) + d-limonene surfactant*
+- UFLEXX 46-0-0_LAWN FERT: *urea nitrogen with NBPT + DCD stabilizers*
+- Lawn Tank Mix_POST Heavy Mod: *custom tank mix (see mix recipe)*
+- TickKillz_Heavy: *cedar oil + peppermint oil (25(b) minimum-risk botanical)*
+- Hydra Fe 12-0-0: *nitrogen + iron (exact iron source unconfirmed; check label)*
+- Triclopyr 3: *triclopyr (triethylamine salt)*
+- EcoGuard Plus: *cedarwood oil + 2-phenylethyl propionate (25(b) minimum-risk botanical)*
+- Ultra-Pure Oil-SUMMER App: *paraffinic (mineral) oil*
+- Xytect 2F_Scale STANDARD: *imidacloprid*
+- Tengard SFR Tank: *permethrin*
+- Glyphosate 41%: *glyphosate (isopropylamine salt)*
+- Reliant: *mono- and di-potassium salts of phosphorous acid (phosphite)*
+- Acclaim Extra: *fenoxaprop-p-ethyl*
+- Abamectin 0.15 EC: *abamectin*
+- Triclopyr 3 & Cide-Kick II: *triclopyr (triethylamine salt) + d-limonene surfactant*
+- Mectinite_EAB 2mL: *emamectin benzoate*
+- Arbortect: *thiabendazole*
+- Audible 90 Nonionic Surfactant: *nonionic surfactant (alkylphenol ethoxylate; adjuvant)*
+- Daconil Weather stik: *chlorothalonil*
+- Propiconazole 1.3 me T&O: *propiconazole*
+- scrimmage surfactant: *nonionic/organosilicone surfactant blend (adjuvant)*
+- Garlon 3A: *triclopyr (triethylamine salt)*
+- Prodiamine: *prodiamine*
+- arbortect Fungicide: *thiabendazole*
