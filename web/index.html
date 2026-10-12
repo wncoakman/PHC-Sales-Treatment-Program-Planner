@@ -18,6 +18,7 @@
             --info:#8ab4f8; --caution:#f0a64a; --stop:#f28b82; --ok:#81c995; }
   }
   * { box-sizing: border-box; }
+  [hidden] { display:none !important; }
   body { margin:0; font:16px/1.4 -apple-system, system-ui, sans-serif; color:var(--fg); background:var(--bg);
          padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
   header { position:sticky; top:0; z-index:2; background:var(--bg); border-bottom:1px solid var(--line);
@@ -71,9 +72,73 @@
   .fits { color:var(--info); font-weight:600; }
   a[data-jump] { cursor:pointer; text-decoration:underline; color:inherit; }
   .chip.pref { color:var(--ok); border-color:var(--ok); }
-  details summary { cursor:pointer; margin-top:20px; }
+  details summary { cursor:pointer; }
+  #view > details:not([class]) > summary { margin-top:20px; }
   details.alts summary { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:10px 0 4px; }
   a.primary + a.primary { margin-top:0; }
+  button.secondary, label.secondary { display:block; width:100%; padding:11px; margin:8px 0; border:1px solid var(--accent); border-radius:8px;
+         background:none; color:var(--accent); font:inherit; font-weight:600; }
+  /* Plan screen: one-line summaries that expand on tap. */
+  .jobline { margin:4px 0 8px; }
+  .stats { background:var(--alt); border-radius:8px; padding:10px 12px; font-size:15px; }
+  .stats a { float:right; font-size:13px; }
+  .hint { text-transform:none; letter-spacing:0; font-weight:400; font-size:12px; color:var(--muted); }
+  details.plant, details.visit, details.section { border-bottom:1px solid var(--line); }
+  details.plant > summary, details.visit > summary, details.section > summary { list-style:none; margin:0; padding:12px 24px 12px 0; position:relative; }
+  details.plant > summary::-webkit-details-marker, details.visit > summary::-webkit-details-marker, details.section > summary::-webkit-details-marker { display:none; }
+  details.plant > summary::after, details.visit > summary::after, details.section > summary::after { content:"›"; position:absolute; right:4px; top:10px;
+         font-size:20px; color:var(--muted); transition:transform .15s; }
+  details[open].plant > summary::after, details[open].visit > summary::after, details[open].section > summary::after { transform:rotate(90deg); }
+  details.plant > summary .name, details.visit > summary .name { display:block; font-weight:600; font-size:17px; }
+  details.plant > summary .small, details.visit > summary .small { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  details[open].plant > summary .small { white-space:normal; }
+  details.plant[open] { padding-bottom:10px; }
+  details.section > summary { font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); font-weight:700; margin-top:12px; }
+  details.visit ul { margin:0 0 10px; }
+  details.notes > summary, details.more > summary { margin:2px 0; font-size:13px; color:var(--muted); }
+  details.notes { margin:4px 0; }
+  details.more > div { padding:4px 0 2px; }
+  details.more > div > div { margin:2px 0; }
+  .opt .body { flex:1; min-width:0; }
+  .opt label.title { display:block; }
+  .opt select { padding:2px 4px; font-size:13px; }
+  .capture { display:flex; gap:8px; margin-top:10px; }
+  .capture > * { flex:1; margin:0; text-align:center; font-size:14px; padding:10px 6px; cursor:pointer; }
+  #gpsText { margin:6px 0 2px; }
+  .thumbs { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 4px; }
+  .thumb { position:relative; }
+  .thumb img { width:84px; height:84px; object-fit:cover; border-radius:6px; display:block; }
+  .thumb button { position:absolute; top:-6px; right:-6px; width:24px; height:24px; border-radius:12px; border:0;
+         background:var(--stop); color:#fff; font:700 15px/24px sans-serif; padding:0; }
+  .gpsTools { display:flex; gap:16px; flex-wrap:wrap; }
+  .gpsTools button.link { color:var(--accent); font-size:14px; }
+  .gpsTools button.link:disabled { color:var(--muted); }
+  form.manual { display:flex; gap:8px; margin:4px 0 8px; }
+  form.manual input { flex:1; }
+  form.manual button.secondary { width:auto; margin:0; padding:8px 16px; }
+  #gpsWarn:empty { display:none; }
+  /* Fine-tune map: full screen; the crosshair stays put while the imagery moves under it. */
+  body.mapOpen { overflow:hidden; }
+  .mapScreen { position:fixed; inset:0; z-index:10; background:#1f2a1f; color:#fff; }
+  .mapScreen canvas { position:absolute; inset:0; width:100%; height:100%; touch-action:none; cursor:grab; }
+  .crosshair { position:absolute; left:50%; top:50%; width:44px; height:44px; margin:-22px 0 0 -22px; pointer-events:none;
+         background:linear-gradient(#ff3b30,#ff3b30) center/2px 100% no-repeat, linear-gradient(#ff3b30,#ff3b30) center/100% 2px no-repeat;
+         filter:drop-shadow(0 0 1.5px #000); }
+  .crosshair::after { content:""; position:absolute; inset:14px; border:2px solid #ff3b30; border-radius:50%; }
+  .mapTop { position:absolute; top:0; left:0; right:0; display:flex; align-items:center; gap:8px;
+         padding:calc(10px + env(safe-area-inset-top)) 12px 10px; background:rgba(0,0,0,.6); }
+  .mapTop b { flex:1; text-align:center; }
+  .mapScreen button { font:inherit; font-weight:600; border:0; border-radius:8px; padding:8px 14px; background:rgba(255,255,255,.92); color:#1b1b1b; }
+  .mapTop button.save { background:var(--accent); color:#fff; }
+  .mapHint, .mapOffline { position:absolute; left:12px; right:12px; top:calc(64px + env(safe-area-inset-top)); text-align:center;
+         font-size:13px; padding:6px 10px; border-radius:8px; background:rgba(0,0,0,.55); pointer-events:none; }
+  .mapOffline { background:rgba(168,93,0,.92); top:calc(100px + env(safe-area-inset-top)); }
+  .mapZoom { position:absolute; right:12px; top:45%; display:flex; flex-direction:column; gap:8px; }
+  .mapZoom button { width:44px; height:44px; padding:0; font-size:24px; }
+  .mapGps { position:absolute; left:50%; transform:translateX(-50%); bottom:calc(40px + env(safe-area-inset-bottom)); }
+  .mapCredit { position:absolute; right:6px; bottom:calc(6px + env(safe-area-inset-bottom)); font-size:10px;
+         background:rgba(255,255,255,.75); color:#333; padding:1px 5px; border-radius:3px; }
+  .warn { color:var(--caution); } .okText { color:var(--ok); }
   pre { white-space:pre-wrap; font-size:13px; background:var(--alt); padding:10px; border-radius:8px; }
   .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:8px 14px; border-radius:8px; font-size:14px; }
 </style>

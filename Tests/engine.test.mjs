@@ -297,19 +297,22 @@ test("recommended options: systemic imidacloprid/dinotefuran first, the rest und
 });
 
 test("soil sample analysis: one-off with sample count, never scheduled", async () => {
-  const { siteProgramEntry, visitPlan } = await import("../web/engine.js");
+  const { siteProgramEntry, visitPlan, numberedVisits } = await import("../web/engine.js");
   const pe = siteProgramEntry(kb, { soilCare: true, soilAnalysis: true, soilSamples: 3 });
   const selected = new Set(pe.problems.flatMap((p) => defaultSelection(p).map((id) => selKey(pe.plant.uid, id))));
   assert.ok(selected.has(selKey(pe.plant.uid, "soil-sample-analysis")));
   const vp = visitPlan([pe], selected);
   assert.equal(vp.applications, 2); // soil care only
   assert.equal(vp.visits.length, 2);
-  assert.deepEqual(vp.anytime.map((a) => a.option.treatment.id), ["soil-sample-analysis"]);
+  assert.deepEqual(vp.asap.map((a) => a.option.treatment.id), ["soil-sample-analysis"]);
+  assert.deepEqual(vp.anytime, []);
+  assert.deepEqual(numberedVisits(vp).map((x) => `${x.n}:${x.kind}`), ["1:asap", "2:program", "3:program"]);
   assert.ok(!landscapeCalendar([pe], selected).some((c) => c.items.some((i) => i.option.treatment.oneOff)));
   assert.deepEqual(applicationTotals([pe], selected), { programs: 1, min: 2, max: 2 });
   const text = exportText(kb, site(), [pe], selected, "X");
   assert.ok(text.includes("One-time:") && text.includes("Samples: 3") && text.includes("[Soil sampling / lab analysis visit]"));
-  assert.ok(text.includes("Visit 3: One-time, no set timing") && text.includes("Soil sample analysis (3 samples)"));
+  assert.ok(text.includes("Visit 1: One-time · Schedule ASAP, before program visits begin") && text.includes("Soil sample analysis (3 samples)"));
+  assert.ok(text.indexOf("Visit 1: One-time") < text.indexOf("Visit 2:"));
   assert.equal(siteProgramEntry(kb, { soilAnalysis: true, soilSamples: "" }).problems[0].options[0].treatment.quantity, 1);
 });
 
@@ -328,6 +331,11 @@ test("visit framework: a window spanning several visits goes on the less-loaded 
   assert.deepEqual(item.alsoFits, [1, 3]);
   assert.equal(alsoFitsText(item), "⇄ also fits Visit 1, 3 · window Apr–Oct");
   assert.ok(vp.visits.every((v) => v.from <= v.slot && v.slot <= v.to));
+  // Soil sampling takes Visit 1, so program visit numbers shift by one.
+  const sampled = siteProgramEntry(kb, { soilCare: true, resilience: true, correction: true, soilAnalysis: true });
+  const sel2 = new Set([...sampled.problems.flatMap((p) => defaultSelection(p).map((id) => selKey(sampled.plant.uid, id))), selKey("b", moth)]);
+  const vp2 = visitPlan([box, sampled], sel2);
+  assert.deepEqual(vp2.visits.flatMap((v) => v.items).find((it) => it.option.treatment.id === moth).alsoFits, [2, 4]);
   const corr = vp.visits.flatMap((v) => v.items.filter((it) => it.option.treatment.id === "prescriptive-soil-correction").map(() => Math.floor(v.slot / 2) + 1));
   assert.ok(corr.length === 2 && corr[0] <= 5 && corr[1] >= 9, `correction months ${corr}`); // spring and fall
 });

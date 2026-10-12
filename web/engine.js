@@ -258,7 +258,7 @@ export const SITE_PROGRAMS = [
     key: "soilAnalysis", label: "Soil sample analysis", name: "Soil Sample Analysis", oneOff: true, quantityKey: "soilSamples", areasKey: "soilAreas",
     typeName: "Soil sampling / lab analysis visit",
     treatment: {
-      id: "soil-sample-analysis", title: "Soil sample analysis", applicationType: "diagnostic", oneOff: true,
+      id: "soil-sample-analysis", title: "Soil sample analysis", applicationType: "diagnostic", oneOff: true, asap: true,
       notes: ["Lab analysis of soil samples from the property; results guide soil care"],
     },
   },
@@ -459,12 +459,17 @@ export function visitPlan(entries, selected, counts = {}) {
   }
   visits.sort((a, b) => a.slot - b.slot);
   balanceVisits(visits);
-  // One-off items (soil sampling): a visit each with no window, booked in SingleOps at the arborist's discretion.
-  const anytime = [];
+  // One-off items: a visit each with no window. ASAP ones (soil sampling) come first, before program visits
+  // begin, so they take the first visit numbers; the rest follow, booked at the arborist's discretion.
+  const asap = [], anytime = [];
   for (const e of entries) for (const p of e.problems) for (const o of p.options) {
-    if (o.treatment.oneOff && !o.notAdvised && selected.has(selKey(e.plant.uid, o.treatment.id))) anytime.push({ plant: plantName(e), problem: p.condition.name, option: o });
+    if (o.treatment.oneOff && !o.notAdvised && selected.has(selKey(e.plant.uid, o.treatment.id))) {
+      (o.treatment.asap ? asap : anytime).push({ plant: plantName(e), problem: p.condition.name, option: o });
+    }
   }
+  if (asap.length) for (const v of visits) for (const it of v.items) it.alsoFits = it.alsoFits.map((n) => n + asap.length);
   return {
+    asap,
     visits,
     anytime,
     applications,
@@ -523,6 +528,17 @@ function balanceVisits(visits) {
 export const alsoFitsText = (it) => it.alsoFits?.length
   ? `⇄ also fits Visit ${it.alsoFits.join(", ")} · window ${describeMonths(it.option.treatment.months)}` : "";
 
+export const ASAP_TEXT = "Schedule ASAP, before program visits begin";
+
+/** Every visit in order with its number: ASAP one-offs, then the program visits, then other one-offs. */
+export function numberedVisits(vp) {
+  return [
+    ...vp.asap.map((a) => ({ kind: "asap", item: a })),
+    ...vp.visits.map((v) => ({ kind: "program", visit: v })),
+    ...vp.anytime.map((a) => ({ kind: "anytime", item: a })),
+  ].map((x, i) => ({ ...x, n: i + 1 }));
+}
+
 export function describeVisitWindow(v) {
   return v.from === v.to ? slotName(v.slot) : `${slotName(v.from)} – ${slotName(v.to)}`;
 }
@@ -573,16 +589,19 @@ export function exportText(kb, site, entries, selected, siteLabel = "", counts =
     }
   }
   const vp = visitPlan(entries, selected, counts);
-  if (vp.visits.length || vp.anytime.length) {
-    out.push("", `######## VISIT FRAMEWORK: ${vp.visits.length} SITE VISIT${vp.visits.length === 1 ? "" : "S"} (${vp.applications} APPLICATIONS)${vp.anytime.length ? ` + ${vp.anytime.length} ONE-TIME` : ""} ########`);
-    vp.visits.forEach((v, i) => {
-      out.push(`Visit ${i + 1}: ${slotName(v.slot)}${v.from !== v.to ? ` (flexible ${describeVisitWindow(v)})` : ""}`);
-      for (const it of v.items) out.push(`  - ${it.plant}: ${it.option.treatment.title} (${it.problem})${it.of > 1 ? ` [${it.n} of ${it.of}]` : ""}${it.alsoFits.length ? ` [${alsoFitsText(it)}; see annual calendar]` : ""}`);
-    });
-    vp.anytime.forEach((a, i) => {
-      out.push(`Visit ${vp.visits.length + i + 1}: One-time, no set timing (schedule at the arborist's discretion)`);
-      out.push(`  - ${a.plant}: ${anytimeLabel(a.option)} (${a.problem})`);
-    });
+  const oneTime = vp.asap.length + vp.anytime.length;
+  if (vp.visits.length || oneTime) {
+    out.push("", `######## VISIT FRAMEWORK: ${vp.visits.length} SITE VISIT${vp.visits.length === 1 ? "" : "S"} (${vp.applications} APPLICATIONS)${oneTime ? ` + ${oneTime} ONE-TIME` : ""} ########`);
+    for (const x of numberedVisits(vp)) {
+      if (x.kind === "program") {
+        const v = x.visit;
+        out.push(`Visit ${x.n}: ${slotName(v.slot)}${v.from !== v.to ? ` (flexible ${describeVisitWindow(v)})` : ""}`);
+        for (const it of v.items) out.push(`  - ${it.plant}: ${it.option.treatment.title} (${it.problem})${it.of > 1 ? ` [${it.n} of ${it.of}]` : ""}${it.alsoFits.length ? ` [${alsoFitsText(it)}; see annual calendar]` : ""}`);
+      } else {
+        out.push(`Visit ${x.n}: ${x.kind === "asap" ? `One-time · ${ASAP_TEXT}` : "One-time, no set timing (schedule at the arborist's discretion)"}`);
+        out.push(`  - ${x.item.plant}: ${anytimeLabel(x.item.option)} (${x.item.problem})`);
+      }
+    }
     for (const c of vp.compressed) out.push(`[!] ${c.plant}: ${c.option.treatment.title} does not fit its window at the stated spacing; scheduled as early as possible.`);
   }
   const cal = landscapeCalendar(entries, selected);
