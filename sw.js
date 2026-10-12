@@ -1,7 +1,7 @@
 // Offline cache. Bump VERSION whenever any file below changes so phones pick up the update.
-const VERSION = "phc-planner-v22";
+const VERSION = "phc-planner-v23";
 const FILES = [
-  "./", "index.html", "app.js", "engine.js", "logistics.js", "products.js", "report.js", "sitemap.js", "photos.js", "zip.js", "geo.js", "gps.js", "mapview.js", "manifest.webmanifest",
+  "./", "index.html", "app.js", "engine.js", "logistics.js", "products.js", "report.js", "sitemap.js", "photos.js", "zip.js", "geo.js", "gps.js", "mapview.js", "plans.js", "manifest.webmanifest",
   "vendor/jspdf.umd.min.js", "vendor/jspdf.plugin.autotable.min.js",
   "data/knowledge_base.json", "data/bases.json", "data/products.json", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png",
 ];

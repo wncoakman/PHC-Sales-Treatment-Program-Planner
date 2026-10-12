@@ -11,7 +11,8 @@ import { drawSiteMap } from "./sitemap.js";
 import { startGpsCapture } from "./gps.js";
 import { fineTuneMap } from "./mapview.js";
 import { parseCoords, WEAK_ACCURACY, ATTRIBUTION } from "./geo.js";
-import { shrinkPhoto, savePhoto, getPhoto, deletePhotos, clearPhotos, photoForPdf } from "./photos.js";
+import { shrinkPhoto, savePhoto, getPhoto, deletePhotos, photoForPdf } from "./photos.js";
+import { newPlanId, isBlankPlan, storePlan, loadPlan, deletePlan, listPlans, planPhotoIds } from "./plans.js";
 import { availableKeys, treatmentAvailable, productsFor, treatmentNeeds, productKeys } from "./products.js";
 
 const $view = document.getElementById("view");
@@ -66,6 +67,8 @@ let state = loadState();
 
 function defaultState() {
   return {
+    /** This landscape's id in the saved Plans list. */
+    planId: newPlanId(),
     siteLabel: "",
     inspectionDate: new Date().toLocaleDateString("en-CA"), // YYYY-MM-DD, local time
     /**
@@ -88,13 +91,32 @@ function defaultState() {
 function loadState() {
   try {
     const s = JSON.parse(localStorage.getItem(STORE_KEY));
-    if (s && Array.isArray(s.plants)) return { ...defaultState(), ...s, counts: s.counts || {}, programs: { ...defaultState().programs, ...s.programs }, site: { ...defaultState().site, ...s.site } };
+    if (s && Array.isArray(s.plants)) return withDefaults(s);
   } catch {}
   return defaultState();
 }
 
+/** A saved landscape filled out with any fields added since it was saved (older ones get a plan id). */
+function withDefaults(s) {
+  const d = defaultState();
+  return { ...d, ...s, planId: s.planId || d.planId, counts: s.counts || {}, programs: { ...d.programs, ...s.programs }, site: { ...d.site, ...s.site } };
+}
+
+/** Carry saved plants across data updates: follow renamed problems, drop hosts and problems that no longer exist. */
+function migratePlants(s) {
+  s.plants = s.plants.filter((p) => kb.hostById[p.hostId]);
+  for (const p of s.plants) p.conditionIds = p.conditionIds.map((id) => RENAMED[id] || id).filter((id) => kb.conditionById[id]);
+  return s;
+}
+
+/** Saves the open landscape, and keeps its copy in the Plans list up to date. */
 function save() {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch {}
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    storePlan(localStorage, state);
+  } catch {
+    toast("Phone storage is full: delete old plans to keep saving");
+  }
 }
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -161,7 +183,7 @@ function renderLandscape() {
     ${soilCareHtml()}
 
     <button class="primary" id="build" ${hasPlan() ? "" : "disabled"}>Build treatment plan</button>
-    <button class="link" id="clear">Start new landscape</button>`;
+    <button class="link newPlan" id="clear">+ Start new landscape <span class="small muted">(this one stays in Plans)</span></button>`;
 
   $view.querySelectorAll("details[data-sec]").forEach((d) => d.ontoggle = () => openSecs.set(d.dataset.sec, d.open));
   $view.querySelector("#siteLabel").oninput = (e) => { state.siteLabel = e.target.value; save(); };
@@ -196,16 +218,7 @@ function renderLandscape() {
   $view.querySelector("#inspectionDate").onchange = (e) => { state.inspectionDate = e.target.value; save(); };
   $view.querySelector("#leadNumber").oninput = (e) => { state.leadNumber = e.target.value.trim(); save(); };
   $view.querySelector("#build").onclick = () => { location.hash = "#result"; };
-  $view.querySelector("#clear").onclick = () => {
-    if (state.plants.length && !$view.querySelector("#clear").dataset.armed) {
-      const b = $view.querySelector("#clear");
-      b.dataset.armed = "1"; b.textContent = "Tap again to clear all plants";
-      return;
-    }
-    state = defaultState();
-    save(); renderLandscape();
-    clearPhotos().catch(() => {});
-  };
+  $view.querySelector("#clear").onclick = startNewPlan;
 }
 
 /** Soil Care programs, each with where it applies (or sample count and areas) once switched on. */
@@ -730,6 +743,47 @@ async function updateApp() {
   next.addEventListener("statechange", () => { if (next.state === "redundant") { toast("Update failed. Try again."); updateRequested = false; reset(); } });
 }
 
+// ---------- Bug reports ----------
+
+const FEEDBACK_EMAIL = "ian@rtectreecare.com";
+
+/**
+ * The bug report sheet: the user's description plus, if they agree, app details. Sending opens the phone's mail
+ * app with a draft addressed to FEEDBACK_EMAIL (no server; offline, the phone sends it once back in signal).
+ */
+function openBugReport() {
+  if (document.querySelector(".sheet")) return;
+  const screen = (location.hash || "#plan").slice(1).split("/")[0];
+  const sheet = document.createElement("div");
+  sheet.className = "sheet";
+  sheet.innerHTML = `<form>
+    <h2>Report a bug / feedback</h2>
+    <textarea id="bugText" placeholder="What happened, or what would you like changed? Steps to repeat a bug help." required></textarea>
+    <label class="row"><span class="small">Include app details (version, screen, device, number of plants)</span><input type="checkbox" id="bugDiag" checked></label>
+    <div class="buttons"><button type="button" class="secondary" id="bugCancel">Cancel</button><button type="submit" class="primary">Open email to send</button></div>
+    <p class="small muted">Opens your mail app with the report ready; tap Send there.</p>
+  </form>`;
+  document.body.append(sheet);
+  const close = () => sheet.remove();
+  sheet.onclick = (e) => { if (e.target === sheet) close(); };
+  sheet.querySelector("#bugCancel").onclick = close;
+  sheet.querySelector("#bugText").focus();
+  sheet.querySelector("form").onsubmit = async (ev) => {
+    ev.preventDefault();
+    const text = sheet.querySelector("#bugText").value.trim();
+    const version = await appVersion();
+    const details = sheet.querySelector("#bugDiag").checked ? [
+      "", "-- App details --",
+      `Version: ${version || "not installed"}`, `Screen: ${screen}`, `Online: ${navigator.onLine ? "yes" : "no"}`,
+      `Plants in open landscape: ${state.plants.length}`, `Time: ${new Date().toString()}`, `Device: ${navigator.userAgent}`,
+    ] : [];
+    const subject = `PHC Planner feedback${version ? ` (${version})` : ""}`;
+    const body = [text, ...details].join("\n");
+    location.href = `mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    close();
+  };
+}
+
 function toast(msg) {
   const t = document.createElement("div");
   t.className = "toast"; t.textContent = msg;
@@ -927,14 +981,69 @@ function renderMap(id) {
   overlay.querySelector("#mapGps")?.addEventListener("click", () => map.backToGps());
 }
 
+// ---------- Plans ----------
+
+function startNewPlan() {
+  const kept = !isBlankPlan(state);
+  state = defaultState();
+  save();
+  location.hash === "#plan" ? renderLandscape() : (location.hash = "#plan");
+  if (kept) toast("Previous landscape saved in Plans");
+}
+
+function renderPlans() {
+  setHeader("Plans", `<a href="#" id="newPlan">+ New</a>`);
+  $view.innerHTML = `<input type="search" id="q" placeholder="Search client, lead #, address, plant"><div id="list"></div>`;
+  const $list = $view.querySelector("#list");
+  const hostName = (id) => kb.hostById[id]?.name || id;
+  const when = (t) => new Date(t).toLocaleString([], { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" });
+  const draw = (q) => {
+    const plans = listPlans(localStorage, q, hostName);
+    $list.innerHTML = plans.map((p) => `
+      <div class="planRow">
+        <a class="item" href="#" data-open="${esc(p.id)}">
+          <b>${esc(p.client || "Unnamed prospect")}</b>${p.id === state.planId ? ` <span class="chip pref">Open</span>` : ""}<br>
+          <span class="small muted">${[p.lead && `Lead #${esc(p.lead)}`, p.date && `Inspected ${esc(p.date)}`, `${p.plants.length} plant${p.plants.length === 1 ? "" : "s"}`].filter(Boolean).join(" · ")}</span><br>
+          ${p.address ? `<span class="small muted">${esc(p.address)}</span><br>` : ""}
+          <span class="small muted">Edited ${esc(when(p.updatedAt))}</span>
+        </a>
+        <button class="link" data-del="${esc(p.id)}">Delete</button>
+      </div>`).join("")
+      || `<p class="small muted">${q ? "No plans match." : "No saved plans yet. Each landscape you start is saved here automatically."}</p>`;
+    $list.querySelectorAll("[data-open]").forEach((a) => a.onclick = (ev) => {
+      ev.preventDefault();
+      const id = a.dataset.open;
+      if (id !== state.planId) {
+        const s = loadPlan(localStorage, id);
+        if (!s) { toast("Couldn't open that plan"); draw($view.querySelector("#q").value); return; }
+        state = migratePlants(withDefaults(s));
+        save();
+      }
+      location.hash = "#plan";
+    });
+    $list.querySelectorAll("[data-del]").forEach((b) => b.onclick = () => {
+      if (!b.dataset.armed) { b.dataset.armed = "1"; b.textContent = "Tap again to delete"; return; }
+      const id = b.dataset.del;
+      deletePhotos(planPhotoIds(id === state.planId ? state : loadPlan(localStorage, id))).catch(() => {});
+      deletePlan(localStorage, id);
+      if (id === state.planId) { state = defaultState(); save(); }
+      toast("Plan deleted");
+      draw($view.querySelector("#q").value);
+    });
+  };
+  $view.querySelector("#q").oninput = (e) => draw(e.target.value);
+  $actions.querySelector("#newPlan").onclick = (ev) => { ev.preventDefault(); startNewPlan(); };
+  draw("");
+}
+
 function route() {
   const [name, arg] = (location.hash || "#plan").slice(1).split("/");
   gpsCapture?.stop();
   closeMap?.();
-  const tab = { plan: "plan", add: "plan", plant: "plan", map: "plan", result: "plan", library: "library", condition: "library", reference: "reference", ops: "reference" }[name] || "plan";
+  const tab = { plans: "plans", plan: "plan", add: "plan", plant: "plan", map: "plan", result: "plan", library: "library", condition: "library", reference: "reference", ops: "reference" }[name] || "plan";
   document.querySelectorAll("nav.tabs a").forEach((a) => a.classList.toggle("on", a.dataset.tab === tab));
   ({
-    add: renderAddPlant, plant: () => renderPlant(arg), map: () => renderMap(arg), result: renderResult,
+    plans: renderPlans, add: renderAddPlant, plant: () => renderPlant(arg), map: () => renderMap(arg), result: renderResult,
     library: renderLibrary, condition: () => renderCondition(arg), reference: renderReference, ops: renderOps,
   }[name] || renderLandscape)();
   window.scrollTo(0, 0);
@@ -947,15 +1056,15 @@ async function start() {
     $view.innerHTML = `<p>Could not load the knowledge base. Connect once to install the offline copy.</p>`;
     return;
   }
-  // Carry saved plants across data updates: follow renamed problems, drop ones that no longer exist.
-  state.plants = state.plants.filter((p) => kb.hostById[p.hostId]);
-  for (const p of state.plants) p.conditionIds = p.conditionIds.map((id) => RENAMED[id] || id).filter((id) => kb.conditionById[id]);
+  migratePlants(state);
+  save(); // also files a landscape from before the Plans list into it
   try { bases = await (await fetch("data/bases.json")).json(); } catch {}
   try { listProducts = (await (await fetch("data/products.json")).json()).products || []; } catch {}
   products = [...listProducts, ...customProducts];
   window.addEventListener("online", runLogistics);
   runLogistics();
   document.getElementById("update").onclick = updateApp;
+  document.getElementById("bug").onclick = openBugReport;
   window.addEventListener("hashchange", route);
   route();
   if ("serviceWorker" in navigator) {
