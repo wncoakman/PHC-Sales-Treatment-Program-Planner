@@ -28,6 +28,13 @@
   header button#update { font:inherit; font-size:14px; font-weight:600; color:var(--accent); background:none;
          border:1px solid var(--accent); border-radius:14px; padding:3px 10px; white-space:nowrap; }
   header button#update:disabled { opacity:.6; }
+  header button#bug { font-size:17px; line-height:1; background:none; border:1px solid var(--line); border-radius:14px; padding:3px 8px; }
+  .sheet { position:fixed; inset:0; z-index:12; background:rgba(0,0,0,.45); display:flex; align-items:flex-end; justify-content:center; }
+  .sheet form { background:var(--bg); width:100%; max-width:560px; border-radius:14px 14px 0 0; padding:16px 16px calc(16px + env(safe-area-inset-bottom)); }
+  .sheet h2 { margin:0 0 8px; }
+  .sheet textarea { width:100%; min-height:130px; font:inherit; padding:8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); }
+  .sheet .row { border:0; padding:6px 0; }
+  .sheet .buttons { display:flex; gap:8px; } .sheet .buttons > * { flex:1; margin:8px 0 0; }
   main { padding: 8px 16px 24px; max-width: 760px; margin: 0 auto; }
   nav.tabs { position:fixed; bottom:0; left:0; right:0; display:flex; background:var(--alt); border-top:1px solid var(--line);
              padding-bottom: env(safe-area-inset-bottom); z-index:2; }
@@ -138,15 +145,21 @@
   .mapGps { position:absolute; left:50%; transform:translateX(-50%); bottom:calc(40px + env(safe-area-inset-bottom)); }
   .mapCredit { position:absolute; right:6px; bottom:calc(6px + env(safe-area-inset-bottom)); font-size:10px;
          background:rgba(255,255,255,.75); color:#333; padding:1px 5px; border-radius:3px; }
+  .planRow { display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--line); }
+  .planRow a.item { flex:1; border-bottom:0; }
+  .planRow a.item::after { content:none; }
+  .planRow button.link { font-size:14px; white-space:nowrap; }
+  button.newPlan { color:var(--accent); font-weight:600; }
   .warn { color:var(--caution); } .okText { color:var(--ok); }
   pre { white-space:pre-wrap; font-size:13px; background:var(--alt); padding:10px; border-radius:8px; }
   .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:8px 14px; border-radius:8px; font-size:14px; }
 </style>
 </head>
 <body>
-<header><h1 id="title">PHC Planner</h1><span id="actions"></span><button id="update" aria-label="Update app to the latest version">↻ Update</button></header>
+<header><h1 id="title">PHC Planner</h1><span id="actions"></span><button id="bug" aria-label="Report a bug or send feedback">🐞</button><button id="update" aria-label="Update app to the latest version">↻ Update</button></header>
 <main id="view"><p>Loading…</p></main>
 <nav class="tabs">
+  <a href="#plans" data-tab="plans">Plans</a>
   <a href="#plan" data-tab="plan">Landscape</a>
   <a href="#library" data-tab="library">Library</a>
   <a href="#reference" data-tab="reference">Reference</a>
