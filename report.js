@@ -48,8 +48,9 @@ export function reportData(kb, { site, job = {}, plants = [], entries, selected,
     String(p.qty || 1),
     blank(p.dbh) ? "" : `${p.dbh} in.`,
     blank(p.crownLoss) ? "" : `${p.crownLoss}%`,
-    [p.label?.trim(), p.gps ? gpsLine(p.gps) : "No GPS position", p.photos?.length ? `Photos: ${photoLabel(i + 1)}` : ""].filter(Boolean).join("\n"),
-    p.conditionIds.map((id) => kb.conditionById[id]?.name).filter(Boolean).join(", ") || "None noted",
+    [p.label?.trim(), p.gps ? gpsLine(p.gps) : "No GPS position", p.photos?.length ? `Photos: ${photoLabel(i + 1)}` : "",
+      !blank(p.notes) ? `Arborist notes: ${p.notes.trim()}` : ""].filter(Boolean).join("\n"),
+    [...p.conditionIds.map((id) => kb.conditionById[id]?.name).filter(Boolean), ...(p.customProblems || [])].join(", ") || "None noted",
   ]);
   const mapPoints = plants.map((p, i) => p.gps && { n: i + 1, lat: p.gps.lat, lng: p.gps.lng, label: `${photoLabel(i + 1)} ${species(p)}` }).filter(Boolean);
   const coordinates = coordinateExports(plants.map((p, i) => ({
@@ -88,7 +89,7 @@ export function reportData(kb, { site, job = {}, plants = [], entries, selected,
         for (const f of o.flags) if (f.level !== "info") notes.add(f.text);
       }
     }
-    return { name: plantName(e), rows, notes: [...notes] };
+    return { name: plantName(e), rows, notes: [...notes], customProblems: e.plant.customProblems || [], plantNotes: e.plant.notes?.trim() || "" };
   });
 
   const visits = numberedVisits(vp).map((x) => {
@@ -112,7 +113,7 @@ export function reportData(kb, { site, job = {}, plants = [], entries, selected,
 
   const jobRows = [
     ["Client", job.clientName], ["SingleOps lead #", job.leadNumber], ["Inspection date", job.inspectionDate],
-    ["Work address", site.address], ["Jurisdiction", site.jurisdiction],
+    ["Work address", site.address], ["Jurisdiction", site.jurisdiction], ["Arborist notes (program stage)", job.programNotes],
   ].filter(([, v]) => !blank(v)).map(([k, v]) => [k, String(v)]);
 
   return { filename: reportFilename(job), title: "PHC Program", jobRows, summary, inventory, mapPoints, coordinates, photoGroups, plan, visits, compressed, disclaimer: kb.meta.disclaimer };
@@ -212,7 +213,9 @@ export function renderReport(jsPDF, autoTable, data, assets = {}) {
     if (p.rows.length) {
       table(["Problem", "Treatment", "Method", "Apps/yr", "Timing", "Products"], p.rows,
         { columnStyles: { 0: { cellWidth: 85 }, 1: { cellWidth: 127 }, 2: { cellWidth: 80 }, 3: { cellWidth: 46, halign: "center" }, 4: { cellWidth: 90 } } });
-    } else para("No treatment selected.");
+    } else if (!p.customProblems.length && !p.plantNotes) para("No treatment selected.");
+    for (const t of p.customProblems) para(`- ${t} (not in knowledge base; no treatment suggested)`, { size: 8 });
+    if (p.plantNotes) para(`Arborist notes: ${p.plantNotes}`, { size: 8 });
     for (const n of p.notes) para(`! ${n}`, { size: 8 });
     y += 4;
   }
