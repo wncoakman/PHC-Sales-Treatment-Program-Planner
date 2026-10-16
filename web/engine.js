@@ -572,11 +572,14 @@ export function exportText(kb, site, entries, selected, siteLabel = "", counts =
   if (job.inspectionDate) out.push(`Site inspection date: ${job.inspectionDate}`);
   const factors = [site.nearWater && "near water", site.sensitiveSite && "school/daycare/park", site.publicProperty && "public property"].filter(Boolean);
   out.push(`Jurisdiction: ${site.jurisdiction}${factors.length ? ` · ${factors.join(", ")}` : ""}`);
+  if (!blank(job.programNotes)) out.push(`Arborist notes (program stage): ${job.programNotes.trim()}`);
 
   for (const e of entries) {
     out.push("", `######## ${plantName(e).toUpperCase()} ########`);
     const sz = [!blank(e.plant.dbh) && `DBH ${e.plant.dbh} in.`, !blank(e.plant.crownLoss) && `crown loss ${e.plant.crownLoss}%`].filter(Boolean);
     if (sz.length) out.push(sz.join(" · "));
+    for (const t of e.plant.customProblems || []) out.push(`== ${t} (not in knowledge base) ==`);
+    if (!blank(e.plant.notes)) out.push(`Arborist notes: ${e.plant.notes.trim()}`);
     for (const p of e.problems) {
       out.push("", `== ${p.condition.name} ==`);
       for (const f of p.flags) out.push(`${MARK[f.level]} ${f.text}`);

@@ -30,7 +30,13 @@ const savedProducts = loadSavedProducts();
 let unavailableProducts = new Set(savedProducts.unavailable || []);
 /** Products added on this device: [{ name, activeIngredient, custom: true }]. */
 let customProducts = (savedProducts.custom || []).map((p) => ({ ...p, custom: true }));
-/** The product list plus products added on this device. */
+/** kb-derived product names already shown once before, so a newly-added knowledge-base ingredient defaults to
+ * unavailable (opt-in) while one the user already decided on keeps their choice across reloads. */
+let seenKbProducts = new Set(savedProducts.seenKb || []);
+/** One stand-in product per knowledge-base ingredient not already covered by a stocked product: lets the user
+ * opt in to a treatment even when it isn't on the real product list. Computed once kb and listProducts are loaded. */
+let kbProducts = [];
+/** The stocked list, plus kb stand-ins, plus products added on this device. */
 let products = [];
 let productsPanelOpen = false;
 
@@ -39,18 +45,35 @@ function loadSavedProducts() {
 }
 
 function saveUnavailableProducts() {
-  products = [...listProducts, ...customProducts];
+  products = [...listProducts, ...kbProducts, ...customProducts];
   const custom = customProducts.map(({ name, activeIngredient }) => ({ name, activeIngredient }));
-  try { localStorage.setItem(PRODUCTS_KEY, JSON.stringify({ unavailable: [...unavailableProducts], custom })); } catch {}
+  try {
+    localStorage.setItem(PRODUCTS_KEY, JSON.stringify({ unavailable: [...unavailableProducts], custom, seenKb: [...seenKbProducts] }));
+  } catch {}
 }
 
-/** Ingredient names the treatments use, offered as suggestions when adding a product. */
+/** Ingredient keys every chemical treatment in the kb needs, used both as "add a product" suggestions and to
+ * generate a stand-in product for any ingredient the real stocked list doesn't cover. */
 let ingredientSuggestions;
 function ingredientNames() {
   ingredientSuggestions ||= [...new Set(kb.conditions.flatMap((c) => c.treatments)
     .filter((t) => mitigationOf(t.applicationType) === "chemical")
     .flatMap((t) => { const n = treatmentNeeds(t.title); return [...n.alternatives.flat(), ...n.also]; }))].sort();
   return ingredientSuggestions;
+}
+
+const titleCase = (s) => s.replace(/(^|[\s/-])\w/g, (c) => c.toUpperCase());
+
+/**
+ * One stand-in product per kb ingredient key the stocked list (listProducts) doesn't already supply, so every
+ * knowledge-base treatment can be made selectable even without a matching real product. Newly-seen ones default
+ * to unavailable (added to unavailableProducts) the first time they're computed; a user's later choice persists.
+ */
+function computeKbProducts() {
+  const have = new Set(listProducts.flatMap(productKeys));
+  const kbp = ingredientNames().filter((key) => !have.has(key)).map((key) => ({ name: titleCase(key), activeIngredient: key, kb: true }));
+  for (const p of kbp) if (!seenKbProducts.has(p.name)) { unavailableProducts.add(p.name); seenKbProducts.add(p.name); }
+  return kbp;
 }
 
 /** Marks chemical options no switched-on product can supply (skipped if the product list did not load). */
@@ -75,7 +98,7 @@ function defaultState() {
      * Soil Care programs (definitions in engine SITE_PROGRAMS): on/off by key, sample count and areas,
      * scope: key -> SOIL_SCOPES id, targets: key -> plant uids when the scope is "specific".
      */
-    programs: { soilCare: false, resilience: false, correction: false, soilAnalysis: false, soilSamples: 1, soilAreas: "", scope: {}, targets: {} },
+    programs: { soilCare: false, resilience: false, correction: false, soilAnalysis: false, soilSamples: 1, soilAreas: "", scope: {}, targets: {}, notes: "" },
     leadNumber: "",
     site: { address: "", jurisdiction: "VA", nearWater: false, sensitiveSite: false, publicProperty: false },
     /** Backstage job logistics for the work address (closest base, drive-time band). Not shown in the plan. */
@@ -170,17 +193,20 @@ function renderLandscape() {
     </details>
 
     <h2>Plants (${state.plants.length})</h2>
-    ${state.plants.map((p) => `
+    ${state.plants.map((p) => {
+      const names = [...p.conditionIds.map((id) => kb.conditionById[id]?.name).filter(Boolean), ...(p.customProblems || [])];
+      return `
       <a class="item" href="#plant/${p.uid}">
-        <b>${esc(plantName({ plant: p, host: kb.hostById[p.hostId] }))}</b>${p.photos?.length ? ` <span class="small muted">📷${p.photos.length}</span>` : ""}${p.gps ? ` <span class="small muted">📍</span>` : ""}<br>
-        <span class="small ${p.conditionIds.length ? "muted" : "status-outOfWindow"}">${p.conditionIds.length
-          ? esc(p.conditionIds.map((id) => kb.conditionById[id]?.name).filter(Boolean).join(", "))
-          : "No problems selected"}</span>
-      </a>`).join("") || `<p class="small muted">Add each tree or ornamental in the landscape, then choose its problems.</p>`}
+        <b>${esc(plantName({ plant: p, host: kb.hostById[p.hostId] }))}</b>${p.photos?.length ? ` <span class="small muted">📷${p.photos.length}</span>` : ""}${p.gps ? ` <span class="small muted">📍</span>` : ""}${p.notes?.trim() ? ` <span class="small muted">📝</span>` : ""}<br>
+        <span class="small ${names.length ? "muted" : "status-outOfWindow"}">${names.length ? esc(names.join(", ")) : "No problems selected"}</span>
+      </a>`;
+    }).join("") || `<p class="small muted">Add each tree or ornamental in the landscape, then choose its problems.</p>`}
     <a class="primary" href="#add">+ Add plant</a>
 
     <h2>Soil Care · last step</h2>
     ${soilCareHtml()}
+    <label class="row" style="align-items:flex-start"><span>Arborist notes <span class="small muted">(program stage)</span></span>
+      <textarea id="programNotes" rows="3" placeholder="Notes about the overall program, not tied to one plant" style="flex:1">${esc(state.programs.notes)}</textarea></label>
 
     <button class="primary" id="build" ${hasPlan() ? "" : "disabled"}>Build treatment plan</button>
     <button class="link newPlan" id="clear">+ Start new landscape <span class="small muted">(this one stays in Plans)</span></button>`;
@@ -215,6 +241,7 @@ function renderLandscape() {
     state.programs[i.dataset.programAreas] = i.value;
     save();
   });
+  $view.querySelector("#programNotes").oninput = (e) => { state.programs.notes = e.target.value; save(); };
   $view.querySelector("#inspectionDate").onchange = (e) => { state.inspectionDate = e.target.value; save(); };
   $view.querySelector("#leadNumber").oninput = (e) => { state.leadNumber = e.target.value.trim(); save(); };
   $view.querySelector("#build").onclick = () => { location.hash = "#result"; };
@@ -251,7 +278,7 @@ function renderAddPlant() {
       || `<p class="muted">No matches.</p>`;
     $list.querySelectorAll("[data-h]").forEach((a) => a.onclick = (ev) => {
       ev.preventDefault();
-      const p = { uid: uid(), hostId: a.dataset.h, label: "", qty: 1, dbh: "", crownLoss: "", conditionIds: [], photos: [], gps: null };
+      const p = { uid: uid(), hostId: a.dataset.h, label: "", qty: 1, dbh: "", crownLoss: "", conditionIds: [], customProblems: [], notes: "", photos: [], gps: null };
       state.plants.push(p);
       save();
       location.hash = `#plant/${p.uid}`;
@@ -305,6 +332,14 @@ function renderPlant(id) {
     <label class="row"><span>DBH (in., optional)</span><input type="number" inputmode="decimal" min="0" id="dbh" value="${esc(p.dbh)}"></label>
     <label class="row" id="crownRow" style="${needsCrown() ? "" : "display:none"}"><span>Crown loss (%)</span>
       <input type="number" inputmode="numeric" min="0" max="100" id="crownLoss" value="${esc(p.crownLoss)}"></label>
+
+    <label class="row" style="align-items:flex-start"><span>Arborist notes</span>
+      <textarea id="plantNotes" rows="3" placeholder="Notes for this plant, e.g. follow-up to confirm diagnosis" style="flex:1">${esc(p.notes)}</textarea></label>
+
+    <h2>Problems not listed below</h2>
+    ${(p.customProblems || []).map((t, i) => `<div class="row"><span>${esc(t)}</span><button class="link" data-del-custom="${i}">Remove</button></div>`).join("")
+      || `<p class="small muted">Add a plant problem the app doesn't suggest.</p>`}
+    <form id="addCustom" class="row"><input type="text" id="customProblem" placeholder="e.g. Storm damage to leader" style="flex:1"><button class="secondary" type="submit">Add</button></form>
 
     <h2>Common on ${esc(host.name)}</h2>
     ${common.map(problemRow).join("")}
@@ -386,6 +421,23 @@ function renderPlant(id) {
   $view.querySelector("#qty").oninput = (e) => { p.qty = Math.max(1, parseInt(e.target.value) || 1); save(); };
   $view.querySelector("#dbh").oninput = (e) => { p.dbh = e.target.value; save(); };
   $view.querySelector("#crownLoss").oninput = (e) => { p.crownLoss = e.target.value; save(); };
+  $view.querySelector("#plantNotes").oninput = (e) => { p.notes = e.target.value; save(); };
+  const redrawPlant = () => { const y = window.scrollY; renderPlant(id); window.scrollTo(0, y); };
+  $view.querySelectorAll("[data-del-custom]").forEach((b) => b.onclick = () => {
+    const i = Number(b.dataset.delCustom);
+    p.customProblems = (p.customProblems || []).filter((_, idx) => idx !== i);
+    save();
+    redrawPlant();
+  });
+  $view.querySelector("#addCustom").onsubmit = (ev) => {
+    ev.preventDefault();
+    const $input = $view.querySelector("#customProblem");
+    const text = $input.value.trim();
+    if (!text) return;
+    p.customProblems = [...(p.customProblems || []), text];
+    save();
+    redrawPlant();
+  };
   $view.querySelectorAll("[data-c]").forEach((cb) => cb.onchange = () => {
     const cid = cb.dataset.c;
     p.conditionIds = cb.checked ? [...p.conditionIds, cid] : p.conditionIds.filter((x) => x !== cid);
@@ -456,10 +508,10 @@ function optionHtml(plantUid, o, selected) {
     </div>`;
 }
 
-const hasPlan = () => state.plants.some((p) => p.conditionIds.length) || SITE_PROGRAMS.some((p) => state.programs[p.key]);
+const hasPlan = () => state.plants.some((p) => p.conditionIds.length || (p.customProblems || []).length) || SITE_PROGRAMS.some((p) => state.programs[p.key]);
 
 function renderResult() {
-  const plants = state.plants.filter((p) => p.conditionIds.length);
+  const plants = state.plants.filter((p) => p.conditionIds.length || (p.customProblems || []).length);
   if (!hasPlan()) { location.hash = "#plan"; return; }
   setHeader("Treatment Plan", `<a href="#plan">Edit</a>`);
   const entries = planLandscape(kb, state.site, plants);
@@ -496,13 +548,16 @@ function renderResult() {
       ${cult.length ? `<details class="alts" ${sec(`c:${id}`, cult.some((o) => selected.has(selKey(e.plant.uid, o.treatment.id))))}><summary>Cultural (${cult.length})</summary>${opts(cult)}</details>` : ""}`;
   };
   const plantHtml = (e) => {
+    const custom = e.plant.customProblems || [];
     const keys = e.problems.flatMap((p) => p.options.map((o) => selKey(e.plant.uid, o.treatment.id)));
     const n = keys.filter((k) => selected.has(k)).length;
     const stop = e.problems.some((p) => p.flags.some((f) => f.level === "stop") || p.options.some((o) => o.notAdvised && selected.has(selKey(e.plant.uid, o.treatment.id))));
-    const names = e.problems.map((p) => p.condition.name).join(", ");
+    const names = [...e.problems.map((p) => p.condition.name), ...custom].join(", ");
     return `<details class="plant" ${sec(`p:${e.plant.uid}`)}>
       <summary><span class="name">${stop ? `<span class="status-notAdvised">⛔</span> ` : ""}${esc(plantName(e))}</span>
         <span class="small muted">${n ? `${n} selected` : `<span class="status-outOfWindow">none selected</span>`} · ${esc(names)}</span></summary>
+      ${custom.length ? `<h4>Other problems noted</h4><ul class="small">${custom.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+      ${e.plant.notes?.trim() ? `<div class="small muted"><b>Arborist notes:</b> ${esc(e.plant.notes.trim())}</div>` : ""}
       ${e.problems.map((p) => problemHtml(e, p)).join("")}
     </details>`;
   };
@@ -511,6 +566,7 @@ function renderResult() {
 
   $view.innerHTML = `
     <div class="jobline small muted">${job}<br>${esc(state.site.address || "No work address")} · ${state.site.jurisdiction}</div>
+    ${state.programs.notes?.trim() ? `<div class="small muted"><b>Arborist notes (program stage):</b> ${esc(state.programs.notes.trim())}</div>` : ""}
     ${stats ? `<div class="stats">${stats} <a data-jump="visits">visits ↓</a></div>` : ""}
 
     <h2>Treatments <span class="hint">tap a plant to review</span></h2>
@@ -606,7 +662,7 @@ function renderResult() {
   });
   $view.querySelector("#pdf").onclick = (ev) => exportReport(ev.currentTarget, entries, selected);
   $view.querySelector("#zip").onclick = (ev) => exportReport(ev.currentTarget, entries, selected, { zip: true });
-  $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel, state.counts, { inspectionDate: state.inspectionDate, leadNumber: state.leadNumber }));
+  $view.querySelector("#share").onclick = () => sharePlan(exportText(kb, state.site, entries, selected, state.siteLabel, state.counts, { inspectionDate: state.inspectionDate, leadNumber: state.leadNumber, programNotes: state.programs.notes }));
 }
 
 // The PDF library (~450 KB) loads on first export, not at startup; the service worker keeps it for offline use.
@@ -644,7 +700,7 @@ async function exportReport(button, entries, selected, { zip = false } = {}) {
     const { jsPDF, autoTable } = await pdfLibrary();
     const data = reportData(kb, {
       site: state.site, plants: state.plants, entries, selected, counts: state.counts, productsOf: stockedProducts,
-      job: { clientName: state.siteLabel, leadNumber: state.leadNumber, inspectionDate: state.inspectionDate },
+      job: { clientName: state.siteLabel, leadNumber: state.leadNumber, inspectionDate: state.inspectionDate, programNotes: state.programs.notes },
     });
     button.textContent = data.mapPoints.length ? "Building site map…" : "Building PDF…";
     const siteMap = await drawSiteMap(data.mapPoints);
@@ -683,7 +739,9 @@ function productsPanelHtml() {
   const on = products.filter((p) => !unavailableProducts.has(p.name)).length;
   return `<section id="products">
     <h2>Available products (${on} of ${products.length})</h2>
-    <p class="small muted">Unchecked products are out of stock: treatments no checked product supplies cannot be selected above.</p>
+    <p class="small muted">Unchecked products are out of stock: treatments no checked product supplies cannot be selected above.
+      Entries marked "Not on the stocked product list" cover every knowledge-base ingredient without a matching stocked product
+      so you can still opt in from the field if the active ingredient is actually available; they start unchecked.</p>
     <form id="addProduct" class="addProduct">
       <div class="title">Add a product</div>
       <input type="text" id="newProductName" placeholder="Product name" autocomplete="off">
@@ -697,6 +755,7 @@ function productsPanelHtml() {
     ${[...products].sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" })).map((p) => `
       <label class="row"><input type="checkbox" data-product="${esc(p.name)}" ${unavailableProducts.has(p.name) ? "" : "checked"}>
         <span><b>${esc(p.name)}</b><br><span class="small muted">${esc(p.activeIngredient)}</span>
+          ${p.kb ? `<br><span class="chip">Not on the stocked product list</span>` : ""}
           ${p.custom ? `<br><span class="chip">Added on this device</span>${productKeys(p).some((k) => ingredientNames().includes(k)) ? ""
             : ` <span class="small status-outOfWindow">Matches no treatment ingredient</span>`}` : ""}</span>
         ${p.custom ? `<button class="link" data-remove-product="${esc(p.name)}">Remove</button>` : ""}</label>`).join("")}
@@ -1060,7 +1119,8 @@ async function start() {
   save(); // also files a landscape from before the Plans list into it
   try { bases = await (await fetch("data/bases.json")).json(); } catch {}
   try { listProducts = (await (await fetch("data/products.json")).json()).products || []; } catch {}
-  products = [...listProducts, ...customProducts];
+  kbProducts = computeKbProducts();
+  saveUnavailableProducts();
   window.addEventListener("online", runLogistics);
   runLogistics();
   document.getElementById("update").onclick = updateApp;
