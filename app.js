@@ -19,6 +19,9 @@ const $view = document.getElementById("view");
 const $title = document.getElementById("title");
 const $actions = document.getElementById("actions");
 const STORE_KEY = "phc-landscape-v1";
+/* Field guide and recorded walkthrough for this app. Opens in a browser; needs a connection,
+   so it sits apart from the offline workflow rather than inside it. */
+const GUIDE_URL = "https://claude.ai/code/artifact/86dc04fe-36eb-40c4-a1f1-8632cdf6cf37";
 const OPS_LOG_KEY = "phc-ops-log";
 /** Company-wide product availability (kept apart from the landscape so "Start new landscape" keeps it). */
 const PRODUCTS_KEY = "phc-products-v1";
@@ -209,7 +212,8 @@ function renderLandscape() {
       <textarea id="programNotes" rows="3" placeholder="Notes about the overall program, not tied to one plant" style="flex:1">${esc(state.programs.notes)}</textarea></label>
 
     <button class="primary" id="build" ${hasPlan() ? "" : "disabled"}>Build treatment plan</button>
-    <button class="link newPlan" id="clear">+ Start new landscape <span class="small muted">(this one stays in Plans)</span></button>`;
+    <button class="link newPlan" id="clear">+ Start new landscape <span class="small muted">(this one stays in Plans)</span></button>
+    <a class="secondary" href="${GUIDE_URL}" target="_blank" rel="noopener">📖 Field guide &amp; walkthrough <span class="small muted" style="font-weight:400">· opens online</span></a>`;
 
   $view.querySelectorAll("details[data-sec]").forEach((d) => d.ontoggle = () => openSecs.set(d.dataset.sec, d.open));
   $view.querySelector("#siteLabel").oninput = (e) => { state.siteLabel = e.target.value; save(); };
