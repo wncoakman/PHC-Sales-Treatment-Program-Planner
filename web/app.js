@@ -19,9 +19,10 @@ const $view = document.getElementById("view");
 const $title = document.getElementById("title");
 const $actions = document.getElementById("actions");
 const STORE_KEY = "phc-landscape-v1";
-/* Field guide and recorded walkthrough for this app. Opens in a browser; needs a connection,
-   so it sits apart from the offline workflow rather than inside it. */
-const GUIDE_URL = "https://claude.ai/code/artifact/86dc04fe-36eb-40c4-a1f1-8632cdf6cf37";
+/* Field guide and recorded walkthrough, served next to the app at ./guide/. Not precached
+   by the service worker (the recordings are megabytes), so it needs a connection — which is
+   why it sits apart from the offline workflow rather than inside it. */
+const GUIDE_URL = "./guide/";
 const OPS_LOG_KEY = "phc-ops-log";
 /** Company-wide product availability (kept apart from the landscape so "Start new landscape" keeps it). */
 const PRODUCTS_KEY = "phc-products-v1";
