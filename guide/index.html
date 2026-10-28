@@ -1,0 +1,1172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="RTEC Treecare field SOP for the PHC Planner: recording the landscape, the export bundle, the OneDrive hand-off and the SingleOps program.">
+<meta name="theme-color" content="#2f6b3a">
+<link rel="apple-touch-icon" href="../icons/icon-180.png">
+<style>
+  html{color-scheme:light dark}
+  body{margin:0}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+  /* back to the app, for anyone who opened this in the same window */
+  .backlink{
+    position:fixed; left:12px; bottom:12px; z-index:60;
+    font:600 12.5px/1 "Archivo","Segoe UI",system-ui,sans-serif; letter-spacing:.04em;
+    text-transform:uppercase; text-decoration:none;
+    background:var(--surface,#fff); color:var(--brand,#2f6b3a);
+    border:1px solid var(--line,#d8e2db); border-radius:999px; padding:10px 15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.14);
+  }
+</style>
+<title>PHC Planner Walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+:root{
+  --ground:#f3f7f4; --surface:#ffffff; --surface-2:#e9efea; --surface-3:#dee7e0;
+  --ink:#111a14; --ink-2:#47584c; --ink-3:#6c8075;
+  --line:#d8e2db; --line-2:#bccbc1;
+  --brand:#2f6b3a; --brand-deep:#235530; --brand-wash:#e4efe6;
+  --warn:#a5560a; --warn-wash:#fcf2e4; --warn-line:#e9cfa8;
+  --ok:#15723f; --ok-wash:#e8f3ec; --ok-line:#bcdcc7;
+  --shadow:0 1px 2px rgba(17,26,20,.05), 0 8px 24px -12px rgba(17,26,20,.18);
+
+  --display:"Archivo", "Segoe UI", system-ui, sans-serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0b110d; --surface:#141d17; --surface-2:#1a2520; --surface-3:#212e26;
+    --ink:#e6efe8; --ink-2:#a6b8ac; --ink-3:#82958a;
+    --line:#27342c; --line-2:#36473c;
+    --brand:#7fbf8a; --brand-deep:#9fd3a8; --brand-wash:#15291b;
+    --warn:#e2a861; --warn-wash:#2a2015; --warn-line:#4b3a22;
+    --ok:#68c492; --ok-wash:#132619; --ok-line:#2a4a35;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0b110d; --surface:#141d17; --surface-2:#1a2520; --surface-3:#212e26;
+  --ink:#e6efe8; --ink-2:#a6b8ac; --ink-3:#82958a;
+  --line:#27342c; --line-2:#36473c;
+  --brand:#7fbf8a; --brand-deep:#9fd3a8; --brand-wash:#15291b;
+  --warn:#e2a861; --warn-wash:#2a2015; --warn-line:#4b3a22;
+  --ok:#68c492; --ok-wash:#132619; --ok-line:#2a4a35;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1160px; margin:0 auto; padding:0 24px}
+.prose{max-width:66ch}
+h1,h2,h3,h4{font-family:var(--display); font-weight:700; line-height:1.18; text-wrap:balance; margin:0}
+p{margin:0}
+a{color:var(--brand-deep); text-decoration-thickness:1px; text-underline-offset:2px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--brand); outline-offset:3px; border-radius:3px}
+code,.mono{font-family:var(--mono); font-size:.86em; font-variant-ligatures:none}
+.tnum{font-variant-numeric:tabular-nums}
+img{max-width:100%}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:40; background:var(--ground);
+  background:color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
+}
+.topbar .wrap{display:flex; align-items:center; gap:20px; min-height:52px; flex-wrap:wrap}
+.topbar strong{font-family:var(--display); font-size:14px; letter-spacing:.01em; white-space:nowrap}
+.navlinks{display:flex; gap:16px; flex-wrap:wrap; margin-left:auto}
+.navlinks a{
+  font-family:var(--display); font-size:12.5px; font-weight:500; letter-spacing:.04em;
+  text-transform:uppercase; color:var(--ink-3); text-decoration:none; white-space:nowrap;
+}
+.navlinks a:hover{color:var(--brand-deep)}
+
+/* ---------- masthead ---------- */
+.masthead{padding:52px 0 36px; border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:var(--display); font-size:12px; font-weight:600; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--brand); margin-bottom:14px;
+}
+.masthead h1{font-size:clamp(34px,5vw,52px); letter-spacing:-.022em}
+.masthead .lede{margin-top:18px; font-size:19px; color:var(--ink-2); max-width:62ch}
+.jobline{
+  margin-top:26px; display:inline-flex; flex-wrap:wrap; gap:8px 14px; align-items:baseline;
+  font-family:var(--mono); font-size:12.5px; color:var(--ink-2);
+  background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--brand);
+  padding:11px 16px;
+}
+.jobline b{color:var(--ink); font-weight:500}
+
+.roles{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); margin-top:30px}
+.role{border-top:2px solid var(--line-2); padding-top:12px}
+.role h4{font-size:13px; letter-spacing:.07em; text-transform:uppercase; color:var(--brand)}
+.role p{font-size:15px; color:var(--ink-2); margin-top:5px}
+
+/* ---------- sections ---------- */
+section{padding:64px 0; border-bottom:1px solid var(--line)}
+.sechead{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:10px}
+.sechead h2{font-size:clamp(25px,3.2vw,34px); letter-spacing:-.016em}
+.sechead .tag{
+  font-family:var(--display); font-size:11.5px; font-weight:600; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3); border:1px solid var(--line-2);
+  padding:3px 9px; border-radius:2px;
+}
+.sechead .tag.field{color:var(--brand); border-color:color-mix(in srgb, var(--brand) 40%, transparent)}
+.sechead .tag.office{color:var(--warn); border-color:var(--warn-line)}
+.sub{color:var(--ink-2); font-size:17px; margin-top:4px}
+
+/* ---------- figure ---------- */
+figure{margin:34px 0 0}
+figure svg{display:block; width:100%; max-width:100%; height:auto; color:var(--ink-2)}
+figcaption{margin-top:12px; font-size:14.5px; color:var(--ink-3); max-width:70ch}
+figure svg .hot{stroke:var(--warn)}
+figure svg text.hot{fill:var(--warn); stroke:none}
+figure svg #arw polygon{fill:var(--warn)}
+.flowdash{stroke-dasharray:7 7; animation:flow 1.4s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-28}}
+@media (prefers-reduced-motion: reduce){ .flowdash{animation:none} }
+
+/* ---------- steps ---------- */
+.steps{margin-top:36px; display:flex; flex-direction:column; gap:46px}
+.step{display:grid; gap:28px; align-items:start}
+@media (min-width:1000px){ .step{grid-template-columns:438px 1fr; gap:38px} }
+.stepnum{
+  font-family:var(--mono); font-size:12px; color:var(--brand); letter-spacing:.1em;
+  display:block; margin-bottom:6px;
+}
+.step h3{font-size:22px; letter-spacing:-.01em}
+.step .why{color:var(--ink-2); margin-top:10px; font-size:16.5px}
+.rules{list-style:none; padding:0; margin:18px 0 0; display:flex; flex-direction:column; gap:12px}
+.rules li{font-size:15.5px; line-height:1.55; padding-left:18px; position:relative; color:var(--ink)}
+.rules li::before{content:""; position:absolute; left:0; top:.62em; width:7px; height:1.5px; background:var(--line-2)}
+.rules li b{font-family:var(--display); font-weight:600; font-size:.95em}
+
+/* ---------- player ---------- */
+.player{
+  display:block; width:100%; max-width:438px; padding:0; border:0; background:none;
+  cursor:pointer; position:relative; line-height:0; border-radius:10px;
+}
+.player img{width:100%; height:auto; display:block; border-radius:10px; box-shadow:var(--shadow)}
+.player .badge{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-family:var(--display); font-size:13px; font-weight:600; letter-spacing:.04em;
+  background:rgba(8,16,11,.78); color:#fff; padding:10px 18px; border-radius:999px;
+  display:flex; align-items:center; gap:9px; pointer-events:none; transition:opacity .18s;
+}
+.player[data-playing="true"] .badge{opacity:0}
+.player[data-playing="true"]:hover .badge{opacity:1}
+.player .cap, .stillshot .cap{
+  line-height:1.4; font-family:var(--display); font-size:11.5px; font-weight:500;
+  letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3);
+  display:block; margin-top:9px; text-align:left;
+}
+.stillshot{max-width:438px}
+.stillshot img{width:100%; height:auto; border-radius:10px; box-shadow:var(--shadow); display:block}
+
+/* ---------- callouts ---------- */
+.note{
+  margin-top:18px; padding:14px 16px; border:1px solid var(--line); border-left:3px solid var(--brand);
+  background:var(--surface); font-size:15.5px; line-height:1.55;
+}
+.note.warn{border-left-color:var(--warn); background:var(--warn-wash); border-color:var(--warn-line)}
+.note.ok{border-left-color:var(--ok); background:var(--ok-wash); border-color:var(--ok-line)}
+.note .lab{
+  font-family:var(--display); font-weight:700; font-size:11.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--brand); display:block; margin-bottom:5px;
+}
+.note.warn .lab{color:var(--warn)}
+.note.ok .lab{color:var(--ok)}
+
+/* ---------- deliverables browser ---------- */
+.browser{margin-top:32px; display:grid; gap:0; border:1px solid var(--line); background:var(--surface); box-shadow:var(--shadow)}
+@media (min-width:900px){ .browser{grid-template-columns:330px 1fr} }
+.filelist{border-bottom:1px solid var(--line); padding:16px 0}
+@media (min-width:900px){ .filelist{border-bottom:0; border-right:1px solid var(--line)} }
+.filelist .zipname{font-family:var(--mono); font-size:12.5px; color:var(--ink-2); padding:0 18px 12px; display:block; word-break:break-all}
+.filelist ul{list-style:none; margin:0; padding:0}
+.filelist li{margin:0}
+.filelist button{
+  width:100%; text-align:left; background:none; border:0; cursor:pointer;
+  font-family:var(--mono); font-size:12.5px; color:var(--ink-2);
+  padding:7px 18px 7px 34px; display:flex; gap:10px; align-items:baseline; line-height:1.4;
+}
+.filelist button:hover{background:var(--surface-2); color:var(--ink)}
+.filelist button[aria-current="true"]{
+  background:var(--brand-wash); color:var(--brand-deep); font-weight:500;
+  box-shadow:inset 3px 0 0 var(--brand);
+}
+.filelist .sub-h{font-family:var(--mono); font-size:12px; color:var(--ink-3); padding:12px 18px 4px 26px}
+.filelist .what{
+  font-family:var(--display); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--ink-3); margin-left:auto; padding-left:10px; white-space:nowrap;
+}
+.preview{padding:22px; min-width:0; background:var(--surface-2)}
+.preview .pvhead{display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px}
+.preview h4{font-size:16px}
+.preview .pvwhat{font-size:14.5px; color:var(--ink-2); max-width:62ch}
+.preview img{width:100%; height:auto; display:block; background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow)}
+.preview pre{margin:0; background:var(--surface); border:1px solid var(--line); padding:16px; overflow-x:auto; font-family:var(--mono); font-size:12px; line-height:1.65; color:var(--ink-2)}
+.pages{display:flex; gap:7px; margin-bottom:14px; flex-wrap:wrap}
+.pages button{
+  font-family:var(--display); font-size:12px; font-weight:600; letter-spacing:.03em;
+  background:var(--surface); color:var(--ink-2); border:1px solid var(--line-2);
+  padding:5px 11px; cursor:pointer; border-radius:2px;
+}
+.pages button[aria-current="true"]{background:var(--brand); border-color:var(--brand); color:#fff}
+.pages[hidden]{display:none}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto; margin-top:26px; border:1px solid var(--line); background:var(--surface)}
+.tablewrap.compact table{min-width:380px}
+table{border-collapse:collapse; width:100%; min-width:680px; font-size:15px}
+th,td{text-align:left; padding:11px 16px; border-bottom:1px solid var(--line); vertical-align:top}
+thead th{
+  font-family:var(--display); font-size:11.5px; font-weight:600; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-3); background:var(--surface-2);
+  border-bottom:1px solid var(--line-2); white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.m, th.m{font-family:var(--mono); font-size:12.5px; white-space:nowrap}
+td.ask{font-family:var(--mono); font-size:12.5px; color:var(--warn); white-space:nowrap}
+td .small{display:block; font-size:13.5px; color:var(--ink-3); margin-top:2px}
+
+/* ---------- ordered procedure ---------- */
+ol.proc{counter-reset:p; list-style:none; margin:24px 0 0; padding:0; display:flex; flex-direction:column; gap:16px}
+ol.proc > li{counter-increment:p; position:relative; padding-left:44px; font-size:16px}
+ol.proc > li::before{
+  content:counter(p); position:absolute; left:0; top:1px;
+  font-family:var(--mono); font-size:12px; color:var(--brand-deep);
+  background:var(--brand-wash); width:28px; height:28px; border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+}
+ol.proc b{font-family:var(--display); font-weight:600}
+
+ul.check{list-style:none; margin:22px 0 0; padding:0; display:grid; gap:9px; grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+ul.check li{font-size:15px; padding:10px 14px 10px 38px; position:relative; background:var(--surface); border:1px solid var(--line)}
+ul.check li::before{content:"□"; position:absolute; left:14px; top:9px; color:var(--brand); font-size:16px; font-family:var(--mono)}
+
+.cols2{display:grid; gap:30px; margin-top:28px}
+@media (min-width:820px){ .cols2{grid-template-columns:1fr 1fr; gap:40px} }
+.cols2 > *, .step > *, .browser > *, .steps > *{min-width:0}
+
+.limits{list-style:none; margin:26px 0 0; padding:0; display:flex; flex-direction:column; gap:0}
+.limits li{padding:16px 0; border-top:1px solid var(--line); font-size:16px}
+.limits li:last-child{border-bottom:1px solid var(--line)}
+.limits b{font-family:var(--display); font-weight:600; display:block; font-size:15.5px; margin-bottom:3px}
+
+footer{padding:46px 0 70px; color:var(--ink-3); font-size:15px}
+footer .wrap{display:flex; flex-wrap:wrap; gap:28px; justify-content:space-between; align-items:flex-start}
+footer p{max-width:52ch}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <strong>PHC Planner</strong>
+    <nav class="navlinks">
+      <a href="#flow">The flow</a>
+      <a href="#setup">Set-up</a>
+      <a href="#walkthrough">Walkthrough</a>
+      <a href="#output">What comes out</a>
+      <a href="#onedrive">OneDrive</a>
+      <a href="#singleops">SingleOps</a>
+      <a href="#limits">Limits</a>
+    </nav>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Field SOP &middot; Plant Health Care</div>
+    <h1>From the walk-round to the program</h1>
+    <p class="lede">
+      A recorded walkthrough of the PHC Planner on a real landscape, how it turns a list of
+      problems into a year of timed visits, the files it drops on your phone, how they get to
+      OneDrive, and what the office does with them to build the SingleOps program.
+    </p>
+    <div class="jobline">
+      <span>DEMO PLAN</span>
+      <span><b>51842</b> SingleOps&nbsp;lead&nbsp;#</span>
+      <span><b>Brandt, Teresa</b></span>
+      <span><b>BETHESDA, MD</b></span>
+      <span><b>10/28/2026</b></span>
+      <span><b>5 plant groups</b></span>
+      <span><b>5 visits/yr &middot; 14 applications</b></span>
+    </div>
+    <div class="roles">
+      <div class="role">
+        <h4>Arborist</h4>
+        <p>Everything from Set-up to the OneDrive upload. The visit isn't finished until the ZIP
+        is in the folder and someone knows it's there.</p>
+      </div>
+      <div class="role">
+        <h4>Conor &middot; office lead</h4>
+        <p>Watches the folder, builds the recurring program, owns the visit names, treatment tags
+        and the tier tag, runs the quality checks.</p>
+      </div>
+      <div class="role">
+        <h4>Melinda &middot; admin</h4>
+        <p>Creates the shared OneDrive folder and its permissions, and creates any SingleOps item
+        group the catalog is missing before the program is built.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="flow">
+  <div class="wrap">
+    <div class="sechead"><h2>What the app is, and what it isn't</h2></div>
+    <div class="prose">
+      <p class="sub">
+        The PHC Planner is an offline treatment-plan framework. Tell it what is wrong with each
+        plant and it tells you what can be done about it, by which method, how many times a year
+        and in which months &mdash; then packs that into the fewest visits that still respect every
+        window. It does not talk to SingleOps, and it carries <b>no rates and no prices</b>. Rates
+        come off the label; money comes from the catalog. A plan is not a quote.
+      </p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 1000 286" role="img" aria-label="Flow: the phone builds a plan and generates a ZIP, the arborist uploads it to a shared OneDrive folder, and the office retypes it by hand into a SingleOps recurring program, which becomes five program visits a year plus an ASAP soil sampling visit.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon points="0,0 10,5 0,10" fill="currentColor"></polygon>
+          </marker>
+          <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon points="0,0 10,5 0,10"></polygon>
+          </marker>
+        </defs>
+
+        <g fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="8" y="64" width="166" height="76" rx="4"></rect>
+          <rect x="242" y="64" width="166" height="76" rx="4"></rect>
+          <rect x="476" y="64" width="166" height="76" rx="4"></rect>
+          <rect x="710" y="64" width="166" height="76" rx="4"></rect>
+          <rect x="710" y="196" width="166" height="62" rx="4"></rect>
+          <rect x="242" y="196" width="166" height="62" rx="4"></rect>
+        </g>
+
+        <g font-family="Archivo, sans-serif" font-size="13" font-weight="600" fill="currentColor" text-anchor="middle">
+          <text x="91" y="96">Phone / iPad</text>
+          <text x="325" y="96">ZIP bundle</text>
+          <text x="559" y="96">OneDrive folder</text>
+          <text x="793" y="96">SingleOps program</text>
+          <text x="793" y="224">5 program visits</text>
+          <text x="325" y="224">Visit breakdown</text>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".72" text-anchor="middle">
+          <text x="91" y="116">offline, on device</text>
+          <text x="91" y="130">nothing synced</text>
+          <text x="325" y="116">report &middot; site map</text>
+          <text x="325" y="130">coords &middot; photos</text>
+          <text x="559" y="116">51842 Brandt Teresa</text>
+          <text x="559" y="130">BETHESDA</text>
+          <text x="793" y="116">one group per</text>
+          <text x="793" y="130">treatment round</text>
+          <text x="793" y="244">Mar&ndash;Oct, recurring</text>
+          <text x="325" y="244">report page 4</text>
+        </g>
+
+        <g fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)">
+          <line class="flowdash" x1="178" y1="102" x2="236" y2="102"></line>
+          <line class="flowdash" x1="412" y1="102" x2="470" y2="102"></line>
+          <line x1="793" y1="146" x2="793" y2="190"></line>
+          <path d="M325 146 L325 190"></path>
+        </g>
+        <g class="hot" fill="none" stroke-width="2" marker-end="url(#arw)">
+          <line x1="646" y1="102" x2="704" y2="102"></line>
+        </g>
+
+        <g font-family="Archivo, sans-serif" font-size="11" fill="currentColor" opacity=".8" text-anchor="middle">
+          <text x="207" y="92">export</text>
+          <text x="441" y="92">upload</text>
+          <text x="811" y="172">accepted</text>
+          <text x="352" y="172" text-anchor="start">drives the recurrence</text>
+        </g>
+        <g font-family="Archivo, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">
+          <text class="hot" x="675" y="86">retyped</text>
+          <text class="hot" x="675" y="128">by hand</text>
+        </g>
+
+        <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4">
+          <path d="M876 227 L938 227 L938 102 L880 102" marker-end="url(#ar)"></path>
+        </g>
+        <text x="946" y="166" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".72" text-anchor="middle" transform="rotate(90 946 166)">ASAP soil sampling visit</text>
+      </svg>
+      <figcaption>
+        Every arrow but one is a file moving. The orange hop is a person reading a PDF and typing
+        item groups &mdash; there is no SingleOps import for any of this, which is why the report is
+        laid out in the order the program is built.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="setup">
+  <div class="wrap">
+    <div class="sechead"><h2>Before the first visit</h2><span class="tag field">Arborist</span></div>
+    <p class="sub prose">
+      Do this in the office on wifi. The first load is the only one that needs a connection
+      &mdash; after it, the app, the whole pest knowledge base and the PDF and ZIP libraries live
+      on the device.
+    </p>
+    <div class="cols2">
+      <div>
+        <h3 style="font-size:19px">Install it</h3>
+        <ol class="proc">
+          <li>Open the PHC Planner link in <b>Safari</b>. Only Safari can install to the iOS home
+            screen.</li>
+          <li><b>Share</b> &rarr; <b>Add to Home Screen</b> &rarr; <b>Add</b>. It appears as
+            &ldquo;PHC Planner&rdquo;.</li>
+          <li>Open it from the home screen once, still on wifi, and let it finish loading. After
+            that it runs with no signal at all.</li>
+          <li>In <b>Files</b> &rarr; <b>Browse</b> &rarr; <b>&ctdot;</b> &rarr; <b>Edit</b>, switch
+            <b>OneDrive</b> on. You need it at the end of every visit.</li>
+        </ol>
+      </div>
+      <div>
+        <h3 style="font-size:19px">Know the four tabs</h3>
+        <ul class="rules" style="margin-top:24px">
+          <li><b>Plans</b> &mdash; every landscape you have ever built stays on the device. Search
+            by client, lead&nbsp;#, address or plant.</li>
+          <li><b>Landscape</b> &mdash; the plan you are working on. Where the visit happens.</li>
+          <li><b>Library</b> and <b>Reference</b> &mdash; the pest and treatment knowledge base, to
+            look things up on site. Not covered here.</li>
+          <li><b>&#8635; Update</b> installs a new version; <b>&#128030;</b> files a bug with the
+            version, screen and device already filled in. Update on wifi, not on a property.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="lab">One-off, and it is not part of the plan</span>
+      At the bottom of the treatment plan screen sits <b>Edit available products</b>. That list
+      decides which chemical treatments the app will even offer, and it is a <i>device</i> setting
+      &mdash; switching something off hides it on every plan you build afterwards. Set it once
+      against what RTEC actually stocks. If a treatment you expected is missing, look here before
+      assuming the app is wrong.
+    </div>
+  </div>
+</section>
+
+<section id="walkthrough">
+  <div class="wrap">
+    <div class="sechead"><h2>The walkthrough</h2><span class="tag field">Arborist</span></div>
+    <p class="sub prose">
+      One landscape in Bethesda: two hemlocks, an eighteen-plant boxwood hedge, a specimen white
+      oak, a shade bed of azaleas and an ornamental cherry. Recordings are click-to-play.
+    </p>
+
+    <div class="steps">
+
+      <div class="step">
+        <div>
+          <div class="stillshot">
+            <img src="img/app-01-landscape-job.jpg" alt="Landscape screen: site inspection date, SingleOps lead number 51842, prospect name Brandt Teresa, work address in Bethesda, and the list of five plant groups." width="438" loading="lazy">
+            <span class="cap">Step 1 &middot; The job</span>
+          </div>
+        </div>
+        <div>
+          <span class="stepnum">STEP 1</span>
+          <h3>The job</h3>
+          <p class="why">
+            Five fields at the top of the Landscape tab, and two of them decide things a long way
+            downstream.
+          </p>
+          <ul class="rules">
+            <li><b>SingleOps lead # first, before any photo.</b> It becomes the front of every
+              photo filename &mdash; <code>51842-1</code>, <code>51842-3</code> &mdash; and the
+              front of the export folder name. Leave it blank and the office renames five files
+              by hand.</li>
+            <li><b>Client name in house format:</b> <code>Last, First</code>. That is the string
+              Conor matches against the SingleOps client record.</li>
+            <li><b>Work address sets the jurisdiction</b> (VA&nbsp;/&nbsp;MD&nbsp;/&nbsp;DC), and
+              the jurisdiction drives every compliance flag in the plan. Wrong address, wrong
+              flags. You can override it.</li>
+            <li><b>Inspection date</b> lands in the report header and in both the folder and file
+              names.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <div class="stillshot">
+            <img src="img/app-04-plant-top.jpg" alt="Plant screen for Hemlock: location label, Take or upload photo and Re-record GPS buttons, coordinates with accuracy, fine-tune link, photo thumbnail, quantity 2, DBH 14 and arborist notes." width="438" loading="lazy">
+            <span class="cap">Step 2 &middot; A plant group</span>
+          </div>
+        </div>
+        <div>
+          <span class="stepnum">STEP 2</span>
+          <h3>One entry per plant group, not per stem</h3>
+          <p class="why">
+            Eighteen boxwoods in one hedge are a single entry with a quantity of 18. Two hemlocks
+            flanking a property line are one entry with a quantity of 2. The group number follows
+            through to the map pin, the photo filename and the inventory row.
+          </p>
+          <ul class="rules">
+            <li><b>The label is where it is, not what it is.</b> <code>Pair flanking the north
+              property line</code> &mdash; a technician who has never seen the property reads this
+              first.</li>
+            <li><b>Quantity and DBH</b> are what the office prices against. A hedge run without a
+              count cannot be quoted.</li>
+            <li><b>Crown loss %</b> only appears once you tick a problem that has a treatment
+              threshold attached. When it appears it is doing real work &mdash; some treatments
+              are withdrawn above a certain amount of dieback. Estimate it honestly.</li>
+            <li><b>Arborist notes</b> go to the crew, not the client. What you saw, and what has
+              to happen before anything is applied.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <div class="stillshot">
+            <img src="img/app-05-plant-problems.jpg" alt="Problems not listed below free-text box, then Common on Hemlock with Hemlock woolly adelgid ticked, and further problems grouped by category." width="438" loading="lazy">
+            <span class="cap">Step 3 &middot; Problems</span>
+          </div>
+        </div>
+        <div>
+          <span class="stepnum">STEP 3</span>
+          <h3>Tick what you actually see</h3>
+          <p class="why">
+            Below the details is the pest list filtered to that host and grouped by category
+            &mdash; adelgids, mites, armored scales, blights. Ticking a problem is what puts
+            treatments into the plan. Nothing else does.
+          </p>
+          <ul class="rules">
+            <li><b>A plant with no problem ticked gets no treatment</b> and no line in the
+              proposal, however much you wrote in the notes.</li>
+            <li><b>Problems not listed</b> has its own free-text box at the top. It is recorded and
+              it prints, but it carries no treatment &mdash; the report says so explicitly.</li>
+            <li><b>Broad host range &amp; abiotic</b> at the bottom holds the 36 problems that are
+              not host-specific. Worth opening for anything that looks like a site problem rather
+              than a pest.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <button class="player" data-gif="img/phc-gps-finetune.gif">
+            <img src="img/poster-gps.jpg" alt="The satellite pin placement screen: a dashed GPS accuracy ring around the crosshair and four other numbered plant pins labelled by species." width="438" loading="lazy">
+            <span class="badge">&#9654; Play &middot; 7s</span>
+          </button>
+          <span class="cap">Step 4 &middot; Fine-tune on map</span>
+        </div>
+        <div>
+          <span class="stepnum">STEP 4</span>
+          <h3>Put the pin on the plant</h3>
+          <p class="why">
+            <b>Re-record GPS</b> averages readings and reports what it managed &mdash;
+            <code>&plusmn;6&nbsp;m &middot; 12 readings</code>. Under a canopy that is often not
+            good enough, so drag the imagery until the crosshair sits on the plant.
+          </p>
+          <ul class="rules">
+            <li><b>The dashed ring is the phone's guess</b>, drawn at its own stated accuracy. The
+              other numbered pins are the plant groups you have already recorded, labelled by
+              species, so you can see the shape of the property as you go.</li>
+            <li><b>Saved by hand reads <code>placed on map</code></b> instead of an accuracy
+              figure &mdash; and that is the more trustworthy of the two. <b>Back to GPS</b> undoes
+              it.</li>
+            <li><b>This matters more on PHC than on tree work.</b> A program sends a technician
+              back several times a year, often someone who has never been. Fine-tune anything a
+              stranger could not find from the label alone.</li>
+            <li><b>Needs a connection</b> for the imagery. No signal: record the GPS fix anyway and
+              fine-tune from the truck.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <div class="stillshot">
+            <img src="img/app-02-landscape-soil.jpg" alt="Soil care section: Standard Soil Care Program ticked applying to ornamentals and mature trees, Resilience Support Summer Drench ticked applying to mature trees, Prescriptive Soil Correction Program unticked." width="438" loading="lazy">
+            <span class="cap">Step 5 &middot; Soil care</span>
+          </div>
+        </div>
+        <div>
+          <span class="stepnum">STEP 5</span>
+          <h3>Soil care &mdash; the last step</h3>
+          <p class="why">
+            Property-wide programs, not tied to any pest. Each has an <b>Apply to</b> scope instead
+            of a plant: ornamentals, mature trees, both, or specific plants you pick off the
+            treatment plan.
+          </p>
+          <ul class="rules">
+            <li><b>Standard Soil Care</b> &mdash; 2 drenches, Mar&ndash;Apr and Sep&ndash;Oct.
+              <b>Resilience Support</b> &mdash; 1 drench, Jul&ndash;Aug.</li>
+            <li><b>Prescriptive Soil Correction</b> only when a lab report exists or is on its way
+              &mdash; its whole point is that products and rates come from the analysis. On a first
+              visit, sell the sampling and prescribe at the next one.</li>
+            <li><b>Soil sample analysis</b> takes a count and a description of where the samples
+              come from. Both print, and both end up in the proposal line.</li>
+            <li><b>Arborist notes (program stage)</b> is your note to the office: what to lead
+              with, what the client actually asked about.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <button class="player" data-gif="img/phc-build-plan.gif">
+            <img src="img/poster-build.jpg" alt="The landscape screen scrolled to the plant list and the soil care programs, before tapping Build treatment plan." width="438" loading="lazy">
+            <span class="badge">&#9654; Play &middot; 7s</span>
+          </button>
+          <span class="cap">Step 6 &middot; Build treatment plan</span>
+        </div>
+        <div>
+          <span class="stepnum">STEP 6</span>
+          <h3>Build the plan</h3>
+          <p class="why">
+            The app takes every problem you ticked, works out which treatments apply, how many
+            applications a year each needs and which months they can happen in, then packs them
+            into the fewest visits that respect every window.
+          </p>
+          <ul class="rules">
+            <li><b>For this landscape:</b> <code>5 visits/yr &middot; 14 applications &middot; 1
+              one-time</code>. That one-time is the soil sampling, scheduled ASAP before the
+              program starts.</li>
+            <li><b>The defaults are a starting point, not a decision.</b> Everything the app
+              pre-selected is a tickbox you can change, and the count of applications within the
+              reference range is a dropdown.</li>
+            <li><b>Tap any plant to review it</b> before you show the client anything.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <div class="stillshot">
+            <img src="img/app-11-result-flag.jpg" alt="An expanded treatment detail showing products Xytect 2F, one application per year, repeat every one to three years, the window, and an amber Maryland neonicotinoid restriction warning." width="438" loading="lazy">
+            <span class="cap">Step 7 &middot; Flags</span>
+          </div>
+        </div>
+        <div>
+          <span class="stepnum">STEP 7</span>
+          <h3>Read the flags on site</h3>
+          <p class="why">
+            Each problem lists its chemical options ranked, with <code>Preferred</code> first and
+            the rest folded under <b>Alternatives</b>; non-chemical options sit under
+            <b>Cultural</b>. Open any option for its product, repeat interval and compliance
+            flags.
+          </p>
+          <ul class="rules">
+            <li><b>Maryland restricts neonicotinoids</b> &mdash; imidacloprid, dinotefuran,
+              clothianidin, thiamethoxam. Certified applicator only, and product status has to be
+              verified. Six of the treatments in this plan carry it.</li>
+            <li><b>Pollinator hazard</b> &mdash; do not apply to bee-attractive plants before or
+              during bloom. A live constraint on the azalea and the cherry here.</li>
+            <li><b>Read them while you can still change the selection.</b> They print on the
+              report, but by then the client has seen it.</li>
+            <li><b>The flags follow the jurisdiction.</b> The same landscape in Virginia would not
+              show the neonicotinoid restriction at all.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <div class="stillshot">
+            <img src="img/app-12-visits-1.jpg" alt="Visit breakdown: Visit 1 ASAP soil sample analysis, Visit 2 late April with four applications, Visit 3 early June with two." width="438" loading="lazy">
+            <span class="cap">Step 8 &middot; Visits</span>
+          </div>
+        </div>
+        <div>
+          <span class="stepnum">STEP 8</span>
+          <h3>Visits, and the annual calendar</h3>
+          <p class="why">
+            This is the part the office cannot reconstruct from a list of treatments, and the
+            reason the export is worth more than a text message.
+          </p>
+          <ul class="rules">
+            <li><b>Each visit names its month</b>, how many applications it carries and how
+              flexible its dates are &mdash; <code>Visit 2 &middot; Late Apr &middot; 4
+              applications &middot; flexible Early Apr &ndash; Late Apr</code>.</li>
+            <li><b><code>&#8646; also fits Visit 5, 6</code></b> means that application's window
+              spans more than one visit. Those are the ones the office can move when a route needs
+              rebalancing &mdash; and the only ones.</li>
+            <li><b>The annual calendar</b> shows the same work by month instead of by visit
+              &mdash; eight active months here, March to October. Use it when a client asks when
+              you are actually on the property.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <div class="stillshot">
+            <img src="img/app-16-exports.jpg" alt="The three export buttons: Export PDF report, Export folder zip report plus photos, Share or copy plan text, plus Edit available products." width="438" loading="lazy">
+            <span class="cap">Step 9 &middot; Export</span>
+          </div>
+        </div>
+        <div>
+          <span class="stepnum">STEP 9</span>
+          <h3>Export the bundle</h3>
+          <p class="why">
+            Take the folder (.zip) &mdash; it is the PDF plus everything else &mdash; and then take
+            the PDF on its own as well, so the office can read it on a phone without unzipping.
+          </p>
+          <ul class="rules">
+            <li><b>The site map is fetched when you export</b>, not when you record the pins. With
+              a connection you get aerial imagery; without one, a drawn fallback. If you exported
+              with no bars, export again from the truck and upload that one.</li>
+            <li><b>Share / copy plan text</b> is a plain-text summary for a quick message. It is
+              not a substitute for the export and the office cannot build from it.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="output">
+  <div class="wrap">
+    <div class="sechead"><h2>What comes out</h2><span class="tag">Deliverables</span></div>
+    <p class="sub prose">
+      One ZIP per landscape, named for the lead, the client and the inspection date. These are the
+      real files from the demo plan &mdash; click through them.
+    </p>
+
+    <div class="browser">
+      <div class="filelist">
+        <span class="zipname">51842_PHC Program-Brandt, Teresa_2026-10-28.zip</span>
+        <ul id="files">
+          <li><button data-file="report" aria-current="true">…_2026-10-28.pdf<span class="what">6 pp</span></button></li>
+          <li><button data-file="sitemap">…_site map.jpg</button></li>
+          <li><button data-file="geojson">…_coordinates.geojson</button></li>
+          <li><button data-file="csv">…_coordinates.csv</button></li>
+        </ul>
+        <div class="sub-h">photos/</div>
+        <ul>
+          <li><button data-file="p1">51842-1.jpg<span class="what">hemlock</span></button></li>
+          <li><button data-file="p3">51842-3.jpg<span class="what">oak</span></button></li>
+          <li><button data-file="rest">51842-2, -4, -5<span class="what">the rest</span></button></li>
+        </ul>
+      </div>
+
+      <div class="preview">
+        <div class="pvhead"><h4 id="pvTitle">Report PDF</h4></div>
+        <p class="pvwhat" id="pvWhat">The document Conor works down while building the program.
+          Page 1 is the job header, the visit summary and the inventory; pages 2&ndash;3 are the
+          treatment plan, one table per plant group; page 4 is the visit breakdown the recurrence
+          is built from; pages 5&ndash;6 are the photos.</p>
+        <div class="pages" id="pvPages" hidden></div>
+        <div id="pvBody"></div>
+      </div>
+    </div>
+
+    <div class="cols2">
+      <div>
+        <h3 style="font-size:19px">The labelling convention</h3>
+        <p class="sub" style="font-size:16px">
+          Every photo filename, every inventory row and every map pin share one ID, built from the
+          SingleOps lead&nbsp;#.
+        </p>
+        <div class="tablewrap compact">
+          <table>
+            <thead><tr><th>ID</th><th>What it is</th></tr></thead>
+            <tbody>
+              <tr><td class="m">51842-1</td><td>Group&nbsp;1 &mdash; the hemlock pair</td></tr>
+              <tr><td class="m">51842-2</td><td>Group&nbsp;2 &mdash; the boxwood hedge, 18 plants</td></tr>
+              <tr><td class="m">51842-3</td><td>Group&nbsp;3 &mdash; the specimen white oak</td></tr>
+              <tr><td class="m">51842-4</td><td>Group&nbsp;4 &mdash; the azalea bed, 9 plants</td></tr>
+              <tr><td class="m">51842-5</td><td>Group&nbsp;5 &mdash; the ornamental cherry</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:19px">What the report gives the office</h3>
+        <ul class="rules" style="margin-top:14px">
+          <li><b>Page 1</b> &mdash; client, lead&nbsp;#, address, jurisdiction, the arborist's
+            program note, <code>5 program visits per year &middot; 14 applications &middot; 1
+            one-time visit (ASAP)</code>, the site map, and the inventory.</li>
+          <li><b>Pages 2&ndash;3</b> &mdash; one table per plant group:
+            <code>Problem &middot; Treatment &middot; Method &middot; Apps/yr &middot; Timing
+            &middot; Products</code>, with the compliance flags printed underneath, then Soil
+            Care.</li>
+          <li><b>Page 4</b> &mdash; the visit breakdown. This is the recurrence.</li>
+          <li><b>Pages 5&ndash;6</b> &mdash; every photo, captioned with the ID its file carries.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="onedrive">
+  <div class="wrap">
+    <div class="sechead"><h2>Getting it off the phone</h2><span class="tag field">Arborist</span></div>
+    <p class="sub prose">
+      Do this before you leave the property, or at the latest before the end of the day. A plan
+      that only exists on your phone does not exist.
+    </p>
+
+    <div class="cols2">
+      <div>
+        <h3 style="font-size:19px">iPhone &amp; iPad</h3>
+        <ol class="proc">
+          <li>Tap <b>Export folder (.zip)</b>, then <b>Export PDF report</b>. Safari saves both to
+            Downloads.</li>
+          <li>Tap the <b>downloads arrow</b> in the Safari address bar, then the file name. It
+            opens in Files.</li>
+          <li>Touch and hold the ZIP &rarr; <b>Share</b> &rarr; <b>Save to Files</b> &rarr;
+            <b>OneDrive</b>, and pick the folder below. Repeat for the loose PDF.</li>
+          <li>Wait for the OneDrive tick. On a weak signal it queues &mdash; leave the app open
+            until it clears.</li>
+        </ol>
+      </div>
+      <div>
+        <h3 style="font-size:19px">If there was no signal on site</h3>
+        <ol class="proc">
+          <li>Everything works offline except the satellite site map, which is fetched at the
+            moment you export.</li>
+          <li>Export anyway. The plan is saved on the device regardless, and stays under
+            <b>Plans</b>.</li>
+          <li>From the truck, open the plan again and <b>export a second time</b>, so the office
+            gets aerial imagery instead of the drawn fallback.</li>
+          <li>Upload that second bundle, and delete the first from Downloads so nobody files the
+            wrong one.</li>
+        </ol>
+      </div>
+    </div>
+
+    <h3 style="font-size:19px; margin-top:38px">Where it goes</h3>
+    <p class="sub prose" style="font-size:16px">
+      One folder per plan, and the folder name carries the SingleOps lead&nbsp;# because the
+      filenames put it at the front but nothing else does.
+    </p>
+    <div class="note">
+      <span class="lab">Folder convention</span>
+      <code style="font-size:14px; line-height:2">RTEC Treecare &rsaquo; PHC Planner Exports &rsaquo; 2026 &rsaquo; 51842 Brandt Teresa BETHESDA</code>
+      <br>
+      Drop in the ZIP as-is plus the loose report PDF. Don't rename either file, and don't unzip
+      on the phone.
+    </div>
+    <div class="note ok">
+      <span class="lab">Then say so</span>
+      Post the lead&nbsp;# in the office channel, or drop Conor a line, the moment the upload
+      finishes. Nobody is watching the folder minute by minute, and the proposal clock starts when
+      the office knows the file is there.
+    </div>
+    <div class="note warn">
+      <span class="lab">Melinda, once</span>
+      Create <code>PHC Planner Exports</code> in the shared RTEC library with the year subfolder,
+      give the arborists edit and the office read, and make sure it shows up in everyone's OneDrive
+      app. Until that exists, arborists are emailing 4&nbsp;MB attachments.
+    </div>
+  </div>
+</section>
+
+<section id="singleops">
+  <div class="wrap">
+    <div class="sechead"><h2>Back at the office: building the program</h2><span class="tag office">Conor</span></div>
+    <p class="sub prose">
+      Open the report beside SingleOps. Pages 1&ndash;3 give you the inventory and what gets
+      treated; page 4 gives you the visits. Work in that order.
+    </p>
+
+    <div class="cols2">
+      <div>
+        <h3 style="font-size:19px">Job settings, before any line</h3>
+        <ul class="rules" style="margin-top:14px">
+          <li><b>Operation</b> PHC (or IPC) &middot; <b>Job Type Recurring</b> &middot; <b>Per
+            Visit</b> invoicing &middot; Custom frequency on the tier's recurrence preset</li>
+          <li><b>Specify Items for each Visit</b> switched on</li>
+          <li><b>Season start and end</b> &mdash; this plan runs <span class="mono">Mar</span> to
+            <span class="mono">Oct</span></li>
+          <li><b>Eligible for Renewal</b> ticked &middot; <b>Terms</b> Due on receipt &middot; Tax
+            Location set</li>
+          <li><b>Sales Rep</b> = the arborist &middot; <b>Job Name</b> = the visit location or a
+            short description, <b>with no year in it</b></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:19px">Tier, tags and payment</h3>
+        <ul class="rules" style="margin-top:14px">
+          <li><b>Tier is a judgement call, not an app output.</b> Five visits with systemics and
+            soil care sits at CPP Plus or Premier &mdash; confirm with the arborist, then tag
+            <code>1_CPP_Plus</code> or <code>1_CPP_Premier</code>.</li>
+          <li><b>A targeted (non-CPP) program must carry</b> <code>PHC Targeted Program</code>.
+            There is no tag by elimination.</li>
+          <li><b>Other job tags:</b> property size <code>S-</code>, site conditions
+            <code>P-</code>, any <code>IPM-</code> targets, and the Lead Source carried from the
+            lead.</li>
+          <li><b>Payment:</b> AutoPay (card on file), invoice on completion, or prepay with the 5%
+            discount if paid by 28 Feb. Mosquito programs are prepay only; this one is not a
+            mosquito program.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note warn">
+      <span class="lab">Set the job type at creation</span>
+      Changing a job to <b>Recurring</b> after the fact deletes payments. There is no quiet
+      recovery from that &mdash; get it right when you create the job.
+    </div>
+
+    <h3 style="font-size:19px; margin-top:38px">One item group per treatment round</h3>
+    <p class="sub prose" style="font-size:16px">
+      Each group carries its four lines: the plant line (Tree&nbsp;#, species, DBH), the service,
+      PHC Work labour in MHrs, and the material. Here is the demo plan mapped onto the standard
+      groups.
+    </p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>From the report</th><th class="m">Apps/yr</th><th class="m">Timing</th><th>Standard group</th><th>Material</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 &middot; Hemlock &times;2</b><span class="small">Imidacloprid (soil drench) &mdash; woolly adelgid</span></td><td class="m">1</td><td class="m">Jul&ndash;Sep</td><td class="m">PHC_SIN</td><td class="m">Xytect 2F</td></tr>
+          <tr><td>1 &middot; Hemlock &times;2<span class="small">Dinotefuran (soil drench) &mdash; elongate hemlock scale</span></td><td class="m">1</td><td class="m">Apr&ndash;May</td><td class="m">PHC_SIN</td><td class="m">Transtect</td></tr>
+          <tr><td><b>2 &middot; Boxwood &times;18</b><span class="small">Imidacloprid (soil drench) &mdash; leafminer</span></td><td class="m">1</td><td class="m">Jul&ndash;Sep</td><td class="m">PHC_SIN</td><td class="m">Xytect 2F</td></tr>
+          <tr><td>2 &middot; Boxwood &times;18<span class="small">Propiconazole (foliar spray) &mdash; Volutella blight</span></td><td class="m">5</td><td class="m">Apr&ndash;Sep</td><td class="ask">ask Melinda</td><td class="m">Concert II</td></tr>
+          <tr><td><b>3 &middot; Oak</b><span class="small">Oxytetracycline (micro-injection) &mdash; bacterial leaf scorch</span></td><td class="m">1</td><td class="m">May&ndash;Jun</td><td class="ask">ask Melinda</td><td class="m">Bacastat</td></tr>
+          <tr><td><b>4 &middot; Azalea &times;9</b><span class="small">Imidacloprid (soil drench) &mdash; lace bug</span></td><td class="m">1</td><td class="m">Jul&ndash;Sep</td><td class="m">PHC_SIN</td><td class="m">Xytect 2F</td></tr>
+          <tr><td><b>5 &middot; Cherry</b><span class="small">Dinotefuran (basal bark) &mdash; white prunicola scale</span></td><td class="m">1</td><td class="m">Apr</td><td class="m">PHC_SIN</td><td class="m">Transtect</td></tr>
+          <tr><td><b>Soil Care</b><span class="small">Liquid fertilizer / bio-stimulant humates</span></td><td class="m">2</td><td class="m">Mar&ndash;Apr, Sep&ndash;Oct</td><td class="m">PHC_BST</td><td class="m">Actosol</td></tr>
+          <tr><td>Soil Care<span class="small">Phosphite salts (soil drench)</span></td><td class="m">1</td><td class="m">Jul&ndash;Aug</td><td class="ask">ask Melinda</td><td class="m">phosphite</td></tr>
+          <tr><td>Soil Care<span class="small">Soil sample analysis, 2 samples</span></td><td class="m">1</td><td class="m">ASAP</td><td class="m">one-off</td><td class="m">lab fee</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note warn">
+      <span class="lab">Four of these have no standard group yet</span>
+      The soil drenches land on <code>PHC_SIN &mdash; Soil Injected Systemic</code> and the
+      bio-stimulant on <code>PHC_BST</code> without argument. The foliar fungicide rounds, the
+      micro-injection and the phosphite drench do not match anything in the current catalog.
+      <b>Don't free-type a new item</b> &mdash; that is how near-duplicates get created. Melinda
+      creates the group; while the catalog cleanup is under way, confirm live group names before
+      you build.
+    </div>
+
+    <h3 style="font-size:19px; margin-top:38px">Visits and treatment tags</h3>
+    <p class="sub prose" style="font-size:16px">
+      Name each visit with its treatment code and a number &mdash; <code>SIN&nbsp;#1</code>,
+      <code>Fall Bio-Stim</code> &mdash; and give it <b>exactly one</b> <code>PHC_</code> treatment
+      tag matching the name. That tag is what the Route Planner filters on and what treatment
+      counts are built from.
+    </p>
+    <div class="note">
+      <span class="lab">Where the app and SingleOps disagree</span>
+      The planner builds visits to minimise trips, so Visit&nbsp;2 (Late Apr) carries a systemic
+      drench, a foliar fungicide <i>and</i> a bio-stim round in one stop. SingleOps wants one
+      treatment tag per visit. For any mixed visit you either <b>split it</b> into separately
+      tagged visits on the same date, or <b>name it for its dominant round</b> and let the rest
+      ride along. Split it when the rounds need different technicians or different equipment;
+      otherwise name it for the dominant round. The <code>&#8646; also fits</code> markers on
+      page&nbsp;4 tell you which applications can move without breaking their window.
+    </div>
+
+    <h3 style="font-size:19px; margin-top:38px">Notes, and one compliance step</h3>
+    <div class="cols2">
+      <div>
+        <ul class="rules" style="margin-top:4px">
+          <li><b>Client Notes</b> &mdash; two or three sentences on what the program does and why.</li>
+          <li><b>Crew Notes</b> &mdash; access, gates, pets, and anything that has to happen before
+            an application. Here: two boxwoods at the downspout to cut out before any foliar
+            work.</li>
+          <li><b>Internal Notes</b> &mdash; the arborist's program-stage note. Here: lead with the
+            hemlocks; the oak CRZ is the priority for soil correction if the lab supports it.</li>
+          <li><b>Under 1,000 characters</b> across all three.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="note warn" style="margin-top:4px">
+          <span class="lab">Maryland, before anything is applied</span>
+          This property is in Maryland, so the <b>sensitive-individual registry check</b> has to
+          happen before any application, and the neonicotinoid work is certified-applicator only.
+          The report flags the restriction; it does not do the registry check for you. Never copy
+          registry data into SingleOps.
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:19px; margin-top:38px">Before you hand it over</h3>
+    <ul class="check">
+      <li>Recurring, Per Visit, Eligible for Renewal, no year in the job name</li>
+      <li>Operation, Sales Rep, Terms and Tax Location set</li>
+      <li>One group per round, each with all four lines; labour in MHrs</li>
+      <li>Every visit has exactly one <code>PHC_</code> tag, matching its name</li>
+      <li>Tier tag present, or <code>PHC Targeted Program</code></li>
+      <li>Payment arrangement in place before anything is scheduled</li>
+      <li>Report PDF and the photos attached to the job</li>
+      <li>Add-ons on the proposal as Recommended or Optional lines, never in the notes</li>
+    </ul>
+  </div>
+</section>
+
+<section id="limits">
+  <div class="wrap">
+    <div class="sechead"><h2>What this doesn't do</h2></div>
+    <ul class="limits">
+      <li><b>No rates, no prices, no quote.</b> The planner names the active ingredient, the
+        method, the frequency and the window. How much product, and how much money, come from the
+        label and the SingleOps catalog. If a client asks for a number off the report, there isn't
+        one.</li>
+      <li><b>No SingleOps connection.</b> Nothing in the ZIP is an import file. The report is a
+        source document a person reads while typing &mdash; which is why it is laid out in the
+        order the program is built.</li>
+      <li><b>No diagnosis.</b> It works from the problems you tick. Tick the wrong pest and it
+        will confidently plan the wrong year of treatments; the oak's bacterial leaf scorch even
+        carries a flag telling you to confirm by lab where symptoms are ambiguous.</li>
+      <li><b>No compliance clearance.</b> It flags the Maryland neonicotinoid restriction and
+        pollinator hazard, but the sensitive-individual registry check, applicator certification
+        and current product status are still yours.</li>
+      <li><b>No tier, no pricing, no renewal logic.</b> CPP tier, add-ons, prepay and renewal
+        eligibility are decided in SingleOps by the arborist and the office.</li>
+      <li><b>Nothing is synced.</b> Plans live on one device until the ZIP is in OneDrive. A lost
+        iPad is a lost plan.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>
+      RTEC Treecare &middot; PHC Planner field SOP &middot; prepared 28 October 2026.
+      Demo plan &ldquo;Brandt, Teresa &mdash; lead&nbsp;#51842&rdquo; is demonstration data, not a
+      client record; the street is real so the satellite site map is genuine.
+    </p>
+    <p>
+      Treatment content: 2024 Southeast Pest Management Recommendations, as transcribed in the
+      app's knowledge base &mdash; no application rates. Site imagery: Esri, Maxar, Earthstar
+      Geographics.
+    </p>
+  </div>
+</footer>
+
+<script>
+/* ---- click-to-play recordings ---- */
+document.querySelectorAll(".player").forEach(function (btn) {
+  var img = btn.querySelector("img");
+  var poster = img.getAttribute("src");
+  var gif = btn.dataset.gif;
+  var badge = btn.querySelector(".badge");
+  var label = badge.textContent;
+  btn.addEventListener("click", function () {
+    if (btn.dataset.playing === "true") {
+      img.src = poster;
+      btn.dataset.playing = "false";
+      badge.textContent = label;
+    } else {
+      img.src = gif + "?t=" + Date.now();
+      btn.dataset.playing = "true";
+      badge.textContent = "⏸ Pause";
+    }
+  });
+});
+
+/* ---- deliverables browser ---- */
+var FILES = {
+  report: {
+    title: "51842_PHC Program-Brandt, Teresa_2026-10-28.pdf",
+    what: "The document Conor works down while building the program. Page 1 is the job header, the visit summary and the inventory; pages 2–3 are the treatment plan, one table per plant group, with the compliance flags under each; page 4 is the visit breakdown the recurrence is built from; pages 5–6 are the photos.",
+    pages: ["img/deliv-report-p1.jpg","img/deliv-report-p2.jpg","img/deliv-report-p3.jpg","img/deliv-report-p4.jpg","img/deliv-report-p5.jpg","img/deliv-report-p6.jpg"],
+    alt: "Page of the PHC Program report PDF"
+  },
+  sitemap: {
+    title: "…_site map.jpg",
+    what: "Built from live Esri imagery at the moment you export, with a numbered pin per plant group, species labels, a north arrow and a scale bar in both metres and feet. It goes on page 1 of the report and stands alone for the inventory map.",
+    img: "img/deliv-sitemap.jpg",
+    alt: "Satellite site map with five numbered plant pins"
+  },
+  geojson: {
+    title: "…_coordinates.geojson",
+    what: "One Point feature per plant group, carrying species, location, quantity, DBH, crown loss, the problems recorded and the GPS accuracy. Opens in any mapping tool.",
+    text: '{\n  "type": "FeatureCollection",\n  "features": [\n    {\n      "type": "Feature",\n      "geometry": {\n        "type": "Point",\n        "coordinates": [ -77.1180534, 38.9952013 ]\n      },\n      "properties": {\n        "id": "51842-1",\n        "number": 1,\n        "species": "Hemlock",\n        "location": "Pair flanking the north property line",\n        "accuracy_m": null,\n        "source": "map",\n        "qty": 2,\n        "dbh_in": "14",\n        "crown_loss_pct": "30",\n        "problems": "Hemlock woolly adelgid; Elongate hemlock scale"\n      }\n    },\n    …\n  ]\n}'
+  },
+  csv: {
+    title: "…_coordinates.csv",
+    what: "The same inventory as a spreadsheet. Note row 1: accuracy is blank and the source reads \"map\", because that pin was hand-placed on the satellite view — the more trustworthy of the two.",
+    text: 'id,number,species,location,latitude,longitude,accuracy_m,source,qty,dbh_in,crown_loss_pct,problems\n51842-1,1,Hemlock,Pair flanking the north property line,38.9952013,-77.1180534,,map,2,14,30,Hemlock woolly adelgid; Elongate hemlock scale\n51842-2,2,Boxwood,"Foundation hedge, front elevation and east side",38.99498,-77.1181,5,gps,18,,20,Boxwood leafminer; Volutella blight of boxwood\n51842-3,3,Oak,"Specimen white oak, rear lawn",38.99485,-77.11776,8,gps,1,34,25,Bacterial leaf scorch; Lecanium scales\n51842-4,4,Azalea / rhododendron,"Shade bed under the oak, north side",38.9949,-77.11788,7,gps,9,,15,Azalea lace bug\n51842-5,5,Cherry / ornamental Prunus,Ornamental cherry at the driveway turn,38.99506,-77.11822,5,gps,1,10,10,White prunicola scale'
+  },
+  p1: {
+    title: "51842-1.jpg",
+    what: "Plant group 1 — the hemlock pair on the north property line. Named for the group number on job 51842, which is also pin 1 on the site map and row 1 in the inventory.",
+    img: "img/photo-51842-1.jpg",
+    alt: "Two hemlocks on a property line, one thinning from the bottom"
+  },
+  p3: {
+    title: "51842-3.jpg",
+    what: "Plant group 3 — the specimen white oak in the rear lawn, 34 in. DBH with roughly 25% crown loss.",
+    img: "img/photo-51842-3.jpg",
+    alt: "A large white oak canopy photographed from below"
+  },
+  rest: {
+    title: "51842-2, -4 and -5",
+    what: "The boxwood hedge, the azalea bed and the ornamental cherry. Every plant group gets at least one photo; extra ones take -2, -3 suffixes. All of them print on report pages 5–6, captioned with the ID the file carries.",
+    img: "img/deliv-report-p6.jpg",
+    alt: "Report page 6, showing the photos for plant groups 3, 4 and 5"
+  }
+};
+
+var pvTitle = document.getElementById("pvTitle");
+var pvWhat = document.getElementById("pvWhat");
+var pvBody = document.getElementById("pvBody");
+var pvPages = document.getElementById("pvPages");
+var fileButtons = document.querySelectorAll(".filelist button");
+
+function showImage(src, alt) {
+  pvBody.innerHTML = "";
+  var img = document.createElement("img");
+  img.src = src;
+  img.alt = alt || "";
+  img.loading = "lazy";
+  pvBody.appendChild(img);
+}
+
+function render(key, page) {
+  var f = FILES[key];
+  pvTitle.textContent = f.title;
+  pvWhat.textContent = f.what;
+  pvPages.innerHTML = "";
+  if (f.pages) {
+    pvPages.hidden = false;
+    f.pages.forEach(function (src, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = "Page " + (i + 1);
+      if (i === page) b.setAttribute("aria-current", "true");
+      b.addEventListener("click", function () { render(key, i); });
+      pvPages.appendChild(b);
+    });
+    showImage(f.pages[page], f.alt + ", page " + (page + 1));
+  } else {
+    pvPages.hidden = true;
+    if (f.img) {
+      showImage(f.img, f.alt);
+    } else {
+      var pre = document.createElement("pre");
+      pre.textContent = f.text;
+      pvBody.appendChild(pre);
+    }
+  }
+  fileButtons.forEach(function (b) {
+    if (b.dataset.file === key) b.setAttribute("aria-current", "true");
+    else b.removeAttribute("aria-current");
+  });
+}
+
+fileButtons.forEach(function (b) {
+  b.type = "button";
+  b.addEventListener("click", function () { render(b.dataset.file, 0); });
+});
+render("report", 0);
+</script>
+
+<a class="backlink" href="../">&larr; Back to the app</a>
+</body>
+</html>
